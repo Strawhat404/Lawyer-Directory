@@ -1,0 +1,228 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "When Should You Hire a Personal Injury Attorney?",
+      "description": "Learn the right time to hire a personal injury attorney — from the moment of an accident to complex litigation scenarios. Timing matters for evidence, deadlines, and compensation.",
+      "datePublished": "2026-08-16",
+      "dateModified": "2026-08-16",
+      "author": { "@type": "Organization", "name": "Personal Injury Attorney Directory" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "When should I hire a personal injury attorney?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ideally as soon as possible after an accident. Evidence degrades quickly, and insurance companies begin building their defense immediately. Early legal representation protects your rights from day one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an attorney for a minor accident?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not always. For minor fender-benders with no injuries and clear fault, you may handle it directly through insurance. However, if there are any injuries — even ones that seem minor — consulting an attorney is advisable, as injuries often worsen and symptoms may appear days later."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it too late to hire an attorney after I've already spoken to the insurance company?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not necessarily, but act quickly. Statements you have already given can be used against you. An attorney can review what was said and advise on how to proceed. Do not give any further statements without legal counsel."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.findpiattorney.com/" },
+        { "@type": "ListItem", "position": 2, "name": "When to Hire a PI Attorney", "item": "https://www.findpiattorney.com/when-to-hire-a-personal-injury-attorney/" }
+      ]
+    }
+  ]
+});
+---
+
+<BaseLayout
+  title="When Should You Hire a Personal Injury Attorney? | PI Directory"
+  description="Learn when to hire a personal injury attorney — timing after an accident, signs you need legal help, and why acting early protects your case and your compensation."
+  canonical="https://www.findpiattorney.com/when-to-hire-a-personal-injury-attorney/"
+  schema={schema}
+>
+  <Header />
+  <main class="flex-1">
+
+    <!-- Hero -->
+    <section class="bg-brand-900 text-white">
+      <div class="page-container py-12">
+        <h1 class="text-3xl sm:text-4xl font-bold">When Should You Hire a Personal Injury Attorney?</h1>
+        <p class="text-xs text-gray-400 mt-2 mb-1">Updated: August 2026</p>
+        <p class="mt-3 text-brand-200 max-w-2xl">Timing is one of the most critical decisions after an accident. Here's exactly when to act — and why waiting costs you.</p>
+      </div>
+    </section>
+
+    <div class="page-container section-padding">
+      <div class="max-w-3xl mx-auto space-y-10">
+
+        <!-- Hero image -->
+        <div class="rounded-2xl overflow-hidden shadow-md">
+          <img
+            src="/images/attorney-hero.webp"
+            alt="Courthouse representing the legal system and personal injury rights"
+            class="w-full max-h-72 object-cover"
+            loading="lazy"
+            width="900"
+            height="400"
+          />
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-xl text-sm text-gray-700">
+          <p class="font-bold text-amber-900 mb-1">Educational Information Only</p>
+          <p>This page provides general educational information about personal injury law. It is not legal advice. Consult a licensed attorney for guidance specific to your situation.</p>
+        </div>
+
+        <!-- Intro -->
+        <p class="text-lg text-gray-600 leading-relaxed">
+          Most people who have been injured in an accident ask the same question: <strong>"Do I really need an attorney?"</strong> The honest answer depends on the severity of your situation — but in most injury cases, the sooner you involve an attorney, the stronger your position. Here's a clear breakdown of when to hire, when you might not need to, and what happens if you wait too long.
+        </p>
+
+        <!-- The Golden Rule -->
+        <div class="bg-brand-900 text-white rounded-2xl p-7">
+          <h2 class="text-2xl font-bold mb-3">The Golden Rule: Consult Early</h2>
+          <p class="text-brand-200 leading-relaxed">
+            The single best time to consult a personal injury attorney is <strong class="text-white">immediately after an accident</strong> — before speaking to the other party's insurance company, before signing any documents, and before accepting any settlement offer. Most PI attorneys offer <strong class="text-white">free initial consultations</strong>, so there is no financial barrier to getting early advice.
+          </p>
+        </div>
+
+        <!-- Situations where you definitely need one -->
+        <div>
+          <h2 class="text-2xl font-bold text-brand-900 mb-5">Situations Where You Definitely Need an Attorney</h2>
+          <div class="space-y-4">
+            {[
+              {
+                title: "Serious or Permanent Injuries",
+                desc: "Fractures, spinal injuries, traumatic brain injuries, amputations, or any injury requiring surgery or long-term care. The value of these claims is substantial and insurers will fight aggressively. An attorney is essential."
+              },
+              {
+                title: "Disputed Liability",
+                desc: "When the other party denies fault or claims you were partially responsible. Comparative fault laws can reduce or eliminate your recovery — an attorney builds the evidence to counter these arguments."
+              },
+              {
+                title: "Insurance Company Contact",
+                desc: "If the other party's insurance has already contacted you, do not speak with them further without counsel. Insurance adjusters are trained to gather statements that minimize your payout."
+              },
+              {
+                title: "Multiple Parties Involved",
+                desc: "Accidents involving multiple vehicles, employers, contractors, or property owners create complex liability chains. An attorney identifies every potentially liable party."
+              },
+              {
+                title: "Government Entity Involved",
+                desc: "Claims against a city, county, or state agency have much shorter notice deadlines — sometimes as little as 180 days. Missing them forfeits your rights entirely."
+              },
+              {
+                title: "Wrongful Death",
+                desc: "If a family member died due to another's negligence, you need an attorney immediately. Wrongful death cases involve specific claimants, damages caps, and procedural requirements."
+              },
+              {
+                title: "Settlement Offer Received",
+                desc: "If you have already received an offer, do not accept without legal review. Initial offers are almost always lower than what you are entitled to — often significantly so."
+              },
+            ].map(({ title, desc }) => (
+              <div class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-brand-400 transition-colors shadow-sm">
+                <h3 class="font-bold text-gray-900 mb-2">{title}</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Timeline section -->
+        <div>
+          <h2 class="text-2xl font-bold text-brand-900 mb-5">What Happens at Each Stage — And Why Timing Matters</h2>
+          <div class="space-y-3">
+            {[
+              ["Day 1–3", "Immediately After the Accident", "The most critical window. Evidence is fresh, witnesses are accessible, surveillance footage still exists. Hiring an attorney now preserves maximum evidentiary value.", "bg-green-50 border-green-200"],
+              ["Day 4–14", "Initial Insurance Contact Phase", "Insurers begin their investigation. They may call you for a recorded statement — any admission or inconsistency can be used to reduce your claim. Attorney involvement is highly advisable.", "bg-yellow-50 border-yellow-200"],
+              ["2–6 Weeks", "Medical Treatment Ongoing", "If injuries are still being treated, the claim is still open. This is still an appropriate time to hire an attorney and build your case during treatment.", "bg-yellow-50 border-yellow-200"],
+              ["3–12 Months", "Settlement Negotiation Phase", "Most claims are resolved here. If you don't have an attorney, you are negotiating alone against trained adjusters. Legal representation at this stage is still valuable.", "bg-orange-50 border-orange-200"],
+              ["12–24 Months", "Approaching the Deadline", "With Florida's 2-year statute of limitations, this is the final window before your rights expire. Some attorneys may still take your case, but options narrow.", "bg-red-50 border-red-200"],
+              ["After 2 Years", "Statute of Limitations Expired", "In most Florida cases, once 2 years have passed from the date of injury, your right to sue is permanently extinguished. No attorney can help you file a new claim.", "bg-gray-100 border-gray-300"],
+            ].map(([timeframe, title, desc, colorClass]) => (
+              <div class={`border rounded-2xl p-5 ${colorClass}`}>
+                <div class="flex flex-wrap items-center gap-3 mb-2">
+                  <span class="text-xs font-bold bg-white border border-gray-200 rounded-full px-3 py-1 text-gray-600">{timeframe}</span>
+                  <h3 class="font-bold text-gray-900">{title}</h3>
+                </div>
+                <p class="text-sm text-gray-700 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- When you might not need one -->
+        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">When You Might Not Need an Attorney</h2>
+          <p class="text-gray-700 mb-4 text-sm">In some limited circumstances, handling a claim directly through insurance may be appropriate:</p>
+          <ul class="space-y-2">
+            {[
+              "A minor fender-bender with no injuries and clear, undisputed fault",
+              "Total property damage under a few thousand dollars with no bodily harm",
+              "A fully cooperative at-fault party with adequate insurance coverage",
+              "You are comfortable negotiating and understand the claims process",
+            ].map(item => (
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-4 text-sm text-gray-600 bg-white border border-gray-200 rounded-xl p-3">
+            <strong>Even in these cases</strong>, a free 15-minute consultation with a PI attorney costs nothing and ensures you are not leaving money on the table or unknowingly waiving rights.
+          </p>
+        </div>
+
+        <!-- The cost myth -->
+        <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6">
+          <h2 class="text-2xl font-bold text-brand-900 mb-3">The "I Can't Afford an Attorney" Myth</h2>
+          <p class="text-gray-700 mb-4">This is the most common reason people delay — and it is based on a misunderstanding. Personal injury attorneys in the United States work almost universally on <strong>contingency fees</strong>:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              ["$0", "Upfront cost to hire"],
+              ["$0", "Cost if you lose"],
+              ["33–40%", "Fee only if you win"],
+            ].map(([num, label]) => (
+              <div class="bg-white border border-brand-200 rounded-xl p-4 text-center">
+                <p class="text-2xl font-bold text-brand-700">{num}</p>
+                <p class="text-xs text-gray-600 mt-1">{label}</p>
+              </div>
+            ))}
+          </div>
+          <p class="mt-4 text-sm text-gray-700">The attorney only gets paid from your settlement or verdict — and only if you win. There is no financial risk to consulting or hiring one.</p>
+        </div>
+
+        <!-- CTA -->
+        <div class="p-6 bg-brand-900 text-white rounded-2xl text-center">
+          <h3 class="text-xl font-bold mb-2">Ready to Find an Attorney?</h3>
+          <p class="text-brand-200 mb-5 text-sm">Browse licensed personal injury attorneys by state and city. Bar number and direct contact information included.</p>
+          <a href="/personal-injury-attorneys/florida" class="inline-block bg-white text-brand-900 font-bold px-6 py-3 rounded-lg hover:bg-brand-100 transition-colors">Browse Attorneys Now</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
