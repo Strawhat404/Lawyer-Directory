@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import USAMapSVG from "../components/USAMapSVG.astro";
-import { getAllCities, getAttorneyCountByCity, getTotalAttorneyCount } from "../utils/attorneys";
+import { getAllCities, getTotalAttorneyCount } from "../utils/attorneys";
 
 const cities = getAllCities();
 const totalAttorneys = getTotalAttorneyCount();
@@ -20,7 +20,7 @@ const schema = JSON.stringify({
     {
       "@type": "Organization",
       "@id": "https://www.findpiattorney.com/#organization",
-      "name": "Florida Personal Injury Attorney Directory",
+      "name": "Personal Injury Attorney Directory",
       "url": "https://www.findpiattorney.com/",
       "logo": "https://www.findpiattorney.com/favicon.svg",
       "contactPoint": {
@@ -34,7 +34,7 @@ const schema = JSON.stringify({
       "@type": "WebSite",
       "@id": "https://www.findpiattorney.com/#website",
       "url": "https://www.findpiattorney.com/",
-      "name": "Florida Personal Injury Attorney Directory",
+      "name": "Personal Injury Attorney Directory",
       "publisher": { "@id": "https://www.findpiattorney.com/#organization" }
     },
     {
@@ -50,26 +50,18 @@ const schema = JSON.stringify({
         },
         {
           "@type": "Question",
-          "name": "How do I find a personal injury attorney in Florida?",
+          "name": "How much does a personal injury attorney cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Use our directory to browse Florida Bar-licensed personal injury attorneys by city. Each listing includes the attorney's bar number, firm, address, and contact information sourced directly from The Florida Bar."
+            "text": "Most personal injury attorneys work on a contingency fee basis — no upfront cost. They are paid only if you win, typically 33–40% of the settlement or court award."
           }
         },
         {
           "@type": "Question",
-          "name": "How much does a personal injury attorney cost in Florida?",
+          "name": "What is the statute of limitations for personal injury in Florida?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Most Florida personal injury attorneys work on a contingency fee basis — meaning no upfront cost. They only get paid if you win your case, typically 33–40% of the settlement or court award."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is Florida's statute of limitations for personal injury?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "In Florida, most personal injury claims must be filed within 2 years of the date of injury. Missing this deadline can permanently bar recovery. Consult an attorney promptly after an accident."
+            "text": "In Florida, most personal injury claims must be filed within 2 years of the date of injury. Missing this deadline can permanently bar recovery."
           }
         }
       ]
@@ -79,111 +71,101 @@ const schema = JSON.stringify({
 ---
 
 <BaseLayout
-  title="Florida Personal Injury Attorneys | Find Licensed PI Lawyers Near You"
-  description="Browse 1,800+ licensed personal injury attorneys across Florida. Find experienced PI lawyers in Miami, Tampa, Orlando, Jacksonville, and more. Free directory access."
+  title="Personal Injury Attorney Directory | Find Licensed PI Lawyers Nationwide"
+  description="Browse licensed personal injury attorneys across the United States. Currently covering Florida — expanding nationwide. Find experienced PI lawyers by state and city."
   canonical="https://www.findpiattorney.com/"
   schema={schema}
 >
   <Header />
 
   <main class="flex-1">
-    <!-- Hero with background image -->
+
+    <!-- Hero -->
     <section class="relative bg-brand-900 text-white overflow-hidden">
       <div class="absolute inset-0">
         <img
-          src="/images/legal-consultation.webp"
-          alt="Attorney consulting with client"
-          class="w-full h-full object-cover opacity-20"
+          src="/images/attorney-hero.webp"
+          alt="Courthouse representing the legal system and personal injury law"
+          class="w-full h-full object-cover opacity-15"
           fetchpriority="high"
           loading="eager"
-          width="1200"
-          height="800"
+          width="1400"
+          height="700"
         />
       </div>
       <div class="relative page-container section-padding text-center">
-        <div class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-          </svg>
-          Florida Bar Licensed Attorneys
+        <div class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-5 border border-white/20">
+          Nationwide PI Attorney Directory — Currently Covering Florida
         </div>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-          Find Personal Injury Attorneys in Florida
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight max-w-4xl mx-auto">
+          Find a Personal Injury Attorney Near You
         </h1>
-        <div class="mt-4 mb-6 max-w-2xl mx-auto bg-white/10 border border-white/20 rounded-xl px-6 py-4 text-sm text-brand-100 leading-relaxed">
-          <strong class="text-white">The Florida Personal Injury Attorney Directory connects accident victims, families, and legal teams with licensed Florida attorneys</strong> who handle car accidents, slip and fall, wrongful death, medical malpractice, and catastrophic injury cases.
-        </div>
-        <p class="mt-4 text-lg text-brand-200 max-w-2xl mx-auto">
-          Browse {totalAttorneys.toLocaleString()} Florida Bar-licensed attorneys across {cities.length} cities — no signup required.
+        <p class="mt-5 text-lg text-brand-200 max-w-2xl mx-auto leading-relaxed">
+          Browse {totalAttorneys.toLocaleString()} licensed attorneys across the United States. Currently covering {cities.length} cities — expanding to all 50 states.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/personal-injury-attorneys/florida" class="btn-primary !bg-white !text-brand-900 hover:!bg-brand-100">Browse by City</a>
-          <a href="/what-is-personal-injury-law" class="btn-primary !bg-transparent !border-2 !border-white hover:!bg-white/10">What is Personal Injury Law?</a>
+          <a href="/personal-injury-attorneys/florida" class="btn-primary !bg-white !text-brand-900 hover:!bg-brand-100 text-base font-bold">Browse Attorneys Now</a>
+          <a href="/what-is-personal-injury-law" class="btn-primary !bg-transparent !border-2 !border-white hover:!bg-white/10 text-base">What is Personal Injury Law?</a>
         </div>
       </div>
     </section>
 
-    <!-- Info cards with images -->
+    <!-- What we do / who needs us -->
     <section class="page-container section-padding">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-brand-50 border border-brand-100 rounded-xl overflow-hidden">
+
+        <!-- Card 1 -->
+        <div class="rounded-2xl overflow-hidden border border-brand-100 bg-brand-50">
           <img
-            src="/images/professional-consultation.webp"
-            alt="Personal injury attorney consulting with accident victim"
+            src="/images/attorney-desk.webp"
+            alt="Personal injury attorney reviewing case documents at desk"
             class="w-full aspect-video object-cover"
             loading="lazy"
-            width="600"
-            height="400"
+            width="700"
+            height="394"
           />
           <div class="p-6">
             <h2 class="text-xl font-bold text-brand-900 mb-3">What is a Personal Injury Attorney?</h2>
             <p class="text-gray-700 leading-relaxed mb-3">
-              A personal injury attorney is a licensed lawyer who represents individuals physically or psychologically harmed due to another party's negligence, recklessness, or intentional misconduct.
+              A personal injury attorney is a licensed lawyer who represents individuals physically or psychologically harmed through another party's negligence, recklessness, or intentional misconduct.
             </p>
             <p class="text-gray-700 leading-relaxed">
-              They handle all aspects of your case — gathering evidence, negotiating with insurers, and litigating in court — so you can focus on recovery while they fight for maximum compensation.
+              They handle everything — evidence gathering, insurance negotiations, and court litigation — so you can focus entirely on recovery while they fight for your compensation.
             </p>
-            <a href="/what-is-personal-injury-law" class="inline-block mt-4 text-brand-700 font-medium hover:text-brand-900 transition-colors">
+            <a href="/what-is-personal-injury-law" class="inline-block mt-4 text-brand-700 font-semibold hover:text-brand-900 transition-colors">
               Learn about personal injury law →
             </a>
           </div>
         </div>
 
-        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+        <!-- Card 2 -->
+        <div class="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
           <img
-            src="/images/legal-consultation.webp"
-            alt="Lawyer reviewing case documents with client"
+            src="/images/attorney-handshake.webp"
+            alt="Attorney and client shaking hands after agreeing to representation"
             class="w-full aspect-video object-cover"
             loading="lazy"
-            width="600"
-            height="400"
+            width="700"
+            height="394"
           />
           <div class="p-6">
             <h2 class="text-xl font-bold text-gray-900 mb-3">Who Needs a Personal Injury Attorney?</h2>
-            <ul class="space-y-3 text-gray-700">
-              <li class="flex items-start gap-2">
-                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
-                <span><strong>Car accident victims</strong> seeking compensation for injuries, vehicle damage, and lost wages</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
-                <span><strong>Slip and fall victims</strong> injured on someone else's property due to negligence</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
-                <span><strong>Families</strong> pursuing wrongful death claims after losing a loved one</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
-                <span><strong>Workers</strong> injured on the job who need guidance beyond workers' comp</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
-                <span><strong>Medical malpractice victims</strong> harmed by negligent healthcare providers</span>
-              </li>
+            <ul class="space-y-2.5 text-gray-700">
+              {[
+                ["Car accident victims", "seeking compensation for injuries, vehicle damage, and lost wages"],
+                ["Slip and fall victims", "injured on someone else's property due to negligence"],
+                ["Families", "pursuing wrongful death claims after losing a loved one"],
+                ["Workers", "injured on the job who need guidance beyond workers' comp"],
+                ["Medical malpractice victims", "harmed by negligent healthcare providers"],
+              ].map(([bold, rest]) => (
+                <li class="flex items-start gap-2">
+                  <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-500 flex-shrink-0"></span>
+                  <span><strong>{bold}</strong> {rest}</span>
+                </li>
+              ))}
             </ul>
-            <a href="/how-to-choose-a-pi-attorney" class="inline-block mt-4 text-brand-700 font-medium hover:text-brand-900 transition-colors">
-              How to choose a PI attorney →
+            <a href="/how-to-choose-a-pi-attorney" class="inline-block mt-4 text-brand-700 font-semibold hover:text-brand-900 transition-colors">
+              How to choose the right attorney →
             </a>
           </div>
         </div>
@@ -194,33 +176,33 @@ const schema = JSON.stringify({
     <section class="bg-gray-50">
       <div class="page-container section-padding">
         <div class="text-center mb-8">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Find Personal Injury Attorneys Near You</h2>
-          <p class="text-gray-600 max-w-xl mx-auto">Click Florida to browse Personal Injury Attorneys in your area.</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Browse Attorneys by State</h2>
+          <p class="text-gray-600 max-w-xl mx-auto">Click an active state to browse attorneys. Hover any state to see availability — grey states are coming soon.</p>
         </div>
 
         <!-- Stats bar -->
-        <div class="bg-brand-900 rounded-xl p-6 mb-6 text-white">
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-            <div>
+        <div class="bg-brand-900 rounded-2xl p-6 mb-6 text-white">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center divide-x divide-white/10">
+            <div class="px-4">
               <div class="text-3xl font-bold">{totalAttorneys.toLocaleString()}</div>
-              <div class="text-brand-200 text-sm mt-1">Qualified Attorneys</div>
+              <div class="text-brand-200 text-sm mt-1">Attorneys Listed</div>
             </div>
-            <div>
+            <div class="px-4">
               <div class="text-3xl font-bold">{cities.length}</div>
-              <div class="text-brand-200 text-sm mt-1">Florida Cities</div>
+              <div class="text-brand-200 text-sm mt-1">Cities Active</div>
             </div>
-            <div>
-              <div class="text-3xl font-bold">FL Bar</div>
-              <div class="text-brand-200 text-sm mt-1">Licensed Only</div>
+            <div class="px-4">
+              <div class="text-3xl font-bold">50</div>
+              <div class="text-brand-200 text-sm mt-1">States — Expanding</div>
             </div>
-            <div>
+            <div class="px-4">
               <div class="text-3xl font-bold">Free</div>
               <div class="text-brand-200 text-sm mt-1">Directory Access</div>
             </div>
           </div>
         </div>
 
-        <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
           <USAMapSVG
             activeStates={activeStates}
             basePath="/personal-injury-attorneys"
@@ -230,35 +212,35 @@ const schema = JSON.stringify({
       </div>
     </section>
 
-    <!-- Why use our directory -->
+    <!-- Why use our directory — 3 cards -->
     <section class="bg-white">
       <div class="page-container section-padding">
-        <div class="text-center mb-8">
-          <h2 class="text-2xl font-bold text-gray-900">Why Use Our Directory?</h2>
-          <p class="text-gray-600 mt-2 max-w-xl mx-auto">We built a straightforward, no-nonsense way to find a licensed Florida PI attorney.</p>
+        <div class="text-center mb-10">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900">Why Use This Directory?</h2>
+          <p class="text-gray-600 mt-2 max-w-xl mx-auto">A straightforward, no-nonsense way to find a licensed personal injury attorney.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="card overflow-hidden">
-            <img src="/images/search-professional.webp" alt="Searching for a PI attorney" class="w-full aspect-video object-cover" loading="lazy" width="400" height="267"/>
-            <div class="p-5 text-center">
-              <h3 class="font-semibold text-gray-900 mb-1">Browse by City</h3>
-              <p class="text-sm text-gray-600">Find Personal Injury Attorneys organized by city across Florida. No account needed.</p>
+          <div class="rounded-2xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+            <img src="/images/law-books.webp" alt="Law books representing legal expertise" class="w-full aspect-video object-cover" loading="lazy" width="400" height="225"/>
+            <div class="p-5">
+              <h3 class="font-bold text-gray-900 mb-2 text-lg">Bar-Licensed Only</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">All listings are sourced directly from public state bar records. Only licensed, active attorneys appear in this directory.</p>
             </div>
           </div>
 
-          <div class="card overflow-hidden">
-            <img src="/images/certified-professional.webp" alt="Florida Bar licensed attorney" class="w-full aspect-video object-cover" loading="lazy" width="400" height="267"/>
-            <div class="p-5 text-center">
-              <h3 class="font-semibold text-gray-900 mb-1">Florida Bar Licensed</h3>
-              <p class="text-sm text-gray-600">All listed attorneys are sourced from Florida Bar public records. Verify credentials before retaining.</p>
+          <div class="rounded-2xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+            <img src="/images/courtroom.webp" alt="Courtroom representing litigation and legal proceedings" class="w-full aspect-video object-cover" loading="lazy" width="400" height="225"/>
+            <div class="p-5">
+              <h3 class="font-bold text-gray-900 mb-2 text-lg">No Referral Fees</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Contact attorneys directly using their listed phone and email. We charge no referral fee and take no cut of your case.</p>
             </div>
           </div>
 
-          <div class="card overflow-hidden">
-            <img src="/images/team-assist.webp" alt="Attorney ready to help" class="w-full aspect-video object-cover" loading="lazy" width="400" height="267"/>
-            <div class="p-5 text-center">
-              <h3 class="font-semibold text-gray-900 mb-1">Contact Directly</h3>
-              <p class="text-sm text-gray-600">Reach attorneys directly through their listed contact information — no referral fee, no middleman.</p>
+          <div class="rounded-2xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+            <img src="/images/accident-scene.webp" alt="Scene representing personal injury accident" class="w-full aspect-video object-cover" loading="lazy" width="400" height="225"/>
+            <div class="p-5">
+              <h3 class="font-bold text-gray-900 mb-2 text-lg">Expanding Nationwide</h3>
+              <p class="text-sm text-gray-600 leading-relaxed">Currently covering Florida — with all 50 states coming. Hover any state on the map to see its status.</p>
             </div>
           </div>
         </div>
@@ -269,38 +251,45 @@ const schema = JSON.stringify({
     <section class="bg-gray-50">
       <div class="page-container section-padding">
         <div class="max-w-3xl mx-auto">
-          <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">Common Questions</h2>
           <div class="space-y-4">
-            <div class="bg-white rounded-xl border border-gray-200 p-6">
-              <h3 class="font-semibold text-gray-900 mb-2">How much does a personal injury attorney cost in Florida?</h3>
-              <p class="text-gray-600 text-sm leading-relaxed">Most Florida PI attorneys work on a <strong>contingency fee basis</strong> — you pay nothing upfront. Fees are typically 33–40% of the final settlement or verdict. If you don't win, you don't pay attorney's fees.</p>
-            </div>
-            <div class="bg-white rounded-xl border border-gray-200 p-6">
-              <h3 class="font-semibold text-gray-900 mb-2">What is Florida's statute of limitations for personal injury?</h3>
-              <p class="text-gray-600 text-sm leading-relaxed">Florida's statute of limitations for most personal injury claims is <strong>2 years</strong> from the date of injury (as of 2023 reform). Missing this deadline typically bars recovery entirely. Act promptly — evidence degrades and witnesses' memories fade.</p>
-            </div>
-            <div class="bg-white rounded-xl border border-gray-200 p-6">
-              <h3 class="font-semibold text-gray-900 mb-2">Is Florida a no-fault state for car accidents?</h3>
-              <p class="text-gray-600 text-sm leading-relaxed">Yes. Florida is a no-fault state, meaning your own Personal Injury Protection (PIP) insurance covers initial medical costs regardless of who caused the accident. However, you can step outside the no-fault system and sue the at-fault driver if your injuries are serious or permanent.</p>
-            </div>
-            <div class="bg-white rounded-xl border border-gray-200 p-6">
-              <h3 class="font-semibold text-gray-900 mb-2">Does this directory list attorneys in all practice areas?</h3>
-              <p class="text-gray-600 text-sm leading-relaxed">This directory lists attorneys who are licensed members of The Florida Bar. Individual attorneys may specialize in different areas of personal injury law. We recommend reviewing each attorney's profile and contacting them directly to confirm they handle your specific type of case.</p>
-            </div>
+            {[
+              {
+                q: "How much does a personal injury attorney cost?",
+                a: "Most PI attorneys work on a contingency fee — no upfront cost. They are paid only when you win, typically 33–40% of the settlement or verdict. If you don't win, you owe no attorney fees (though some costs may still apply)."
+              },
+              {
+                q: "What is Florida's statute of limitations for personal injury?",
+                a: "Florida's statute of limitations for most personal injury claims is 2 years from the date of injury (2023 reform). Missing this deadline typically bars recovery entirely. Consult an attorney promptly — evidence disappears and witnesses' memories fade."
+              },
+              {
+                q: "Is this directory limited to Florida attorneys?",
+                a: "Currently yes — our data covers Florida. We are actively expanding to cover all 50 states. Hover over any state on the map to see its current status."
+              },
+              {
+                q: "Are the attorneys in this directory recommended or endorsed?",
+                a: "No. This is an informational directory sourced from public bar records. Inclusion does not constitute an endorsement or recommendation. Always verify credentials and conduct your own due diligence before retaining any attorney."
+              }
+            ].map(({ q, a }) => (
+              <div class="bg-white rounded-2xl border border-gray-200 p-6">
+                <h3 class="font-bold text-gray-900 mb-2">{q}</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">{a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Legal disclaimer banner -->
+    <!-- Disclaimer -->
     <section class="bg-amber-50 border-t border-amber-200">
       <div class="page-container py-6">
-        <p class="text-xs text-amber-800 text-center leading-relaxed max-w-4xl mx-auto">
-          <strong>Educational Information Only.</strong> This directory is an informational service. Nothing on this website constitutes legal advice. Attorney listings are sourced from public Florida Bar records and do not constitute an endorsement or recommendation. Always verify attorney credentials directly with <a href="https://www.floridabar.org" target="_blank" rel="noopener noreferrer" class="underline">The Florida Bar</a> before retaining any attorney.
+        <p class="text-xs text-amber-900 text-center leading-relaxed max-w-4xl mx-auto">
+          <strong>Educational Information Only.</strong> This directory is an informational service. Nothing on this website constitutes legal advice. Attorney listings are sourced from public bar records and do not constitute an endorsement. Always verify credentials with your state bar before retaining any attorney.
         </p>
       </div>
     </section>
-  </main>
 
+  </main>
   <Footer />
 </BaseLayout>

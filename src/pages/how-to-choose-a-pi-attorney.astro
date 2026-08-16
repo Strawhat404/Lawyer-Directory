@@ -8,11 +8,11 @@ const schema = JSON.stringify({
   "@graph": [
     {
       "@type": "Article",
-      "headline": "How to Choose a Personal Injury Attorney in Florida",
-      "description": "Key factors to consider when hiring a PI attorney — experience, fees, communication style, and how to verify Florida Bar credentials.",
+      "headline": "How to Choose a Personal Injury Attorney",
+      "description": "Key factors to evaluate when hiring a PI attorney — experience, fee structure, communication, and how to verify bar credentials.",
       "datePublished": "2026-08-15",
       "dateModified": "2026-08-16",
-      "author": { "@type": "Organization", "name": "Florida Personal Injury Attorney Directory" }
+      "author": { "@type": "Organization", "name": "Personal Injury Attorney Directory" }
     },
     {
       "@type": "BreadcrumbList",
@@ -26,110 +26,185 @@ const schema = JSON.stringify({
 ---
 
 <BaseLayout
-  title="How to Choose a Personal Injury Attorney in Florida | PI Directory"
-  description="Learn how to evaluate and hire the right personal injury attorney in Florida. Key factors: experience, contingency fees, communication, and Florida Bar verification."
+  title="How to Choose a Personal Injury Attorney | PI Directory"
+  description="A practical guide to evaluating and hiring the right PI attorney — experience, contingency fees, communication, bar verification, and red flags to avoid."
   canonical="https://www.findpiattorney.com/how-to-choose-a-pi-attorney/"
   schema={schema}
 >
   <Header />
   <main class="flex-1">
+
+    <!-- Hero -->
     <section class="bg-brand-900 text-white">
       <div class="page-container py-12">
-        <h1 class="text-3xl sm:text-4xl font-bold">How to Choose a Personal Injury Attorney in Florida</h1>
+        <h1 class="text-3xl sm:text-4xl font-bold">How to Choose a Personal Injury Attorney</h1>
         <p class="text-xs text-gray-400 mt-2 mb-1">Updated: August 2026</p>
-        <p class="mt-3 text-brand-200 max-w-2xl">Key factors to consider before hiring a PI attorney — and red flags to watch for.</p>
+        <p class="mt-3 text-brand-200 max-w-2xl">A practical checklist for evaluating PI attorneys — before you sign anything.</p>
       </div>
     </section>
-    <div class="page-container section-padding">
-      <div class="max-w-3xl mx-auto">
 
-        <div class="not-prose mb-8">
+    <div class="page-container section-padding">
+      <div class="max-w-3xl mx-auto space-y-10">
+
+        <!-- Hero image -->
+        <div class="rounded-2xl overflow-hidden shadow-md">
           <img
-            src="/images/professional-consultation.webp"
-            alt="Attorney meeting with client to discuss personal injury case"
-            class="w-full rounded-xl object-cover max-h-72"
+            src="/images/attorney-handshake.webp"
+            alt="Attorney and client shaking hands representing the start of legal representation"
+            class="w-full max-h-72 object-cover"
             loading="lazy"
-            width="800"
+            width="900"
             height="400"
           />
         </div>
 
-        <div class="prose prose-gray max-w-none">
+        <!-- Disclaimer -->
+        <div class="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-xl text-sm text-gray-700">
+          <p class="font-bold text-amber-900 mb-1">Educational Information Only</p>
+          <p>This page provides general guidance. It is not legal advice. Consult a licensed attorney about your specific situation.</p>
+        </div>
 
-          <div class="not-prose mb-6 p-4 bg-amber-50 border-l-4 border-amber-400 text-sm text-gray-700">
-            <p class="font-semibold text-amber-900 mb-1">Educational Information Only</p>
-            <p>This page provides general guidance. It is not legal advice. Consult a licensed Florida attorney about your specific situation.</p>
+        <!-- Intro -->
+        <p class="text-lg text-gray-600 leading-relaxed">
+          The attorney you choose will be your advocate through negotiations, filings, depositions, and potentially a trial. That makes this decision consequential. Here's a practical framework for evaluating your options — and the red flags to watch for.
+        </p>
+
+        <!-- Step 1: Bar verification -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-9 h-9 rounded-xl bg-brand-700 text-white font-bold text-lg flex items-center justify-center flex-shrink-0">1</span>
+            <h2 class="text-xl font-bold text-gray-900">Verify Bar Membership First</h2>
           </div>
+          <p class="text-gray-700 mb-4">Before anything else, confirm the attorney holds an active license in your state. You can verify using:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-brand-50 border border-brand-100 rounded-xl p-4 text-sm">
+              <p class="font-bold text-brand-900 mb-1">This Directory</p>
+              <p class="text-gray-600">Bar number and status shown on every attorney profile.</p>
+            </div>
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm">
+              <p class="font-bold text-gray-900 mb-1">State Bar Website</p>
+              <p class="text-gray-600">Search by name or bar number for current license status and any disciplinary history.</p>
+            </div>
+          </div>
+          <p class="mt-4 text-sm text-gray-600">Look for <strong>"Member in Good Standing / Eligible to Practice"</strong>. Avoid any status showing "Inactive," "Delinquent," or disciplinary notation.</p>
+        </div>
 
-          <p class="text-lg text-gray-600 leading-relaxed">
-            Choosing the right personal injury attorney can make a significant difference in the outcome of your case. The lawyer you hire will be your advocate through every negotiation, filing, and — if necessary — trial. Here's a practical framework for evaluating your options.
-          </p>
-
-          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">1. Verify Florida Bar Membership</h2>
-          <p>Before anything else, confirm the attorney is an active member of The Florida Bar in good standing. An attorney must be licensed to practice law in Florida to represent you in a Florida court. You can search any attorney using:</p>
-          <ul>
-            <li>This directory (bar number and status shown on each profile)</li>
-            <li>The <a href="https://www.floridabar.org" target="_blank" rel="noopener noreferrer">Florida Bar's official member search</a></li>
+        <!-- Step 2: Experience -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-9 h-9 rounded-xl bg-brand-700 text-white font-bold text-lg flex items-center justify-center flex-shrink-0">2</span>
+            <h2 class="text-xl font-bold text-gray-900">Prioritize Personal Injury Experience</h2>
+          </div>
+          <p class="text-gray-700 mb-3">PI law is specialized. A general practitioner who also handles divorces, real estate, and criminal defense may not be equipped for complex injury litigation. Look for attorneys who:</p>
+          <ul class="space-y-2">
+            {[
+              "Focus specifically on personal injury or plaintiff's tort law",
+              "Have experience with your specific case type",
+              "Have handled cases against the insurers involved in your claim",
+              "Are familiar with local courts and defense tactics in your area",
+            ].map(item => (
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                {item}
+              </li>
+            ))}
           </ul>
-          <p>Look for <strong>"Member in Good Standing / Eligible to Practice Law in Florida"</strong> — this is the active, eligible status. Avoid anyone whose status shows "Inactive," "Delinquent," or any disciplinary notation.</p>
+        </div>
 
-          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">2. Prioritize Personal Injury Experience</h2>
-          <p>Personal injury is a specialized field with its own procedural rules, insurance tactics, and medical knowledge requirements. A lawyer who primarily handles real estate, family law, or criminal defense may not be equipped for complex PI litigation.</p>
-          <p>Look for attorneys who:</p>
-          <ul>
-            <li>Focus specifically on personal injury or plaintiff's tort law</li>
-            <li>Have experience with your type of case (car accident, slip and fall, medical malpractice, etc.)</li>
-            <li>Have handled cases against the specific insurance companies involved in your claim</li>
-            <li>Are familiar with local courts, judges, and defense attorneys in your area</li>
-          </ul>
+        <!-- Step 3: Fees -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-9 h-9 rounded-xl bg-brand-700 text-white font-bold text-lg flex items-center justify-center flex-shrink-0">3</span>
+            <h2 class="text-xl font-bold text-gray-900">Understand the Fee Structure</h2>
+          </div>
+          <p class="text-gray-700 mb-4">Most PI attorneys work on contingency — no upfront fee. They are paid only if you win. Typical contingency fees:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            {[
+              ["33.3%", "If case settles before lawsuit is filed"],
+              ["40%", "If a lawsuit is filed"],
+              ["Higher", "If the case goes to appeal"],
+            ].map(([pct, desc]) => (
+              <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 text-center">
+                <p class="text-2xl font-bold text-brand-700">{pct}</p>
+                <p class="text-xs text-gray-600 mt-1">{desc}</p>
+              </div>
+            ))}
+          </div>
+          <p class="text-sm text-gray-600">Always get a written fee agreement before signing. Clarify whether litigation costs are deducted <em>before</em> or <em>after</em> the attorney's percentage is calculated — it significantly affects your net recovery.</p>
+        </div>
 
-          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">3. Understand the Contingency Fee Structure</h2>
-          <p>Most Florida personal injury attorneys work on a <strong>contingency fee basis</strong> — you pay no upfront fees and the attorney takes a percentage of your settlement or verdict if you win. If you lose, you owe no attorney's fees (though you may still owe case costs).</p>
-          <p>Typical contingency fees in Florida:</p>
-          <ul>
-            <li><strong>33.3%</strong> — if the case settles before a lawsuit is filed</li>
-            <li><strong>40%</strong> — if a lawsuit is filed</li>
-            <li><strong>Higher percentages</strong> may apply if the case goes to appeal</li>
-          </ul>
-          <p>Florida Bar rules govern attorney fee arrangements. Always ask for a written fee agreement before signing anything. Clarify whether litigation costs (filing fees, expert witnesses, depositions) are deducted before or after the attorney's percentage is calculated.</p>
-
-          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">4. Evaluate Communication and Accessibility</h2>
-          <p>Your attorney will be your main point of contact through a process that may last months or years. Poor communication is one of the top complaints against attorneys. During your initial consultation — which is usually free — assess:</p>
-          <ul>
-            <li>Do they listen carefully to your account without interrupting?</li>
-            <li>Do they explain legal concepts in plain language?</li>
-            <li>Do they give you a realistic assessment rather than overpromising?</li>
-            <li>Will you work directly with the attorney or primarily with paralegals?</li>
-            <li>How quickly do they return calls and emails?</li>
-          </ul>
-
-          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">5. Research Their Track Record</h2>
-          <p>While past results don't guarantee future outcomes, a consistent track record is a meaningful indicator of competence. Look for:</p>
-          <ul>
-            <li>Client reviews on Google, Avvo, and Martindale-Hubbell</li>
-            <li>Any published verdicts or settlements (many firms publish notable results)</li>
-            <li>Peer ratings from other attorneys</li>
-            <li>Florida Bar discipline history (searchable online)</li>
-          </ul>
-          <p>Be skeptical of any attorney who guarantees a specific outcome — this is prohibited by Florida Bar rules and is a red flag.</p>
-
-          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">6. Act Quickly — Florida's 2-Year Deadline</h2>
-          <p>Florida's statute of limitations for most personal injury claims is <strong>2 years</strong> from the date of injury (as of the 2023 reform). This is a hard deadline — miss it and your claim is permanently barred in most circumstances.</p>
-          <p>Beyond the legal deadline, evidence degrades quickly after an accident:</p>
-          <ul>
-            <li>Surveillance footage is often overwritten within 30–90 days</li>
-            <li>Accident scene conditions change</li>
-            <li>Witness contact information becomes harder to obtain</li>
-            <li>Medical records linking the injury to the accident are clearest when treatment is prompt</li>
-          </ul>
-          <p>If you've been injured, consult with an attorney as soon as possible — even a free initial consultation can help you understand your rights and preserve your options.</p>
-
-          <div class="not-prose mt-10 p-6 bg-brand-50 border border-brand-200 rounded-xl text-center">
-            <h3 class="text-lg font-semibold text-brand-900 mb-2">Find a Personal Injury Attorney in Florida</h3>
-            <p class="text-gray-700 mb-4">Browse licensed Florida attorneys by city. Bar number and contact info included.</p>
-            <a href="/personal-injury-attorneys/florida" class="btn-primary text-sm">Browse by City</a>
+        <!-- Step 4: Communication -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-9 h-9 rounded-xl bg-brand-700 text-white font-bold text-lg flex items-center justify-center flex-shrink-0">4</span>
+            <h2 class="text-xl font-bold text-gray-900">Assess Communication and Accessibility</h2>
+          </div>
+          <p class="text-gray-700 mb-4">Poor communication is the top complaint against attorneys. During your initial consultation — usually free — assess:</p>
+          <div class="space-y-2">
+            {[
+              "Do they listen without interrupting?",
+              "Do they explain clearly in plain language — not just legal jargon?",
+              "Do they give a realistic assessment rather than overpromising?",
+              "Will you work directly with the attorney or mostly with paralegals?",
+              "How quickly do they return calls and emails?",
+            ].map(q => (
+              <div class="flex items-start gap-2 bg-gray-50 rounded-lg px-4 py-2.5 text-sm text-gray-700">
+                <span class="text-brand-500 font-bold mt-0.5">—</span>
+                {q}
+              </div>
+            ))}
           </div>
         </div>
+
+        <!-- Step 5: Track record -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-9 h-9 rounded-xl bg-brand-700 text-white font-bold text-lg flex items-center justify-center flex-shrink-0">5</span>
+            <h2 class="text-xl font-bold text-gray-900">Research Their Track Record</h2>
+          </div>
+          <p class="text-gray-700 mb-3">Past results don't guarantee outcomes, but a consistent track record indicates competence. Look for:</p>
+          <ul class="space-y-1.5 text-sm text-gray-700">
+            <li class="flex items-start gap-2"><span class="text-brand-500 font-bold">—</span> Client reviews on Google, Avvo, and Martindale-Hubbell</li>
+            <li class="flex items-start gap-2"><span class="text-brand-500 font-bold">—</span> Published verdicts or settlements (many firms post notable results)</li>
+            <li class="flex items-start gap-2"><span class="text-brand-500 font-bold">—</span> Peer ratings from other attorneys</li>
+            <li class="flex items-start gap-2"><span class="text-brand-500 font-bold">—</span> State bar disciplinary history (searchable online)</li>
+          </ul>
+          <div class="mt-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-800">
+            <strong>Red flag:</strong> Any attorney who guarantees a specific outcome. This is prohibited by state bar rules and is a serious warning sign.
+          </div>
+        </div>
+
+        <!-- Step 6: Act quickly -->
+        <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="w-9 h-9 rounded-xl bg-red-700 text-white font-bold text-lg flex items-center justify-center flex-shrink-0">6</span>
+            <h2 class="text-xl font-bold text-red-900">Act Quickly — Deadlines Are Hard</h2>
+          </div>
+          <p class="text-gray-700 mb-3">Most personal injury claims have a <strong>2-year statute of limitations</strong>. But beyond the legal deadline, physical evidence degrades fast:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              ["Surveillance footage", "Often overwritten within 30–90 days"],
+              ["Accident scene", "Conditions change quickly after the event"],
+              ["Witness memory", "Fades and becomes unreliable over time"],
+              ["Medical causation", "Clearest when treatment is prompt and documented"],
+            ].map(([item, note]) => (
+              <div class="bg-white border border-red-100 rounded-xl px-4 py-3 text-sm">
+                <p class="font-bold text-gray-900">{item}</p>
+                <p class="text-gray-600 text-xs mt-0.5">{note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="p-6 bg-brand-50 border border-brand-200 rounded-2xl text-center">
+          <h3 class="text-lg font-bold text-brand-900 mb-2">Find a Licensed PI Attorney</h3>
+          <p class="text-gray-700 mb-4 text-sm">Browse licensed attorneys by state and city. Bar number and contact information included.</p>
+          <a href="/personal-injury-attorneys/florida" class="btn-primary text-sm">Browse Attorneys</a>
+        </div>
+
       </div>
     </div>
   </main>

@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import USAMapSVG from "../../components/USAMapSVG.astro";
-import { getAllCities, getAttorneyCountByCity, getTotalAttorneyCount } from "../../utils/attorneys";
+import { getAllCities, getTotalAttorneyCount } from "../../utils/attorneys";
 
 const cities = getAllCities();
 const totalAttorneys = getTotalAttorneyCount();
@@ -19,7 +19,7 @@ const schema = JSON.stringify({
   "@graph": [
     {
       "@type": "ItemList",
-      "name": "Personal Injury Attorneys in Florida",
+      "name": "Personal Injury Attorneys Directory",
       "numberOfItems": totalAttorneys,
       "url": "https://www.findpiattorney.com/personal-injury-attorneys/"
     },
@@ -35,8 +35,8 @@ const schema = JSON.stringify({
 ---
 
 <BaseLayout
-  title="Personal Injury Attorneys Directory — Browse Licensed PI Lawyers in Florida"
-  description="Find licensed personal injury attorneys across Florida. Browse 1,800+ attorneys by city. Sourced from Florida Bar public records."
+  title="Personal Injury Attorneys Directory — Browse Licensed PI Lawyers by State"
+  description="Find licensed personal injury attorneys across the United States. Browse by state and city. Currently covering Florida — expanding nationwide. Free access."
   canonical="https://www.findpiattorney.com/personal-injury-attorneys/"
   schema={schema}
 >
@@ -47,25 +47,22 @@ const schema = JSON.stringify({
     <section class="relative bg-brand-900 text-white overflow-hidden">
       <div class="absolute inset-0">
         <img
-          src="/images/professional-consultation.webp"
-          alt="Personal injury attorney reviewing case"
-          class="w-full h-full object-cover opacity-20"
+          src="/images/attorney-hero.webp"
+          alt="Courthouse representing justice and personal injury law"
+          class="w-full h-full object-cover opacity-15"
           loading="eager"
-          width="1200" height="800"
+          width="1400" height="700"
         />
       </div>
       <div class="relative page-container py-14 text-center">
-        <div class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
-          </svg>
-          Florida PI Attorney Directory
+        <div class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4 border border-white/20">
+          Nationwide Directory — Currently Active in Florida
         </div>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
           Personal Injury Attorneys Directory
         </h1>
         <p class="mt-4 text-lg text-brand-200 max-w-2xl mx-auto">
-          Browse {totalAttorneys.toLocaleString()} Florida Bar-licensed personal injury attorneys across {cities.length} Florida cities. Sourced from public records — free to access.
+          Browse {totalAttorneys.toLocaleString()} bar-licensed personal injury attorneys across the United States. Select your state to find attorneys near you.
         </p>
         <div class="mt-6 flex flex-wrap justify-center gap-8 text-center">
           <div>
@@ -74,11 +71,11 @@ const schema = JSON.stringify({
           </div>
           <div class="border-l border-white/20 pl-8">
             <div class="text-3xl font-bold">{cities.length}</div>
-            <div class="text-brand-200 text-sm">Florida Cities</div>
+            <div class="text-brand-200 text-sm">Cities Active</div>
           </div>
           <div class="border-l border-white/20 pl-8">
-            <div class="text-3xl font-bold">FL Bar</div>
-            <div class="text-brand-200 text-sm">Licensed Attorneys</div>
+            <div class="text-3xl font-bold">50</div>
+            <div class="text-brand-200 text-sm">States Expanding</div>
           </div>
           <div class="border-l border-white/20 pl-8">
             <div class="text-3xl font-bold">Free</div>
@@ -90,62 +87,63 @@ const schema = JSON.stringify({
 
     <!-- Why hire section -->
     <section class="page-container section-padding">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start mb-12">
         <div>
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Why Hire a Personal Injury Attorney?</h2>
+          <h2 class="text-2xl font-bold text-gray-900 mb-5">Why Hire a Personal Injury Attorney?</h2>
           <div class="space-y-4 text-gray-700 leading-relaxed">
-            <p>After an accident or injury, insurance companies move quickly to protect their interests — not yours. A personal injury attorney levels the playing field by handling all communication, gathering evidence, and building the strongest possible case for your compensation.</p>
-            <p>Studies consistently show that accident victims represented by attorneys receive significantly higher settlements than those who negotiate alone. And because most PI attorneys work on contingency, there's no financial risk to hiring one.</p>
+            <p>After an accident, insurance companies move fast to protect their bottom line — not yours. A personal injury attorney levels the playing field. They handle all communication, build your case from evidence, and negotiate aggressively on your behalf.</p>
+            <p>Research consistently shows that accident victims with legal representation receive significantly higher settlements than those who negotiate alone — and because most PI attorneys work on contingency, there is no financial risk to hiring one.</p>
           </div>
-          <ul class="mt-5 space-y-2 text-sm text-gray-700">
+
+          <!-- Highlight boxes -->
+          <div class="mt-6 space-y-3">
             {[
-              "Negotiate directly with insurance adjusters on your behalf",
-              "Gather police reports, medical records, and expert witness testimony",
-              "Calculate the full value of your claim including future damages",
-              "File a lawsuit and litigate in court if settlement is inadequate",
-              "Contingency fees — no upfront costs, paid only when you win",
+              ["Negotiate with insurance adjusters on your behalf"],
+              ["Gather police reports, medical records, and expert testimony"],
+              ["Calculate the true value of your claim including future losses"],
+              ["File suit and litigate in court when settlements fall short"],
+              ["No upfront fees — paid only when you win"],
+            ].map(([item]) => (
+              <div class="flex items-center gap-3 bg-brand-50 border border-brand-100 rounded-lg px-4 py-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span class="text-sm font-medium text-gray-800">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Practice areas card -->
+        <div class="bg-gray-900 text-white rounded-2xl p-7">
+          <h3 class="text-lg font-bold mb-1">Common Case Types</h3>
+          <p class="text-gray-400 text-sm mb-5">PI attorneys handle a wide range of injury and negligence cases. Browse our directory to find attorneys experienced in your situation.</p>
+          <ul class="space-y-3">
+            {[
+              "Motor vehicle accidents (car, truck, motorcycle)",
+              "Slip and fall / premises liability",
+              "Medical malpractice",
+              "Wrongful death",
+              "Workers' compensation",
+              "Product liability & defective products",
+              "Pedestrian & bicycle accidents",
+              "Traumatic brain injury (TBI)",
             ].map(item => (
-              <li class="flex items-start gap-2">
-                <span class="mt-1 w-1.5 h-1.5 rounded-full bg-brand-500 flex-shrink-0"></span>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-400 flex-shrink-0"></span>
                 {item}
               </li>
             ))}
           </ul>
         </div>
-        <div class="bg-brand-50 border border-brand-100 rounded-xl p-6">
-          <h3 class="text-lg font-bold text-brand-900 mb-3">Common Case Types in Florida</h3>
-          <p class="text-gray-700 text-sm leading-relaxed mb-4">
-            Florida personal injury attorneys handle a wide range of cases. Search our directory to find attorneys with experience in your specific situation.
-          </p>
-          <div class="bg-white rounded-lg p-4 border border-brand-200">
-            <p class="text-xs text-gray-500 uppercase font-semibold mb-3">Practice Areas</p>
-            <ul class="text-sm text-gray-700 space-y-2">
-              {[
-                "Motor vehicle accidents (car, truck, motorcycle)",
-                "Slip and fall / premises liability",
-                "Medical malpractice",
-                "Wrongful death",
-                "Workers' compensation",
-                "Product liability & defective products",
-                "Pedestrian & bicycle accidents",
-                "Traumatic brain injury (TBI)",
-              ].map(item => (
-                <li class="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-brand-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                  </svg>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </div>
 
       <!-- Map -->
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Browse by State</h2>
-      <p class="text-gray-600 mb-6">Click Florida on the map to browse attorneys by city.</p>
-      <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+      <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Browse by State</h2>
+        <p class="text-gray-600">Click an active state to browse attorneys. Hover any state to see its availability status.</p>
+      </div>
+      <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
         <USAMapSVG
           activeStates={activeStates}
           basePath="/personal-injury-attorneys"
@@ -154,11 +152,11 @@ const schema = JSON.stringify({
       </div>
     </section>
 
-    <!-- Legal notice -->
+    <!-- Disclaimer -->
     <section class="bg-amber-50 border-t border-amber-200">
       <div class="page-container py-6">
-        <p class="text-xs text-amber-800 text-center leading-relaxed max-w-4xl mx-auto">
-          <strong>Educational Information Only.</strong> This directory is an informational service sourced from public Florida Bar records. Nothing herein constitutes legal advice. Verify all credentials with <a href="https://www.floridabar.org" target="_blank" rel="noopener noreferrer" class="underline">The Florida Bar</a> before retaining any attorney.
+        <p class="text-xs text-amber-900 text-center leading-relaxed max-w-4xl mx-auto">
+          <strong>Educational Information Only.</strong> This directory is an informational service sourced from public state bar records. Listings do not constitute an endorsement. Nothing herein is legal advice. Verify credentials with your state bar before retaining any attorney.
         </p>
       </div>
     </section>
