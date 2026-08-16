@@ -37,8 +37,8 @@ __pycache__/
 *.xlsx
 *.xls
 
-# Generated JSON data (generated from XLSX at build time)
-src/data/attorneys.json
+# Generated JSON data — commit this so Cloudflare Pages can build without Python
+# src/data/attorneys.json
 
-# Generated avatars (regenerated with npm run generate-avatars)
-public/avatars/
+# Generated avatars — commit these so Cloudflare Pages can serve them
+# public/avatars/
