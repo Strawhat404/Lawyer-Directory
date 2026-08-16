@@ -2,54 +2,133 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "How to Choose a Personal Injury Attorney in Florida",
+      "description": "Key factors to consider when hiring a PI attorney — experience, fees, communication style, and how to verify Florida Bar credentials.",
+      "datePublished": "2026-08-15",
+      "dateModified": "2026-08-16",
+      "author": { "@type": "Organization", "name": "Florida Personal Injury Attorney Directory" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.findpiattorney.com/" },
+        { "@type": "ListItem", "position": 2, "name": "How to Choose a PI Attorney", "item": "https://www.findpiattorney.com/how-to-choose-a-pi-attorney/" }
+      ]
+    }
+  ]
+});
 ---
 
 <BaseLayout
-  title="How to Choose a Personal Injury Attorney in Florida"
-  description="Learn what to look for when hiring a personal injury attorney in Florida — experience, fees, communication, and track record."
+  title="How to Choose a Personal Injury Attorney in Florida | PI Directory"
+  description="Learn how to evaluate and hire the right personal injury attorney in Florida. Key factors: experience, contingency fees, communication, and Florida Bar verification."
   canonical="https://www.findpiattorney.com/how-to-choose-a-pi-attorney/"
+  schema={schema}
 >
   <Header />
   <main class="flex-1">
     <section class="bg-brand-900 text-white">
       <div class="page-container py-12">
-        <h1 class="text-3xl sm:text-4xl font-bold">How to Choose a Personal Injury Attorney</h1>
-        <p class="mt-3 text-brand-200 max-w-2xl">Key factors to consider when hiring a PI attorney in Florida.</p>
+        <h1 class="text-3xl sm:text-4xl font-bold">How to Choose a Personal Injury Attorney in Florida</h1>
+        <p class="text-xs text-gray-400 mt-2 mb-1">Updated: August 2026</p>
+        <p class="mt-3 text-brand-200 max-w-2xl">Key factors to consider before hiring a PI attorney — and red flags to watch for.</p>
       </div>
     </section>
     <div class="page-container section-padding">
-      <div class="max-w-3xl mx-auto prose prose-gray">
-        <p class="text-lg text-gray-600 leading-relaxed">
-          Choosing the right personal injury attorney can significantly impact the outcome of your case. Here's what to consider before hiring.
-        </p>
+      <div class="max-w-3xl mx-auto">
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Verify Florida Bar Membership</h2>
-        <p>Always verify that any attorney you consider is an active, licensed member of The Florida Bar in good standing. You can look up any attorney using this directory or directly on the <a href="https://www.floridabar.org" target="_blank" rel="noopener noreferrer">Florida Bar website</a>.</p>
+        <div class="not-prose mb-8">
+          <img
+            src="/images/professional-consultation.webp"
+            alt="Attorney meeting with client to discuss personal injury case"
+            class="w-full rounded-xl object-cover max-h-72"
+            loading="lazy"
+            width="800"
+            height="400"
+          />
+        </div>
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Look for Personal Injury Experience</h2>
-        <p>Personal injury law is specialized. Look for attorneys who focus primarily on PI cases — not general practitioners who handle everything. Experience with your specific type of case (car accidents, slip and fall, medical malpractice, etc.) matters.</p>
+        <div class="prose prose-gray max-w-none">
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Understand the Fee Structure</h2>
-        <p>Most personal injury attorneys work on a <strong>contingency fee basis</strong> — meaning they only get paid if you win. Typical contingency fees in Florida range from 33% to 40% of the recovery. Make sure you understand all fees before signing any agreement.</p>
+          <div class="not-prose mb-6 p-4 bg-amber-50 border-l-4 border-amber-400 text-sm text-gray-700">
+            <p class="font-semibold text-amber-900 mb-1">Educational Information Only</p>
+            <p>This page provides general guidance. It is not legal advice. Consult a licensed Florida attorney about your specific situation.</p>
+          </div>
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Assess Communication Style</h2>
-        <p>Your attorney should be accessible, responsive, and willing to explain the process clearly. During your initial consultation, assess:</p>
-        <ul>
-          <li>How promptly do they respond to calls or emails?</li>
-          <li>Do they explain things in plain language?</li>
-          <li>Do they listen carefully to your situation?</li>
-        </ul>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Choosing the right personal injury attorney can make a significant difference in the outcome of your case. The lawyer you hire will be your advocate through every negotiation, filing, and — if necessary — trial. Here's a practical framework for evaluating your options.
+          </p>
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Check Reviews and Track Record</h2>
-        <p>Research the attorney's reputation through online reviews, peer ratings, and any available case results. While past results don't guarantee future outcomes, a consistent track record demonstrates competence.</p>
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">1. Verify Florida Bar Membership</h2>
+          <p>Before anything else, confirm the attorney is an active member of The Florida Bar in good standing. An attorney must be licensed to practice law in Florida to represent you in a Florida court. You can search any attorney using:</p>
+          <ul>
+            <li>This directory (bar number and status shown on each profile)</li>
+            <li>The <a href="https://www.floridabar.org" target="_blank" rel="noopener noreferrer">Florida Bar's official member search</a></li>
+          </ul>
+          <p>Look for <strong>"Member in Good Standing / Eligible to Practice Law in Florida"</strong> — this is the active, eligible status. Avoid anyone whose status shows "Inactive," "Delinquent," or any disciplinary notation.</p>
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Act Quickly — Florida's Statute of Limitations</h2>
-        <p>Florida's statute of limitations for personal injury cases is <strong>2 years</strong> from the date of injury. Don't delay — important evidence can disappear, and witnesses' memories fade over time.</p>
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">2. Prioritize Personal Injury Experience</h2>
+          <p>Personal injury is a specialized field with its own procedural rules, insurance tactics, and medical knowledge requirements. A lawyer who primarily handles real estate, family law, or criminal defense may not be equipped for complex PI litigation.</p>
+          <p>Look for attorneys who:</p>
+          <ul>
+            <li>Focus specifically on personal injury or plaintiff's tort law</li>
+            <li>Have experience with your type of case (car accident, slip and fall, medical malpractice, etc.)</li>
+            <li>Have handled cases against the specific insurance companies involved in your claim</li>
+            <li>Are familiar with local courts, judges, and defense attorneys in your area</li>
+          </ul>
 
-        <div class="not-prose mt-10 p-6 bg-brand-50 border border-brand-200 rounded-xl text-center">
-          <h3 class="text-lg font-semibold text-brand-900 mb-2">Find a Personal Injury Attorney</h3>
-          <p class="text-gray-700 mb-4">Browse our directory of licensed Florida attorneys by city.</p>
-          <a href="/personal-injury-attorneys/florida" class="btn-primary text-sm">Browse by City</a>
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">3. Understand the Contingency Fee Structure</h2>
+          <p>Most Florida personal injury attorneys work on a <strong>contingency fee basis</strong> — you pay no upfront fees and the attorney takes a percentage of your settlement or verdict if you win. If you lose, you owe no attorney's fees (though you may still owe case costs).</p>
+          <p>Typical contingency fees in Florida:</p>
+          <ul>
+            <li><strong>33.3%</strong> — if the case settles before a lawsuit is filed</li>
+            <li><strong>40%</strong> — if a lawsuit is filed</li>
+            <li><strong>Higher percentages</strong> may apply if the case goes to appeal</li>
+          </ul>
+          <p>Florida Bar rules govern attorney fee arrangements. Always ask for a written fee agreement before signing anything. Clarify whether litigation costs (filing fees, expert witnesses, depositions) are deducted before or after the attorney's percentage is calculated.</p>
+
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">4. Evaluate Communication and Accessibility</h2>
+          <p>Your attorney will be your main point of contact through a process that may last months or years. Poor communication is one of the top complaints against attorneys. During your initial consultation — which is usually free — assess:</p>
+          <ul>
+            <li>Do they listen carefully to your account without interrupting?</li>
+            <li>Do they explain legal concepts in plain language?</li>
+            <li>Do they give you a realistic assessment rather than overpromising?</li>
+            <li>Will you work directly with the attorney or primarily with paralegals?</li>
+            <li>How quickly do they return calls and emails?</li>
+          </ul>
+
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">5. Research Their Track Record</h2>
+          <p>While past results don't guarantee future outcomes, a consistent track record is a meaningful indicator of competence. Look for:</p>
+          <ul>
+            <li>Client reviews on Google, Avvo, and Martindale-Hubbell</li>
+            <li>Any published verdicts or settlements (many firms publish notable results)</li>
+            <li>Peer ratings from other attorneys</li>
+            <li>Florida Bar discipline history (searchable online)</li>
+          </ul>
+          <p>Be skeptical of any attorney who guarantees a specific outcome — this is prohibited by Florida Bar rules and is a red flag.</p>
+
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">6. Act Quickly — Florida's 2-Year Deadline</h2>
+          <p>Florida's statute of limitations for most personal injury claims is <strong>2 years</strong> from the date of injury (as of the 2023 reform). This is a hard deadline — miss it and your claim is permanently barred in most circumstances.</p>
+          <p>Beyond the legal deadline, evidence degrades quickly after an accident:</p>
+          <ul>
+            <li>Surveillance footage is often overwritten within 30–90 days</li>
+            <li>Accident scene conditions change</li>
+            <li>Witness contact information becomes harder to obtain</li>
+            <li>Medical records linking the injury to the accident are clearest when treatment is prompt</li>
+          </ul>
+          <p>If you've been injured, consult with an attorney as soon as possible — even a free initial consultation can help you understand your rights and preserve your options.</p>
+
+          <div class="not-prose mt-10 p-6 bg-brand-50 border border-brand-200 rounded-xl text-center">
+            <h3 class="text-lg font-semibold text-brand-900 mb-2">Find a Personal Injury Attorney in Florida</h3>
+            <p class="text-gray-700 mb-4">Browse licensed Florida attorneys by city. Bar number and contact info included.</p>
+            <a href="/personal-injury-attorneys/florida" class="btn-primary text-sm">Browse by City</a>
+          </div>
         </div>
       </div>
     </div>

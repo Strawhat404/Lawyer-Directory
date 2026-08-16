@@ -2,66 +2,155 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "What is Personal Injury Law?",
+      "description": "A comprehensive guide to personal injury law in Florida — case types, the claims process, damages, and how to protect your rights.",
+      "datePublished": "2026-08-15",
+      "dateModified": "2026-08-16",
+      "author": { "@type": "Organization", "name": "Florida Personal Injury Attorney Directory" },
+      "publisher": { "@type": "Organization", "name": "Florida Personal Injury Attorney Directory", "url": "https://www.findpiattorney.com" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long do I have to file a personal injury claim in Florida?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Florida's statute of limitations for most personal injury claims is 2 years from the date of injury (2023 reform). Missing this deadline typically bars recovery."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What damages can I recover in a Florida personal injury case?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You may recover economic damages (medical bills, lost wages, future care costs) and non-economic damages (pain and suffering, emotional distress, loss of consortium). In rare cases of egregious conduct, punitive damages may also be available."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.findpiattorney.com/" },
+        { "@type": "ListItem", "position": 2, "name": "What is Personal Injury Law", "item": "https://www.findpiattorney.com/what-is-personal-injury-law/" }
+      ]
+    }
+  ]
+});
 ---
 
 <BaseLayout
-  title="What is Personal Injury Law? — PI Attorney Directory"
-  description="Learn what personal injury law covers, common case types, and how a personal injury attorney can help you seek compensation."
+  title="What is Personal Injury Law in Florida? | PI Attorney Directory"
+  description="Learn what personal injury law covers in Florida — common case types, how claims work, damages you can recover, and Florida's 2-year statute of limitations."
   canonical="https://www.findpiattorney.com/what-is-personal-injury-law/"
+  schema={schema}
 >
   <Header />
   <main class="flex-1">
     <section class="bg-brand-900 text-white">
       <div class="page-container py-12">
         <h1 class="text-3xl sm:text-4xl font-bold">What is Personal Injury Law?</h1>
-        <p class="mt-3 text-brand-200 max-w-2xl">An overview of personal injury law, common case types, and when you need an attorney.</p>
+        <p class="text-xs text-gray-400 mt-2 mb-1">Updated: August 2026</p>
+        <p class="mt-3 text-brand-200 max-w-2xl">An overview of personal injury law in Florida — common case types, the claims process, and how to protect your rights after an accident.</p>
       </div>
     </section>
+
     <div class="page-container section-padding">
-      <div class="max-w-3xl mx-auto prose prose-gray">
-        <p class="text-lg text-gray-600 leading-relaxed">
-          Personal injury law (also called tort law) allows an injured person to file a civil lawsuit in court and get a legal remedy for losses stemming from an accident or other incident.
-        </p>
+      <div class="max-w-3xl mx-auto">
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">What Does Personal Injury Law Cover?</h2>
-        <p>Personal injury law covers a broad range of situations where someone suffers harm due to another party's negligence, recklessness, or intentional wrongdoing. Common types of personal injury cases include:</p>
-        <ul>
-          <li><strong>Motor vehicle accidents</strong> — car, truck, motorcycle, and bicycle collisions</li>
-          <li><strong>Slip and fall accidents</strong> — injuries on someone else's property due to unsafe conditions</li>
-          <li><strong>Medical malpractice</strong> — harm caused by negligent medical care</li>
-          <li><strong>Product liability</strong> — injuries caused by defective products</li>
-          <li><strong>Wrongful death</strong> — death caused by another's negligence or intentional act</li>
-          <li><strong>Workers' compensation</strong> — injuries sustained in the workplace</li>
-        </ul>
+        <div class="not-prose mb-8">
+          <img
+            src="/images/legal-consultation.webp"
+            alt="Personal injury attorney reviewing case with client"
+            class="w-full rounded-xl object-cover max-h-72"
+            loading="lazy"
+            width="800"
+            height="400"
+          />
+        </div>
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">How Does a Personal Injury Claim Work?</h2>
-        <p>Most personal injury cases follow a similar process:</p>
-        <ul>
-          <li>You are injured due to someone else's negligence</li>
-          <li>You hire a personal injury attorney to evaluate your case</li>
-          <li>Your attorney gathers evidence, medical records, and witness statements</li>
-          <li>Your attorney negotiates with the insurance company on your behalf</li>
-          <li>If a fair settlement isn't reached, your attorney may file a lawsuit</li>
-          <li>Most cases settle before going to trial</li>
-        </ul>
+        <div class="prose prose-gray max-w-none">
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Florida Statute of Limitations</h2>
-        <p>In Florida, most personal injury claims must be filed within <strong>2 years</strong> of the date of the injury. Missing this deadline can permanently bar you from recovering compensation. It's important to consult with an attorney as soon as possible after an accident.</p>
+          <div class="not-prose mb-6 p-4 bg-amber-50 border-l-4 border-amber-400 text-sm text-gray-700">
+            <p class="font-semibold text-amber-900 mb-1">Educational Information Only</p>
+            <p>This page provides general educational information about personal injury law in Florida. It is not legal advice. Consult a licensed Florida attorney for guidance specific to your situation.</p>
+          </div>
 
-        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">What Compensation Can You Recover?</h2>
-        <ul>
-          <li>Medical expenses (current and future)</li>
-          <li>Lost wages and loss of future earning capacity</li>
-          <li>Pain and suffering</li>
-          <li>Emotional distress</li>
-          <li>Property damage</li>
-          <li>Loss of consortium</li>
-        </ul>
+          <p class="text-lg text-gray-600 leading-relaxed">
+            Personal injury law — also called tort law — gives injured individuals the legal right to seek financial compensation when someone else's negligence, recklessness, or intentional wrongdoing caused them harm. In Florida, this area of law is broad, well-developed, and critically important for accident victims navigating the insurance system.
+          </p>
 
-        <div class="not-prose mt-10 p-6 bg-brand-50 border border-brand-200 rounded-xl text-center">
-          <h3 class="text-lg font-semibold text-brand-900 mb-2">Find a Personal Injury Attorney</h3>
-          <p class="text-gray-700 mb-4">Browse our directory of licensed Florida attorneys by city.</p>
-          <a href="/personal-injury-attorneys/florida" class="btn-primary text-sm">Browse by City</a>
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">What Does Personal Injury Law Cover?</h2>
+          <p>Personal injury law covers any situation where someone suffers physical, psychological, or financial harm due to another party's wrongful conduct. In Florida, common personal injury case types include:</p>
+          <ul>
+            <li><strong>Motor vehicle accidents</strong> — car, truck, motorcycle, bicycle, and pedestrian collisions</li>
+            <li><strong>Slip and fall accidents</strong> — injuries on someone else's property due to hazardous conditions</li>
+            <li><strong>Medical malpractice</strong> — harm caused by negligent diagnosis, treatment, or surgical errors</li>
+            <li><strong>Product liability</strong> — injuries from defective or dangerous products</li>
+            <li><strong>Wrongful death</strong> — death caused by another's negligence or intentional act</li>
+            <li><strong>Workers' compensation</strong> — workplace injuries and occupational diseases</li>
+            <li><strong>Dog bites</strong> — Florida holds dog owners strictly liable for bites in most circumstances</li>
+            <li><strong>Nursing home abuse</strong> — harm to residents of long-term care facilities</li>
+          </ul>
+
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Florida's No-Fault Auto Insurance System</h2>
+          <p>Florida is one of a handful of <strong>no-fault states</strong> for automobile accidents. Under Florida's no-fault system, your own Personal Injury Protection (PIP) insurance pays up to $10,000 of your initial medical bills and lost wages — regardless of who caused the accident.</p>
+          <p>However, you can step outside the no-fault system and pursue the at-fault driver directly when your injuries meet the <strong>"serious injury" threshold</strong>: significant and permanent loss of a bodily function, permanent injury, significant scarring or disfigurement, or death. For serious injuries, a personal injury attorney is essential to maximize recovery.</p>
+
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">How Does a Personal Injury Claim Work?</h2>
+          <p>Most personal injury claims follow a similar process in Florida:</p>
+          <ul>
+            <li>You are injured due to someone else's negligence or wrongful conduct</li>
+            <li>You seek medical treatment and document your injuries thoroughly</li>
+            <li>You hire a personal injury attorney to evaluate your case (most offer free consultations)</li>
+            <li>Your attorney investigates the accident, gathers evidence, and identifies liable parties</li>
+            <li>Your attorney sends a demand letter to the at-fault party's insurance company</li>
+            <li>Negotiations proceed — most cases settle without going to trial</li>
+            <li>If a fair settlement isn't reached, your attorney files a lawsuit on your behalf</li>
+          </ul>
+
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Florida's Statute of Limitations</h2>
+          <p>This is one of the most critical deadlines in personal injury law. In Florida:</p>
+          <ul>
+            <li><strong>General personal injury:</strong> 2 years from the date of injury (2023 reform reduced from 4 years)</li>
+            <li><strong>Medical malpractice:</strong> 2 years from when the injury was discovered (or should have been), maximum 4 years from the act</li>
+            <li><strong>Wrongful death:</strong> 2 years from the date of death</li>
+            <li><strong>Claims against government entities:</strong> Strict notice requirements, typically within 3 years but with earlier notice obligations</li>
+          </ul>
+          <p>Missing the deadline typically means your claim is permanently barred. If you've been injured, consult an attorney promptly — evidence disappears and witnesses' memories fade.</p>
+
+          <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">What Compensation Can You Recover?</h2>
+          <p>Florida personal injury law allows recovery of two main categories of damages:</p>
+          <p><strong>Economic damages</strong> (objectively measurable financial losses):</p>
+          <ul>
+            <li>Past and future medical expenses</li>
+            <li>Lost wages and loss of future earning capacity</li>
+            <li>Property damage</li>
+            <li>Out-of-pocket expenses related to the injury</li>
+          </ul>
+          <p><strong>Non-economic damages</strong> (subjective harms):</p>
+          <ul>
+            <li>Pain and suffering</li>
+            <li>Emotional distress and mental anguish</li>
+            <li>Loss of enjoyment of life</li>
+            <li>Disfigurement or permanent disability</li>
+            <li>Loss of consortium (impact on spousal or family relationships)</li>
+          </ul>
+          <p>Florida <strong>modified comparative negligence</strong> law (2023) means your recovery is reduced by your percentage of fault — and if you are more than 50% at fault, you are barred from recovery entirely.</p>
+
+          <div class="not-prose mt-10 p-6 bg-brand-50 border border-brand-200 rounded-xl text-center">
+            <h3 class="text-lg font-semibold text-brand-900 mb-2">Find a Personal Injury Attorney</h3>
+            <p class="text-gray-700 mb-4">Browse our directory of licensed Florida attorneys by city.</p>
+            <a href="/personal-injury-attorneys/florida" class="btn-primary text-sm">Browse by City</a>
+          </div>
         </div>
       </div>
     </div>

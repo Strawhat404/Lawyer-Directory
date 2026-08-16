@@ -51,6 +51,46 @@ def normalize_phone(phone):
     return phone
 
 
+# Known city name variants that should be merged into one canonical name.
+# Keys are matched case-insensitively after whitespace/punctuation normalization.
+CITY_ALIASES = {
+    "ft lauderdale": "Fort Lauderdale",
+    "ft. lauderdale": "Fort Lauderdale",
+    "ft myers": "Fort Myers",
+    "ft. myers": "Fort Myers",
+    "ft pierce": "Fort Pierce",
+    "ft. pierce": "Fort Pierce",
+    "ft walton beach": "Fort Walton Beach",
+    "ft. walton beach": "Fort Walton Beach",
+}
+
+
+def normalize_city_name(city):
+    """
+    Normalize a raw city string so that variants like "Ft Lauderdale",
+    "Ft. Lauderdale", and "FORT LAUDERDALE" all collapse to a single
+    canonical form ("Fort Lauderdale"), preventing duplicate city pages.
+    """
+    if not city:
+        return city
+
+    # Collapse whitespace
+    city = re.sub(r"\s+", " ", city.strip())
+
+    # Check alias table first (case-insensitive, normalize trailing periods)
+    lookup_key = city.lower().rstrip(".")
+    # Also try with a period after "ft" since alias keys include both forms
+    for key, canonical in CITY_ALIASES.items():
+        if lookup_key == key.rstrip("."):
+            return canonical
+
+    # Title-case if the string is fully upper/lower (e.g. "FORT LAUDERDALE")
+    if city.isupper() or city.islower():
+        city = city.title()
+
+    return city
+
+
 def parse_address(address):
     """Extract city, state from address string."""
     if not address:
@@ -60,12 +100,13 @@ def parse_address(address):
     # Extract city and state
     match = re.search(r',\s*([^,]+),\s*([A-Z]{2})\s+\d{5}', address)
     if match:
-        city = match.group(1).strip()
+        city = normalize_city_name(match.group(1).strip())
         state = match.group(2).strip()
         return city, state
     
     # Fallback: all attorneys are in Florida
     return "", "FL"
+
 
 
 def parse_attorney_row(row: dict, index: int, source_file: str) -> dict | None:

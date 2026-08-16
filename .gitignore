@@ -9,6 +9,7 @@ dist/
 # Environment
 .env
 .env.*
+.env.local
 
 # OS
 .DS_Store
@@ -20,6 +21,9 @@ Thumbs.db
 *.swp
 *.swo
 
+# Kiro IDE files
+.kiro/
+
 # Logs
 *.log
 npm-debug.log*
@@ -28,4 +32,13 @@ npm-debug.log*
 __pycache__/
 *.py[cod]
 *.so
-.Python
+
+# Source data files (large Excel files — generate locally with npm run import-data)
+*.xlsx
+*.xls
+
+# Generated JSON data (generated from XLSX at build time)
+src/data/attorneys.json
+
+# Generated avatars (regenerated with npm run generate-avatars)
+public/avatars/
