@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="What is Personal Injury Law? — PI Attorney Directory"
+  description="Learn what personal injury law covers, common case types, and how a personal injury attorney can help you seek compensation."
+  canonical="https://www.findpiattorney.com/what-is-personal-injury-law/"
+>
+  <Header />
+  <main class="flex-1">
+    <section class="bg-brand-900 text-white">
+      <div class="page-container py-12">
+        <h1 class="text-3xl sm:text-4xl font-bold">What is Personal Injury Law?</h1>
+        <p class="mt-3 text-brand-200 max-w-2xl">An overview of personal injury law, common case types, and when you need an attorney.</p>
+      </div>
+    </section>
+    <div class="page-container section-padding">
+      <div class="max-w-3xl mx-auto prose prose-gray">
+        <p class="text-lg text-gray-600 leading-relaxed">
+          Personal injury law (also called tort law) allows an injured person to file a civil lawsuit in court and get a legal remedy for losses stemming from an accident or other incident.
+        </p>
+
+        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">What Does Personal Injury Law Cover?</h2>
+        <p>Personal injury law covers a broad range of situations where someone suffers harm due to another party's negligence, recklessness, or intentional wrongdoing. Common types of personal injury cases include:</p>
+        <ul>
+          <li><strong>Motor vehicle accidents</strong> — car, truck, motorcycle, and bicycle collisions</li>
+          <li><strong>Slip and fall accidents</strong> — injuries on someone else's property due to unsafe conditions</li>
+          <li><strong>Medical malpractice</strong> — harm caused by negligent medical care</li>
+          <li><strong>Product liability</strong> — injuries caused by defective products</li>
+          <li><strong>Wrongful death</strong> — death caused by another's negligence or intentional act</li>
+          <li><strong>Workers' compensation</strong> — injuries sustained in the workplace</li>
+        </ul>
+
+        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">How Does a Personal Injury Claim Work?</h2>
+        <p>Most personal injury cases follow a similar process:</p>
+        <ul>
+          <li>You are injured due to someone else's negligence</li>
+          <li>You hire a personal injury attorney to evaluate your case</li>
+          <li>Your attorney gathers evidence, medical records, and witness statements</li>
+          <li>Your attorney negotiates with the insurance company on your behalf</li>
+          <li>If a fair settlement isn't reached, your attorney may file a lawsuit</li>
+          <li>Most cases settle before going to trial</li>
+        </ul>
+
+        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">Florida Statute of Limitations</h2>
+        <p>In Florida, most personal injury claims must be filed within <strong>2 years</strong> of the date of the injury. Missing this deadline can permanently bar you from recovering compensation. It's important to consult with an attorney as soon as possible after an accident.</p>
+
+        <h2 class="!text-2xl !font-bold !text-brand-900 !mt-8 !mb-4">What Compensation Can You Recover?</h2>
+        <ul>
+          <li>Medical expenses (current and future)</li>
+          <li>Lost wages and loss of future earning capacity</li>
+          <li>Pain and suffering</li>
+          <li>Emotional distress</li>
+          <li>Property damage</li>
+          <li>Loss of consortium</li>
+        </ul>
+
+        <div class="not-prose mt-10 p-6 bg-brand-50 border border-brand-200 rounded-xl text-center">
+          <h3 class="text-lg font-semibold text-brand-900 mb-2">Find a Personal Injury Attorney</h3>
+          <p class="text-gray-700 mb-4">Browse our directory of licensed Florida attorneys by city.</p>
+          <a href="/personal-injury-attorneys/florida" class="btn-primary text-sm">Browse by City</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

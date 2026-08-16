@@ -1,0 +1,27 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+interface Props {
+  links: Link[];
+}
+const { links } = Astro.props;
+---
+
+<nav class="flex items-center gap-1.5 text-sm text-gray-500 mb-6 flex-wrap" aria-label="Breadcrumb">
+  {links.map((link, i) => (
+    <span class="flex items-center gap-1.5">
+      {i < links.length - 1 ? (
+        <a href={link.href} class="hover:text-brand-600 transition-colors">{link.label}</a>
+      ) : (
+        <span class="text-gray-900 font-medium truncate max-w-[200px] sm:max-w-xs">{link.label}</span>
+      )}
+      {i < links.length - 1 && (
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      )}
+    </span>
+  ))}
+</nav>

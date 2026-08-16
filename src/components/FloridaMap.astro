@@ -1,0 +1,168 @@
+---
+interface CityInfo {
+  slug: string;
+  displayName: string;
+  count: number;
+}
+
+interface Props {
+  cities: CityInfo[];
+  basePath?: string;
+}
+
+const { cities, basePath = '/personal-injury-attorneys/florida' } = Astro.props;
+
+// City dot positions on the 300x220 SVG viewbox
+const cityPositions: Record<string, { cx: number; cy: number }> = {
+  'jacksonville':    { cx: 200, cy: 32 },
+  'tallahassee':     { cx: 95,  cy: 30 },
+  'orlando':         { cx: 210, cy: 118 },
+  'tampa':           { cx: 170, cy: 130 },
+  'fort-lauderdale': { cx: 232, cy: 180 },
+  'ft-lauderdale':   { cx: 232, cy: 180 },
+  'miami':           { cx: 228, cy: 192 },
+};
+
+// Merge ft-lauderdale into fort-lauderdale display
+const mergedCities = cities.reduce<CityInfo[]>((acc, city) => {
+  if (city.slug === 'ft-lauderdale') {
+    const existing = acc.find(c => c.slug === 'fort-lauderdale');
+    if (existing) {
+      existing.count += city.count;
+    } else {
+      acc.push({ slug: 'fort-lauderdale', displayName: 'Fort Lauderdale', count: city.count });
+    }
+  } else if (city.slug === 'fort-lauderdale') {
+    const existing = acc.find(c => c.slug === 'fort-lauderdale');
+    if (existing) {
+      existing.count += city.count;
+    } else {
+      acc.push(city);
+    }
+  } else {
+    acc.push(city);
+  }
+  return acc;
+}, []);
+
+const cityData = mergedCities
+  .filter(c => cityPositions[c.slug])
+  .map(c => ({
+    ...c,
+    ...cityPositions[c.slug],
+    href: `${basePath}/${c.slug === 'fort-lauderdale' ? 'fort-lauderdale' : c.slug}`,
+  }));
+
+const cityDataForScript = cityData.map(c => ({
+  slug: c.slug,
+  displayName: c.displayName,
+  count: c.count,
+  href: c.href,
+}));
+---
+
+<div class="florida-map-wrapper w-full max-w-2xl mx-auto select-none" style="position:relative;">
+  <svg
+    id="florida-map"
+    viewBox="0 0 300 220"
+    xmlns="http://www.w3.org/2000/svg"
+    class="w-full h-auto"
+    aria-label="Interactive Florida map — click a city to browse attorneys"
+  >
+    <style>
+      .florida-path {
+        fill: #bfdbfe;
+        stroke: #ffffff;
+        stroke-width: 1.5;
+      }
+      .city-marker {
+        fill: #2563eb;
+        cursor: pointer;
+        transition: fill 0.15s, r 0.15s;
+      }
+      .city-marker:hover {
+        fill: #1d4ed8;
+      }
+      .city-label {
+        pointer-events: none;
+        font-size: 7px;
+        font-family: system-ui, sans-serif;
+        font-weight: 600;
+        text-anchor: middle;
+        dominant-baseline: middle;
+        fill: #1e3a8a;
+      }
+    </style>
+
+    <!-- Florida outline path -->
+    <path
+      class="florida-path"
+      d="M 50,20 L 80,15 L 120,10 L 160,12 L 200,18 L 230,20 L 250,18 L 260,22 L 270,30 L 275,40 L 278,50 L 280,65 L 278,80 L 275,95 L 272,110 L 268,125 L 262,140 L 255,155 L 248,170 L 240,183 L 230,192 L 218,197 L 205,198 L 192,192 L 180,182 L 170,168 L 165,158 L 168,148 L 172,140 L 170,132 L 162,126 L 150,124 L 138,128 L 130,138 L 128,150 L 132,162 L 142,172 L 148,182 L 145,192 L 136,198 L 122,200 L 108,196 L 95,186 L 85,172 L 78,155 L 74,138 L 72,120 L 70,100 L 65,82 L 58,65 L 52,48 L 50,32 Z"
+    />
+
+    <!-- City markers -->
+    {cityData.map(city => (
+      <g
+        class="city-dot-group"
+        data-slug={city.slug}
+        data-href={city.href}
+        data-name={city.displayName}
+        data-count={city.count}
+        style="cursor:pointer"
+      >
+        <circle
+          class="city-marker"
+          cx={city.cx}
+          cy={city.cy}
+          r="5"
+        />
+        <text
+          class="city-label"
+          x={city.cx}
+          y={city.cy + 13}
+        >
+          {city.displayName}
+        </text>
+      </g>
+    ))}
+  </svg>
+
+  <div id="map-tooltip" style="position:absolute;pointer-events:none;background:rgba(15,23,42,0.88);color:#fff;padding:5px 10px;border-radius:6px;font-size:12px;white-space:nowrap;display:none;z-index:50;"></div>
+
+  <p class="text-center text-sm text-gray-500 mt-3">
+    <span class="inline-block w-3 h-3 rounded bg-blue-200 mr-1 align-middle"></span>
+    Florida — click a city to browse attorneys
+  </p>
+</div>
+
+<script define:vars={{ cityDataForScript }}>
+  var tooltip = document.getElementById('map-tooltip');
+  var wrapper = document.querySelector('.florida-map-wrapper');
+
+  document.querySelectorAll('.city-dot-group').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var href = el.getAttribute('data-href');
+      if (href) window.location.href = href;
+    });
+
+    el.addEventListener('mouseenter', function(e) {
+      var name = el.getAttribute('data-name');
+      var count = el.getAttribute('data-count');
+      if (tooltip && name && count) {
+        tooltip.textContent = name + ' — ' + count + ' attorney' + (parseInt(count) !== 1 ? 's' : '');
+        tooltip.style.display = 'block';
+      }
+    });
+
+    el.addEventListener('mousemove', function(e) {
+      if (!tooltip || !wrapper) return;
+      var rect = wrapper.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left + 12) + 'px';
+      tooltip.style.top = (e.clientY - rect.top - 36) + 'px';
+    });
+
+    el.addEventListener('mouseleave', function() {
+      if (tooltip) tooltip.style.display = 'none';
+    });
+  });
+</script>

@@ -1,0 +1,222 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import USAMapSVG from "../components/USAMapSVG.astro";
+import { getAllCities, getAttorneyCountByCity, getTotalAttorneyCount } from "../utils/attorneys";
+
+const cities = getAllCities();
+const totalAttorneys = getTotalAttorneyCount();
+
+// Build Florida as the one active "state" for the map
+const activeStates = [{
+  slug: "florida",
+  name: "Florida",
+  count: totalAttorneys,
+}];
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.findpiattorney.com/#organization",
+      "name": "Personal Injury Attorney Directory",
+      "url": "https://www.findpiattorney.com/",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "email": "info@findpiattorney.com",
+        "availableLanguage": "English"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.findpiattorney.com/#website",
+      "url": "https://www.findpiattorney.com/",
+      "name": "Personal Injury Attorney Directory"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a personal injury attorney?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A personal injury attorney is a lawyer who represents people who have been injured due to the negligence or wrongdoing of others. They help clients seek compensation for medical expenses, lost wages, and other damages."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find a personal injury attorney in Florida?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use our directory to browse personal injury attorneys by city in Florida. Each listing includes bar number, firm name, and contact information sourced from The Florida Bar."
+          }
+        }
+      ]
+    }
+  ]
+});
+---
+
+<BaseLayout
+  title="Personal Injury Attorneys in Florida | PI Attorney Directory"
+  description="Find personal injury attorneys across Florida. Browse our directory of licensed attorneys by city for accident, injury, and negligence cases."
+  canonical="https://www.findpiattorney.com/"
+  schema={schema}
+>
+  <Header />
+
+  <main class="flex-1">
+    <!-- Hero -->
+    <section class="relative bg-brand-900 text-white overflow-hidden">
+      <div class="relative page-container section-padding text-center">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+          Find Personal Injury Attorneys in Florida
+        </h1>
+        <div class="mt-4 mb-6 max-w-2xl mx-auto bg-white/10 border border-white/20 rounded-xl px-6 py-4 text-sm text-brand-100 leading-relaxed">
+          <strong class="text-white">The Personal Injury Attorney Directory connects accident victims, families, and legal teams with licensed Florida attorneys</strong> who handle personal injury, auto accidents, slip and fall, wrongful death, and catastrophic injury cases.
+        </div>
+        <p class="mt-4 text-lg text-brand-200 max-w-2xl mx-auto">
+          Browse {totalAttorneys.toLocaleString()} licensed attorneys across {cities.length} Florida cities.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/personal-injury-attorneys" class="btn-primary !bg-white !text-brand-900 hover:!bg-brand-100">Browse by State</a>
+          <a href="/what-is-personal-injury-law" class="btn-primary !bg-transparent !border-2 !border-white hover:!bg-white/10">What is Personal Injury Law?</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info cards -->
+    <section class="page-container section-padding">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-brand-50 border border-brand-100 rounded-xl overflow-hidden">
+          <div class="p-6">
+            <h2 class="text-xl font-bold text-brand-900 mb-3">What is a Personal Injury Attorney?</h2>
+            <p class="text-gray-700 leading-relaxed mb-3">
+              A personal injury attorney is a licensed lawyer who represents individuals who have been physically or psychologically injured due to the negligence or wrongdoing of another party.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+              They help clients navigate the legal process to obtain fair compensation for medical bills, lost income, pain and suffering, and other damages resulting from accidents or injuries.
+            </p>
+            <a href="/what-is-personal-injury-law" class="inline-block mt-4 text-brand-700 font-medium hover:text-brand-900 transition-colors">
+              What is personal injury law? →
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+          <div class="p-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Who Needs a Personal Injury Attorney?</h2>
+            <ul class="space-y-3 text-gray-700">
+              <li class="flex items-start gap-2">
+                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
+                <span><strong>Car accident victims</strong> seeking compensation for injuries, vehicle damage, and lost wages</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
+                <span><strong>Slip and fall victims</strong> injured on someone else's property due to negligence</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
+                <span><strong>Families</strong> pursuing wrongful death claims after losing a loved one</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="mt-1 w-2 h-2 rounded-full bg-brand-500 flex-shrink-0"></span>
+                <span><strong>Workers</strong> injured on the job who need guidance beyond workers' comp</span>
+              </li>
+            </ul>
+            <a href="/how-to-choose-a-pi-attorney" class="inline-block mt-4 text-brand-700 font-medium hover:text-brand-900 transition-colors">
+              How to choose a PI attorney →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map section -->
+    <section class="bg-gray-50">
+      <div class="page-container section-padding">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Find Personal Injury Attorneys Near You</h2>
+          <p class="text-gray-600 max-w-xl mx-auto">Click Florida to browse Personal Injury Attorneys in your area.</p>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="bg-brand-900 rounded-xl p-6 mb-6 text-white">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+            <div>
+              <div class="text-3xl font-bold">{totalAttorneys.toLocaleString()}</div>
+              <div class="text-brand-200 text-sm mt-1">Qualified Attorneys</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold">{cities.length}</div>
+              <div class="text-brand-200 text-sm mt-1">Florida Cities</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold">FL</div>
+              <div class="text-brand-200 text-sm mt-1">State Covered</div>
+            </div>
+            <div>
+              <div class="text-3xl font-bold">Free</div>
+              <div class="text-brand-200 text-sm mt-1">Directory Access</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4">
+          <USAMapSVG
+            activeStates={activeStates}
+            basePath="/personal-injury-attorneys"
+            tooltipLabel="Attorneys"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Why use our directory -->
+    <section class="bg-white">
+      <div class="page-container section-padding">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold text-gray-900">Why Use Our Directory?</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card p-5 text-center">
+            <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-1">Browse by City</h3>
+            <p class="text-sm text-gray-600">Find Personal Injury Attorneys organized by city across Florida.</p>
+          </div>
+
+          <div class="card p-5 text-center">
+            <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-1">Florida Bar Licensed</h3>
+            <p class="text-sm text-gray-600">All listed attorneys are licensed members of The Florida Bar.</p>
+          </div>
+
+          <div class="card p-5 text-center">
+            <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-gray-900 mb-1">Contact Directly</h3>
+            <p class="text-sm text-gray-600">Reach attorneys directly through their listed contact information — no middleman.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

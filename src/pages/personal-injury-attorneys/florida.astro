@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import { getAllCities, getAttorneyCountByCity, getCityName, getTotalAttorneyCount } from "../../utils/attorneys";
+
+const cities = getAllCities().map(city => ({
+  slug: city,
+  displayName: getCityName(city),
+  count: getAttorneyCountByCity(city),
+}));
+
+const totalAttorneys = getTotalAttorneyCount();
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "name": "Personal Injury Attorneys in Florida by City",
+      "numberOfItems": totalAttorneys,
+      "itemListElement": cities.map((city, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "url": `https://www.findpiattorney.com/personal-injury-attorneys/florida/${city.slug}`,
+        "name": city.displayName
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.findpiattorney.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Personal Injury Attorneys", "item": "https://www.findpiattorney.com/personal-injury-attorneys/" },
+        { "@type": "ListItem", "position": 3, "name": "Florida", "item": "https://www.findpiattorney.com/personal-injury-attorneys/florida" }
+      ]
+    }
+  ]
+});
+---
+
+<BaseLayout
+  title="Personal Injury Attorneys in Florida | PI Attorney Directory"
+  description={`Find ${totalAttorneys} personal injury attorneys across ${cities.length} Florida cities. Browse by city to find licensed attorneys for your injury case.`}
+  canonical="https://www.findpiattorney.com/personal-injury-attorneys/florida"
+  schema={schema}
+>
+  <Header />
+
+  <main class="flex-1">
+    <div class="page-container section-padding">
+      <Breadcrumb
+        links={[
+          { label: "Home", href: "/" },
+          { label: "Personal Injury Attorneys", href: "/personal-injury-attorneys" },
+          { label: "Florida", href: "/personal-injury-attorneys/florida" },
+        ]}
+      />
+
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">
+        Personal Injury Attorneys in Florida
+      </h1>
+      <p class="text-gray-600 mb-6">
+        Find qualified Personal Injury Attorneys in major cities across Florida.
+        {totalAttorneys.toLocaleString()} attorneys listed across {cities.length} cities.
+      </p>
+
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Select a City</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          {cities.map(({ slug, count, displayName }) => (
+            <a
+              href={`/personal-injury-attorneys/florida/${slug}`}
+              class="card p-4 hover:border-brand-400 transition-colors group flex items-center justify-between"
+            >
+              <span class="font-medium text-gray-800 group-hover:text-brand-700 transition-colors">{displayName}</span>
+              <span class="text-xs bg-brand-50 text-brand-700 px-2 py-0.5 rounded-full font-medium">
+                {count} {count !== 1 ? "Attorneys" : "Attorney"}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href="/personal-injury-attorneys" class="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-900 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Back to All Locations
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

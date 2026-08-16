@@ -1,0 +1,100 @@
+---
+import { getAllCities } from "../utils/attorneys";
+const email = "info@findpiattorney.com";
+const cities = getAllCities();
+---
+
+<footer class="bg-gray-900 text-gray-300 mt-auto">
+  <div class="page-container py-12">
+
+    <!-- 4-column main footer -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+
+      <!-- Column 1: About -->
+      <div>
+        <h3 class="text-white font-semibold text-base mb-3">Personal Injury Attorney Directory</h3>
+        <p class="text-sm text-gray-400 leading-relaxed mb-3">
+          A Florida-wide directory of personal injury attorneys. Search by city to find experienced attorneys who handle accident, injury, and negligence cases.
+        </p>
+        <p class="text-xs text-gray-500">Operated by FindPIAttorney.com, Florida</p>
+      </div>
+
+      <!-- Column 2: Contact -->
+      <div>
+        <h3 class="text-white font-semibold text-base mb-3">Contact</h3>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <a href={`mailto:${email}`} class="hover:text-white transition-colors">{email}</a>
+          </li>
+          <li class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Monday–Friday, 9am–6pm ET</span>
+          </li>
+          <li>
+            <a href="/contact" class="hover:text-white transition-colors text-sm">Contact us →</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Resources -->
+      <div>
+        <h3 class="text-white font-semibold text-base mb-3">Resources</h3>
+        <ul class="space-y-1.5 text-sm">
+          <li><a href="/what-is-personal-injury-law" class="hover:text-white transition-colors">What is personal injury law?</a></li>
+          <li><a href="/how-to-choose-a-pi-attorney" class="hover:text-white transition-colors">How to choose a PI attorney</a></li>
+          <li><a href="/personal-injury-attorneys" class="hover:text-white transition-colors">Browse all attorneys</a></li>
+          <li><a href="/contact" class="hover:text-white transition-colors">Contact us</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: Directory -->
+      <div>
+        <h3 class="text-white font-semibold text-base mb-3">Directory</h3>
+        <ul class="space-y-1.5 text-sm">
+          <li><a href="/personal-injury-attorneys" class="hover:text-white transition-colors">Browse by City</a></li>
+          <li><a href="/personal-injury-attorneys/florida" class="hover:text-white transition-colors">Florida Attorneys</a></li>
+          <li><a href="/contact" class="hover:text-white transition-colors">List your practice</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Cities block -->
+    <div class="border-t border-gray-800 pt-8 mb-8">
+      <h3 class="text-white text-sm font-semibold mb-4">Personal Injury Attorneys by City</h3>
+      <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-x-4 gap-y-1.5 text-xs">
+        {cities.map((city) => {
+          const name = city.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+          return <li><a href={`/personal-injury-attorneys/florida/${city}`} class="hover:text-white transition-colors">{name}</a></li>;
+        })}
+      </ul>
+    </div>
+
+    <!-- Legal bar -->
+    <div class="border-t border-gray-800 pt-6 mb-6">
+      <ul class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 justify-center md:justify-start">
+        <li><a href="/privacy-policy" class="hover:text-gray-300 transition-colors">Privacy Policy</a></li>
+        <li><a href="/terms-of-service" class="hover:text-gray-300 transition-colors">Terms of Service</a></li>
+        <li><a href="/advertising-disclosure" class="hover:text-gray-300 transition-colors">Advertising Disclosure</a></li>
+        <li><a href="/sitemap-index.xml" class="hover:text-gray-300 transition-colors">Sitemap</a></li>
+      </ul>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="border-t border-gray-800 pt-6 mb-6">
+      <p class="text-xs text-gray-500 leading-relaxed max-w-4xl">
+        This directory is an advertising and information service. It is not a referral service or a law firm. Listings do not constitute an endorsement, and inclusion is not a recommendation. Nothing on this site is legal advice. Verify all credentials directly with The Florida Bar before retaining any attorney.
+      </p>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-gray-800 pt-4 text-center text-xs text-gray-500">
+      <p>&copy; 2026 FindPIAttorney.com. All rights reserved. Listing data last updated August 2026.</p>
+    </div>
+
+  </div>
+</footer>

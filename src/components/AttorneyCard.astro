@@ -1,0 +1,48 @@
+---
+import type { Attorney } from "../types/attorney";
+
+interface Props {
+  attorney: Attorney;
+}
+
+const { attorney } = Astro.props;
+const cityName = attorney.cityDisplay || attorney.city.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+---
+
+<div class="card p-4 sm:p-5 flex flex-col sm:flex-row gap-4 group hover:border-brand-300">
+  <a href={`/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}`} class="flex-shrink-0">
+    <img
+      src={`/avatars/${attorney.slug}.svg`}
+      alt={attorney.name}
+      class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover bg-gray-200"
+      width="80" height="80" loading="lazy"
+    />
+  </a>
+
+  <div class="flex-1 min-w-0">
+    <div class="flex items-center gap-2 flex-wrap">
+      <a
+        href={`/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}`}
+        class="text-base font-semibold text-brand-800 hover:text-brand-600 transition-colors"
+      >
+        {attorney.name}
+      </a>
+    </div>
+    {attorney.firm && (
+      <p class="text-xs text-brand-600 font-medium mt-0.5">{attorney.firm}</p>
+    )}
+    <p class="text-xs text-gray-500 mt-1">{cityName}, FL</p>
+    {attorney.status && (
+      <p class="text-xs text-gray-600 mt-1.5 line-clamp-2">{attorney.status}</p>
+    )}
+  </div>
+
+  <div class="flex sm:flex-col justify-end gap-2 self-end sm:self-center flex-shrink-0">
+    <a
+      href={`/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}`}
+      class="text-xs font-medium text-brand-700 hover:text-brand-900 hover:underline"
+    >
+      View Profile
+    </a>
+  </div>
+</div>

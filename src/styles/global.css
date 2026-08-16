@@ -1,0 +1,39 @@
+/* Self-hosted Inter font */
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply scroll-smooth antialiased; }
+  body { @apply bg-white text-gray-800; }
+}
+
+@layer components {
+  .page-container { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .section-padding { @apply py-8 sm:py-12 lg:py-16; }
+  .card { @apply bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200; }
+  .btn-primary { @apply inline-flex items-center gap-2 bg-brand-700 text-white px-6 py-3 rounded-md font-medium hover:bg-brand-800 transition-colors; }
+  .btn-outline { @apply inline-flex items-center gap-2 border-2 border-brand-700 text-brand-700 px-6 py-3 rounded-md font-medium hover:bg-brand-50 transition-colors; }
+
+  .nav-dropdown { @apply relative inline-block; }
+  .nav-dropdown-content {
+    @apply absolute left-0 hidden bg-white rounded-md shadow-lg py-2 min-w-[200px] z-50;
+    top: 100%;
+    padding-top: 8px;
+  }
+  .nav-dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+  }
+  .nav-dropdown:hover .nav-dropdown-content { @apply block; }
+  .dropdown-item { @apply block px-4 py-2 text-sm text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-colors; }
+}
