@@ -6,7 +6,7 @@ import Breadcrumb from "../../../../components/Breadcrumb.astro";
 import { getAttorneysByState, getCityName } from "../../../../utils/attorneys";
 
 export async function getStaticPaths() {
-  const attorneys = getAttorneysByState("florida");
+  const attorneys = getAttorneysByState("new-jersey");
   return attorneys.map(attorney => ({
     params: { city: attorney.city, attorney: attorney.slug },
     props: { attorney }
@@ -27,7 +27,7 @@ const schema = JSON.stringify({
         "@type": "PostalAddress",
         "streetAddress": attorney.address,
         "addressLocality": cityName,
-        "addressRegion": "FL",
+        "addressRegion": "NJ",
         "addressCountry": "US"
       },
       ...(attorney.phone && { "telephone": attorney.phone }),
@@ -39,9 +39,9 @@ const schema = JSON.stringify({
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.findpiattorney.com/" },
         { "@type": "ListItem", "position": 2, "name": "Personal Injury Attorneys", "item": "https://www.findpiattorney.com/personal-injury-attorneys/" },
-        { "@type": "ListItem", "position": 3, "name": "Florida", "item": "https://www.findpiattorney.com/personal-injury-attorneys/florida" },
-        { "@type": "ListItem", "position": 4, "name": cityName, "item": `https://www.findpiattorney.com/personal-injury-attorneys/florida/${attorney.city}` },
-        { "@type": "ListItem", "position": 5, "name": attorney.name, "item": `https://www.findpiattorney.com/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}` }
+        { "@type": "ListItem", "position": 3, "name": "New Jersey", "item": "https://www.findpiattorney.com/personal-injury-attorneys/new-jersey" },
+        { "@type": "ListItem", "position": 4, "name": cityName, "item": `https://www.findpiattorney.com/personal-injury-attorneys/new-jersey/${attorney.city}` },
+        { "@type": "ListItem", "position": 5, "name": attorney.name, "item": `https://www.findpiattorney.com/personal-injury-attorneys/new-jersey/${attorney.city}/${attorney.slug}` }
       ]
     }
   ]
@@ -49,9 +49,9 @@ const schema = JSON.stringify({
 ---
 
 <BaseLayout
-  title={`${attorney.name} — Personal Injury Attorney in ${cityName}, FL`}
-  description={`${attorney.name}${attorney.firm ? ` at ${attorney.firm}` : ''} is a personal injury attorney in ${cityName}, Florida. Florida Bar #${attorney.barNumber}.`}
-  canonical={`https://www.findpiattorney.com/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}`}
+  title={`${attorney.name} — Personal Injury Attorney in ${cityName}, NJ`}
+  description={`${attorney.name}${attorney.firm ? ` at ${attorney.firm}` : ''} is a personal injury attorney in ${cityName}, New Jersey. New Jersey Bar #${attorney.barNumber}.`}
+  canonical={`https://www.findpiattorney.com/personal-injury-attorneys/new-jersey/${attorney.city}/${attorney.slug}`}
   schema={schema}
 >
   <Header />
@@ -62,9 +62,9 @@ const schema = JSON.stringify({
         links={[
           { label: "Home", href: "/" },
           { label: "Personal Injury Attorneys", href: "/personal-injury-attorneys" },
-          { label: "Florida", href: "/personal-injury-attorneys/florida" },
-          { label: cityName, href: `/personal-injury-attorneys/florida/${attorney.city}` },
-          { label: attorney.name, href: `/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}` },
+          { label: "New Jersey", href: "/personal-injury-attorneys/new-jersey" },
+          { label: cityName, href: `/personal-injury-attorneys/new-jersey/${attorney.city}` },
+          { label: attorney.name, href: `/personal-injury-attorneys/new-jersey/${attorney.city}/${attorney.slug}` },
         ]}
       />
 
@@ -81,9 +81,9 @@ const schema = JSON.stringify({
             <div class="flex-1 text-center sm:text-left">
               <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">{attorney.name}</h1>
               {attorney.firm && (
-                <p class="text-lg text-brand-700 font-semibold mb-1">{attorney.firm}</p>
+               <p class="text-lg text-brand-700 font-semibold mb-1">{attorney.firm}</p>
               )}
-              <p class="text-gray-500 mb-3">Personal Injury Attorney · {cityName}, FL</p>
+              <p class="text-gray-500 mb-3">Personal Injury Attorney · {cityName}, NJ</p>
               {attorney.status && attorney.status.toLowerCase().includes('good standing') && (
                 <span class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -123,7 +123,7 @@ const schema = JSON.stringify({
               <dl class="space-y-3">
                 {attorney.barNumber && (
                   <div>
-                    <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">Florida Bar Number</dt>
+                    <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">New Jersey Bar Number</dt>
                     <dd class="text-gray-800 font-semibold">{attorney.barNumber}</dd>
                   </div>
                 )}
@@ -153,9 +153,7 @@ const schema = JSON.stringify({
             <div class="card p-5 bg-brand-50 border-brand-200">
               <h3 class="text-sm font-bold text-brand-900 mb-2 uppercase tracking-wide">Disclaimer</h3>
               <p class="text-xs text-brand-700 leading-relaxed">
-                This listing is sourced from public Florida Bar records. Verify credentials directly with
-                <a href="https://www.floridabar.org" target="_blank" rel="noopener noreferrer" class="underline">The Florida Bar</a>
-                before retaining this attorney.
+                This listing is sourced from public New Jersey Bar records. Verify credentials directly with the state bar before retaining this attorney.
               </p>
             </div>
           </div>
@@ -164,7 +162,7 @@ const schema = JSON.stringify({
         <!-- Back button at the bottom -->
         <div class="mt-8 pt-6 border-t border-gray-200">
           <a
-            href={`/personal-injury-attorneys/florida/${attorney.city}`}
+            href={`/personal-injury-attorneys/new-jersey/${attorney.city}`}
             class="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-900 transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

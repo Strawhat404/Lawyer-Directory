@@ -24,7 +24,20 @@ import openpyxl
 OUTPUT_FILE = Path("src") / "data" / "attorneys.json"
 
 # XLSX files to process
-XLSX_PATTERN = "*Area Data*.xlsx"
+XLSX_PATTERN = "*.xlsx"
+
+STATE_ABBREV_TO_SLUG = {
+    "FL": "florida",
+    "NJ": "new-jersey",
+    "NY": "new-york",
+    "CA": "california",
+    "TX": "texas",
+    "GA": "georgia",
+    "PA": "pennsylvania",
+    "IL": "illinois",
+    "OH": "ohio",
+    "NC": "north-carolina",
+}
 
 
 def slugify(text):
@@ -96,15 +109,38 @@ def parse_address(address):
     if not address:
         return "", "FL"
     
-    # Address format: "123 Main St, City, FL 12345"
-    # Extract city and state
-    match = re.search(r',\s*([^,]+),\s*([A-Z]{2})\s+\d{5}', address)
+    address_clean = re.sub(r'\s+', ' ', address.strip())
+    
+    # Pattern 1: "..., City, ST ZIPCODE" (comma before city)
+    match = re.search(r',\s*([A-Za-z][^,]+?),\s*([A-Z]{2})\s+\d{5}', address_clean)
     if match:
         city = normalize_city_name(match.group(1).strip())
         state = match.group(2).strip()
         return city, state
-    
-    # Fallback: all attorneys are in Florida
+
+    # Pattern 2: "... CityName, ST ZIPCODE" or "... CityName, New Jersey ZIPCODE"
+    # Handles cases like "48 South Street Morristown, NJ 07960"
+    # or "48 South Street Morristown, New Jersey 07960"
+    match = re.search(r'\s([A-Z][a-zA-Z\s]+(?:Township|Borough|City)?),\s*(NJ|FL|NY|CA|TX|New\s+Jersey|New\s+York|Florida)\s+\d{5}', address_clean)
+    if match:
+        city = normalize_city_name(match.group(1).strip())
+        raw_state = match.group(2).strip()
+        # Normalize full state names to abbreviations
+        state_map = {
+            "New Jersey": "NJ", "New York": "NY", "Florida": "FL",
+            "California": "CA", "Texas": "TX"
+        }
+        state = state_map.get(raw_state, raw_state)
+        return city, state
+
+    # Pattern 3: No comma — "123 Street CityName ST ZIPCODE"
+    # e.g. "601 Longwood Ave Cherry Hill NJ 08002"
+    match = re.search(r'\b([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)?)\s+([A-Z]{2})\s+\d{5}\s*$', address_clean)
+    if match:
+        city = normalize_city_name(match.group(1).strip())
+        state = match.group(2).strip()
+        return city, state
+
     return "", "FL"
 
 
@@ -131,21 +167,27 @@ def parse_attorney_row(row: dict, index: int, source_file: str) -> dict | None:
     # Parse city from address
     city, state_code = parse_address(address)
     
-    # If no city parsed, try to infer from source file
+    # If no city parsed, try to infer from source file name
     if not city and source_file:
-        # Extract city from filename: "Miami Area Data.xlsx" -> "Miami"
         filename_match = re.match(r'([^/]+?)\s+Area\s+Data', source_file)
         if filename_match:
             city = filename_match.group(1)
     
     if not city:
-        city = "Florida"  # Default fallback
-    
+        city = "Unknown"
+
+    # Determine state slug
+    state_slug = STATE_ABBREV_TO_SLUG.get(state_code, slugify(state_code) if state_code else "unknown")
+
+    # Skip if we couldn't determine state or city
+    if state_slug == "unknown" or city == "Unknown":
+        return None
+
     city_slug = slugify(city)
-    state_slug = "florida"
 
     # Generate description
-    description = f"Personal injury attorney at {firm}" if firm else f"Personal injury attorney in {city}, Florida"
+    state_display = state_code if state_code else "USA"
+    description = f"Personal injury attorney at {firm}" if firm else f"Personal injury attorney in {city}, {state_display}"
 
     # Slug from name — make unique with index if needed
     attorney_slug = slugify(name)
@@ -250,6 +292,7 @@ def main():
 
     # Gather metadata
     cities = sorted(set(a["city"] for a in all_attorneys if a["city"]))
+    states = sorted(set(a["state"] for a in all_attorneys if a["state"]))
     
     data = {
         "attorneys": all_attorneys,
@@ -259,6 +302,7 @@ def main():
             "skipped": total_raw_count - len(all_attorneys),
             "lastUpdated": date.today().isoformat(),
             "cities": cities,
+            "states": states,
             "filesProcessed": len(xlsx_files),
         },
     }
@@ -269,6 +313,7 @@ def main():
 
     print(f"\n✓ Imported {len(all_attorneys)} attorneys from {len(xlsx_files)} files")
     print(f"   Raw rows: {total_raw_count} | Skipped: {data['metadata']['skipped']} | Kept: {len(all_attorneys)}")
+    print(f"   States: {', '.join(states)}")
     print(f"   Cities: {len(cities)}")
     print(f"   Output: {OUTPUT_FILE}")
 

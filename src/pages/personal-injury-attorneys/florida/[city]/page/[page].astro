@@ -1,25 +1,40 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import Header from "../../../components/Header.astro";
-import Footer from "../../../components/Footer.astro";
-import Breadcrumb from "../../../components/Breadcrumb.astro";
-import AttorneyCard from "../../../components/AttorneyCard.astro";
-import Pagination from "../../../components/Pagination.astro";
-import { getCitiesByState, getAttorneysByStateAndCity, getCityName } from "../../../utils/attorneys";
+import BaseLayout from "../../../../../layouts/BaseLayout.astro";
+import Header from "../../../../../components/Header.astro";
+import Footer from "../../../../../components/Footer.astro";
+import Breadcrumb from "../../../../../components/Breadcrumb.astro";
+import AttorneyCard from "../../../../../components/AttorneyCard.astro";
+import Pagination from "../../../../../components/Pagination.astro";
+import { getCitiesByState, getAttorneysByStateAndCity, getCityName } from "../../../../../utils/attorneys";
 
 const ITEMS_PER_PAGE = 20;
 
 export async function getStaticPaths() {
+  const ITEMS_PER_PAGE = 20;
   const cities = getCitiesByState("florida");
-  return cities.map(city => ({ params: { city } }));
+  const paths: { params: { city: string; page: string }; props: { totalCount: number } }[] = [];
+
+  for (const city of cities) {
+    const attorneys = getAttorneysByStateAndCity("florida", city);
+    const totalPages = Math.ceil(attorneys.length / ITEMS_PER_PAGE);
+    for (let p = 2; p <= totalPages; p++) {
+      paths.push({
+        params: { city, page: String(p) },
+        props: { totalCount: attorneys.length },
+      });
+    }
+  }
+  return paths;
 }
 
-const { city } = Astro.params;
-const allAttorneys = getAttorneysByStateAndCity("florida", city);
+const { city, page } = Astro.params;
+const { totalCount } = Astro.props;
+const currentPage = Number(page);
 const cityName = getCityName(city);
 
+const allAttorneys = getAttorneysByStateAndCity("florida", city);
 const totalPages = Math.ceil(allAttorneys.length / ITEMS_PER_PAGE);
-const attorneys = allAttorneys.slice(0, ITEMS_PER_PAGE);
+const attorneys = allAttorneys.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 const baseUrl = `/personal-injury-attorneys/florida/${city}`;
 
 const schema = JSON.stringify({
@@ -27,8 +42,8 @@ const schema = JSON.stringify({
   "@graph": [
     {
       "@type": "ItemList",
-      "name": `Personal Injury Attorneys in ${cityName}, Florida`,
-      "numberOfItems": allAttorneys.length,
+      "name": `Personal Injury Attorneys in ${cityName}, Florida — Page ${currentPage}`,
+      "numberOfItems": totalCount,
     },
     {
       "@type": "BreadcrumbList",
@@ -44,9 +59,9 @@ const schema = JSON.stringify({
 ---
 
 <BaseLayout
-  title={`${cityName} Personal Injury Attorneys | Florida PI Directory`}
-  description={`Find ${allAttorneys.length} personal injury attorneys in ${cityName}, Florida. Browse licensed attorneys for accident and injury cases.`}
-  canonical={`https://www.findpiattorney.com/personal-injury-attorneys/florida/${city}`}
+  title={`${cityName} Personal Injury Attorneys — Page ${currentPage} | Florida PI Directory`}
+  description={`Page ${currentPage} of ${totalPages} — Browse personal injury attorneys in ${cityName}, Florida.`}
+  canonical={`https://www.findpiattorney.com/personal-injury-attorneys/florida/${city}/page/${currentPage}`}
   schema={schema}
 >
   <Header />
@@ -59,6 +74,7 @@ const schema = JSON.stringify({
           { label: "Personal Injury Attorneys", href: "/personal-injury-attorneys" },
           { label: "Florida", href: "/personal-injury-attorneys/florida" },
           { label: cityName, href: `/personal-injury-attorneys/florida/${city}` },
+          { label: `Page ${currentPage}`, href: `/personal-injury-attorneys/florida/${city}/page/${currentPage}` },
         ]}
       />
 
@@ -66,8 +82,8 @@ const schema = JSON.stringify({
         Personal Injury Attorneys in {cityName}, Florida
       </h1>
       <p class="text-gray-600 mb-8">
-        {allAttorneys.length} {allAttorneys.length === 1 ? 'attorney' : 'attorneys'} found in {cityName}, FL
-        {totalPages > 1 && <span class="text-gray-400"> — Page 1 of {totalPages}</span>}
+        {totalCount} {totalCount === 1 ? 'attorney' : 'attorneys'} found in {cityName}, FL
+        <span class="text-gray-400"> — Page {currentPage} of {totalPages}</span>
       </p>
 
       <div class="space-y-4">
@@ -76,7 +92,7 @@ const schema = JSON.stringify({
         ))}
       </div>
 
-      <Pagination currentPage={1} totalPages={totalPages} baseUrl={baseUrl} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl={baseUrl} />
 
       <div class="mt-8 text-center">
         <a href="/personal-injury-attorneys/florida" class="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-900 transition-colors">
@@ -91,5 +107,3 @@ const schema = JSON.stringify({
 
   <Footer />
 </BaseLayout>
-
-

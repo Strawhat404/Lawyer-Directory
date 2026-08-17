@@ -1,7 +1,10 @@
 ---
-import { getAllCities } from "../utils/attorneys";
+import { getAttorneyCountByState } from "../utils/attorneys";
 const email = "info@findpiattorney.com";
-const cities = getAllCities();
+const states = [
+  { slug: "florida", name: "Florida", count: getAttorneyCountByState("florida") },
+  { slug: "new-jersey", name: "New Jersey", count: getAttorneyCountByState("new-jersey") },
+];
 ---
 
 <footer class="bg-gray-900 text-gray-300 mt-auto">
@@ -14,7 +17,7 @@ const cities = getAllCities();
       <div>
         <h3 class="text-white font-semibold text-base mb-3">Personal Injury Attorney Directory</h3>
         <p class="text-sm text-gray-400 leading-relaxed mb-3">
-          A nationwide directory of personal injury attorneys — currently covering Florida, expanding to all 50 states. Search by city to find experienced attorneys for your case.
+          A nationwide directory of personal injury attorneys — currently covering Florida and New Jersey, expanding to all 50 states. Search by state and city to find experienced attorneys for your case.
         </p>
         <p class="text-xs text-gray-500">Operated by FindPIAttorney.com</p>
       </div>
@@ -53,25 +56,29 @@ const cities = getAllCities();
         </ul>
       </div>
 
-      <!-- Column 4: Directory -->
+      <!-- Column 4: Legal & Policies -->
       <div>
-        <h3 class="text-white font-semibold text-base mb-3">Directory</h3>
+        <h3 class="text-white font-semibold text-base mb-3">Legal & Policies</h3>
         <ul class="space-y-1.5 text-sm">
-          <li><a href="/personal-injury-attorneys" class="hover:text-white transition-colors">Browse by City</a></li>
-          <li><a href="/personal-injury-attorneys/florida" class="hover:text-white transition-colors">Florida Attorneys</a></li>
+          <li><a href="/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms-of-service" class="hover:text-white transition-colors">Terms of Service</a></li>
+          <li><a href="/advertising-disclosure" class="hover:text-white transition-colors">Advertising Disclosure</a></li>
           <li><a href="/contact" class="hover:text-white transition-colors">List your practice</a></li>
         </ul>
       </div>
     </div>
 
-    <!-- Cities block -->
+    <!-- States block -->
     <div class="border-t border-gray-800 pt-8 mb-8">
-      <h3 class="text-white text-sm font-semibold mb-4">Personal Injury Attorneys by City</h3>
-      <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-x-4 gap-y-1.5 text-xs">
-        {cities.map((city) => {
-          const name = city.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-          return <li><a href={`/personal-injury-attorneys/florida/${city}`} class="hover:text-white transition-colors">{name}</a></li>;
-        })}
+      <h3 class="text-white text-sm font-semibold mb-4">Personal Injury Attorneys by State</h3>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 text-xs">
+        {states.map(({ slug, name, count }) => (
+          <li>
+            <a href={`/personal-injury-attorneys/${slug}`} class="hover:text-white transition-colors">
+              {name} <span class="text-gray-500">({count.toLocaleString()})</span>
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
 
@@ -88,7 +95,7 @@ const cities = getAllCities();
     <!-- Disclaimer -->
     <div class="border-t border-gray-800 pt-6 mb-6">
       <p class="text-xs text-gray-500 leading-relaxed max-w-4xl">
-        This directory is an advertising and information service. It is not a referral service or a law firm. Listings do not constitute an endorsement, and inclusion is not a recommendation. Nothing on this site is legal advice. Verify all credentials directly with The Florida Bar before retaining any attorney.
+        This directory is an advertising and information service. It is not a referral service or a law firm. Listings do not constitute an endorsement, and inclusion is not a recommendation. Nothing on this site is legal advice. Verify all credentials directly with your state bar before retaining any attorney.
       </p>
     </div>
 

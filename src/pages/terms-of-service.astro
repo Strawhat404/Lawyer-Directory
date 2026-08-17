@@ -5,57 +5,213 @@ import Footer from "../components/Footer.astro";
 ---
 
 <BaseLayout
-  title="Terms of Service | Personal Injury Attorney Directory"
-  description="Terms of service for the Personal Injury Attorney Directory."
+  title="Terms of Service | FindPIAttorney.com"
+  description="Read the Terms of Service for FindPIAttorney.com — your rights, responsibilities, and limitations when using our personal injury attorney directory."
   canonical="https://www.findpiattorney.com/terms-of-service"
 >
   <Header />
   <main class="flex-1">
-    <section class="section-padding">
-      <div class="page-container">
-        <div class="max-w-3xl mx-auto prose prose-lg">
-          <h1>Terms of Service</h1>
-          
-          <p><strong>Last Updated:</strong> August 15, 2026</p>
 
-          <h2>Acceptance of Terms</h2>
-          <p>
-            By accessing and using this website, you accept and agree to be bound by the terms and conditions of this agreement.
-          </p>
+    <!-- Hero -->
+    <section class="bg-brand-900 text-white py-14">
+      <div class="page-container text-center">
+        <div class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4 border border-white/20">
+          Legal Document
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Terms of Service</h1>
+        <p class="mt-3 text-brand-200 max-w-xl mx-auto text-sm">
+          Please read these terms carefully before using FindPIAttorney.com. By accessing our site, you agree to be bound by these terms.
+        </p>
+        <p class="mt-4 text-xs text-brand-300">Last Updated: August 17, 2026 &nbsp;·&nbsp; Effective: August 17, 2026</p>
+      </div>
+    </section>
 
-          <h2>Description of Service</h2>
-          <p>
-            Personal Injury Attorney Directory is an informational directory website that provides public information about attorneys licensed to practice in Florida. This is not a referral service, and we do not endorse or recommend any particular attorney.
-          </p>
+    <section class="page-container section-padding">
+      <div class="max-w-3xl mx-auto">
 
-          <h2>No Legal Advice</h2>
-          <p>
-            The information on this website is for general informational purposes only and does not constitute legal advice. You should consult with a qualified attorney for advice specific to your situation.
-          </p>
+        <!-- Quick Summary -->
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-10">
+          <h2 class="text-base font-bold text-amber-900 mb-3 uppercase tracking-wide">Important Notice</h2>
+          <ul class="space-y-2 text-sm text-amber-800">
+            <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5 font-bold">!</span> This website is an informational directory — not a law firm, referral service, or legal counsel.</li>
+            <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5 font-bold">!</span> Nothing on this site constitutes legal advice. Always consult a licensed attorney for your specific situation.</li>
+            <li class="flex items-start gap-2"><span class="text-amber-600 mt-0.5 font-bold">!</span> Verify all attorney credentials directly with your state bar before retaining any attorney.</li>
+          </ul>
+        </div>
 
-          <h2>Attorney Information</h2>
-          <p>
-            Attorney listings are compiled from public records. We make efforts to ensure accuracy but cannot guarantee that all information is current or complete. Users should verify attorney credentials directly with The Florida Bar before retaining an attorney.
-          </p>
+        <div class="space-y-10 text-gray-700 leading-relaxed">
 
-          <h2>Limitation of Liability</h2>
-          <p>
-            We are not responsible for any errors, omissions, or inaccuracies in the attorney information displayed. We are not liable for any outcomes resulting from contact with or retention of attorneys listed on this site.
-          </p>
+          <!-- Section 1 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">1. Acceptance of Terms</h2>
+            <p>
+              By accessing or using the website located at <strong>https://www.findpiattorney.com</strong> ("the Site"), operated by FindPIAttorney.com ("we," "us," or "our"), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service ("Terms"), as well as our <a href="/privacy-policy" class="text-brand-700 underline font-medium">Privacy Policy</a> and <a href="/advertising-disclosure" class="text-brand-700 underline font-medium">Advertising Disclosure</a>.
+            </p>
+            <p class="mt-3">
+              If you do not agree to these Terms, please discontinue use of the Site immediately. We reserve the right to modify these Terms at any time, with changes taking effect upon posting. Your continued use of the Site after any modification constitutes acceptance of the updated Terms.
+            </p>
+          </div>
 
-          <h2>Changes to Terms</h2>
-          <p>
-            We reserve the right to modify these terms at any time. Continued use of the website after changes constitutes acceptance of the modified terms.
-          </p>
+          <!-- Section 2 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">2. Nature of Service</h2>
+            <p>
+              FindPIAttorney.com is an independent, online informational directory that compiles publicly available information about personal injury attorneys licensed in the United States. Our current coverage includes Florida and New Jersey, with expansion to additional states ongoing.
+            </p>
+            <p class="mt-3">Specifically, FindPIAttorney.com is:</p>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex gap-2"><span class="text-green-600 font-bold">✓</span> An informational resource and public attorney index</li>
+              <li class="flex gap-2"><span class="text-green-600 font-bold">✓</span> A directory compiled from public bar association records</li>
+              <li class="flex gap-2"><span class="text-green-600 font-bold">✓</span> A free tool to help individuals locate licensed attorneys in their area</li>
+            </ul>
+            <p class="mt-4">FindPIAttorney.com is <strong>not</strong>:</p>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> A law firm or legal practice of any kind</li>
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> An attorney referral service as defined under applicable state bar rules</li>
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> A provider of legal advice, legal opinions, or legal representation</li>
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> An endorser or certifier of any attorney listed on this Site</li>
+            </ul>
+          </div>
 
-          <h2>Contact</h2>
-          <p>
-            Questions about these terms should be directed to:
-            <a href="mailto:info@findpiattorney.com">info@findpiattorney.com</a>
-          </p>
+          <!-- Section 3 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">3. No Legal Advice</h2>
+            <p>
+              <strong>Nothing on this website constitutes legal advice, legal counsel, or the establishment of an attorney-client relationship.</strong> All content, including attorney profiles, articles, guides, and FAQs, is provided for general informational purposes only.
+            </p>
+            <p class="mt-3">
+              Laws vary by jurisdiction and change frequently. Information on this Site may not reflect the most current legal developments. You should always consult with a qualified, licensed attorney before making any legal decisions or taking any action based on information you find here.
+            </p>
+          </div>
+
+          <!-- Section 4 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">4. Accuracy of Attorney Information</h2>
+            <p>
+              Attorney listings on this Site are compiled from publicly available records maintained by state bar associations. While we make reasonable efforts to ensure accuracy, we make <strong>no warranties or representations</strong> — express or implied — regarding the completeness, timeliness, accuracy, or fitness for a particular purpose of any information displayed.
+            </p>
+            <p class="mt-3">Attorney information may become outdated due to changes in:</p>
+            <ul class="mt-2 space-y-1.5 list-disc list-inside text-sm">
+              <li>Bar licensure status (suspension, reinstatement, disbarment)</li>
+              <li>Firm affiliation, address, or contact details</li>
+              <li>Practice areas or specializations</li>
+              <li>Disciplinary actions or sanctions</li>
+            </ul>
+            <p class="mt-3">
+              <strong>You are solely responsible for independently verifying an attorney's current credentials, licensure status, and fitness for your case</strong> directly with the applicable state bar association before initiating contact, engaging services, or making any legal decisions.
+            </p>
+          </div>
+
+          <!-- Section 5 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">5. Intellectual Property</h2>
+            <p>
+              All content on this Site — including but not limited to text, graphics, design, layout, code, logos, and compiled data — is the property of FindPIAttorney.com or its licensors and is protected by applicable copyright, trademark, and intellectual property laws.
+            </p>
+            <p class="mt-3">
+              You may view, print, and use the content of this Site for personal, non-commercial purposes only. You may not reproduce, republish, distribute, scrape, copy, modify, create derivative works from, or commercially exploit any content without our express prior written consent.
+            </p>
+          </div>
+
+          <!-- Section 6 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">6. Prohibited Conduct</h2>
+            <p>You agree not to:</p>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> Use the Site for any unlawful purpose or in violation of any regulations</li>
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> Scrape, data-mine, or systematically extract attorney data for commercial use</li>
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> Introduce viruses, malware, or any harmful code to the Site</li>
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> Attempt to gain unauthorized access to any portion of the Site or its servers</li>
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> Misrepresent your identity or impersonate any person or entity</li>
+              <li class="flex gap-2"><span class="text-red-500 font-bold">✗</span> Use the Site to send unsolicited communications (spam) to attorneys or others</li>
+            </ul>
+          </div>
+
+          <!-- Section 7 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">7. Third-Party Links</h2>
+            <p>
+              The Site may contain links to third-party websites, including state bar association portals and external legal resources. These links are provided for your convenience only. We have no control over the content, accuracy, or practices of third-party sites and accept no responsibility for them. The inclusion of any link does not imply endorsement of the linked site.
+            </p>
+          </div>
+
+          <!-- Section 8 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">8. Disclaimer of Warranties</h2>
+            <p>
+              <strong>THIS SITE AND ALL CONTENT ARE PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT ANY WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.</strong> To the fullest extent permitted by applicable law, we expressly disclaim all warranties, including but not limited to implied warranties of merchantability, fitness for a particular purpose, non-infringement, and accuracy.
+            </p>
+            <p class="mt-3">
+              We do not warrant that the Site will be uninterrupted, error-free, or free of viruses or other harmful components. We do not warrant that any results obtained through the use of this Site will be accurate or reliable.
+            </p>
+          </div>
+
+          <!-- Section 9 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">9. Limitation of Liability</h2>
+            <p>
+              <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW, FINDPIATTORNEY.COM AND ITS OWNERS, OPERATORS, EMPLOYEES, AGENTS, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES</strong> arising out of or relating to your use of, or inability to use, this Site or any information contained herein.
+            </p>
+            <p class="mt-3">This includes, without limitation, damages arising from:</p>
+            <ul class="mt-2 space-y-1.5 list-disc list-inside text-sm">
+              <li>Reliance on attorney information displayed on this Site</li>
+              <li>Any outcome resulting from contacting or retaining any attorney listed herein</li>
+              <li>Errors, omissions, or inaccuracies in attorney profiles</li>
+              <li>Unauthorized access to or alteration of your data</li>
+              <li>Any other matter relating to this Site</li>
+            </ul>
+          </div>
+
+          <!-- Section 10 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">10. Indemnification</h2>
+            <p>
+              You agree to defend, indemnify, and hold harmless FindPIAttorney.com, its owners, operators, employees, agents, and affiliates from and against any and all claims, liabilities, damages, losses, costs, and expenses (including reasonable attorneys' fees) arising out of or in connection with: (a) your use of the Site; (b) your violation of these Terms; or (c) your violation of any third-party rights.
+            </p>
+          </div>
+
+          <!-- Section 11 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">11. Governing Law & Dispute Resolution</h2>
+            <p>
+              These Terms shall be governed by and construed in accordance with the laws of the State of Florida, without regard to its conflict of law principles. Any dispute arising under or relating to these Terms shall be subject to the exclusive jurisdiction of the state and federal courts located in the State of Florida.
+            </p>
+            <p class="mt-3">
+              You agree to first attempt to resolve any dispute informally by contacting us at <a href="mailto:info@findpiattorney.com" class="text-brand-700 underline font-medium">info@findpiattorney.com</a>. We will make good-faith efforts to resolve disputes within 30 days of receiving written notice.
+            </p>
+          </div>
+
+          <!-- Section 12 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">12. Severability</h2>
+            <p>
+              If any provision of these Terms is found to be unlawful, void, or unenforceable by a court of competent jurisdiction, that provision shall be severed from the remaining Terms, which shall continue in full force and effect.
+            </p>
+          </div>
+
+          <!-- Section 13 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">13. Entire Agreement</h2>
+            <p>
+              These Terms, together with our <a href="/privacy-policy" class="text-brand-700 underline font-medium">Privacy Policy</a> and <a href="/advertising-disclosure" class="text-brand-700 underline font-medium">Advertising Disclosure</a>, constitute the entire agreement between you and FindPIAttorney.com concerning your use of the Site and supersede all prior agreements and understandings, whether written or oral.
+            </p>
+          </div>
+
+          <!-- Section 14 -->
+          <div class="border-l-4 border-brand-500 pl-6">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">14. Contact</h2>
+            <p>For questions or concerns regarding these Terms, please contact us:</p>
+            <div class="mt-4 bg-gray-50 border border-gray-200 rounded-xl p-5 text-sm space-y-2">
+              <p><strong>FindPIAttorney.com</strong></p>
+              <p>Email: <a href="mailto:info@findpiattorney.com" class="text-brand-700 underline font-medium">info@findpiattorney.com</a></p>
+              <p>Response time: Within 30 business days</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
+
   </main>
   <Footer />
 </BaseLayout>

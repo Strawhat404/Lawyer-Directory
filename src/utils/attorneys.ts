@@ -7,8 +7,20 @@ export function getAllCities(): string[] {
   return [...new Set(attorneys.map((a) => a.city))].sort();
 }
 
+export function getCitiesByState(stateSlug: string): string[] {
+  return [...new Set(attorneys.filter((a) => a.state === stateSlug).map((a) => a.city))].sort();
+}
+
 export function getAttorneysByCity(city: string): Attorney[] {
   return attorneys.filter((a) => a.city === city).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getAttorneysByState(stateSlug: string): Attorney[] {
+  return attorneys.filter((a) => a.state === stateSlug).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+export function getAttorneysByStateAndCity(stateSlug: string, city: string): Attorney[] {
+  return attorneys.filter((a) => a.state === stateSlug && a.city === city).sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export function getAttorneyBySlug(slug: string): Attorney | undefined {
@@ -25,6 +37,10 @@ export const getCityName = getCityDisplayName;
 
 export function getAttorneyCountByCity(city: string): number {
   return attorneys.filter((a) => a.city === city).length;
+}
+
+export function getAttorneyCountByState(stateSlug: string): number {
+  return attorneys.filter((a) => a.state === stateSlug).length;
 }
 
 export function getAllAttorneys(): Attorney[] {

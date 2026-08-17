@@ -3,16 +3,23 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import USAMapSVG from "../components/USAMapSVG.astro";
-import { getAllCities, getTotalAttorneyCount } from "../utils/attorneys";
+import { getAllCities, getTotalAttorneyCount, getAttorneyCountByState } from "../utils/attorneys";
 
 const cities = getAllCities();
 const totalAttorneys = getTotalAttorneyCount();
 
-const activeStates = [{
-  slug: "florida",
-  name: "Florida",
-  count: totalAttorneys,
-}];
+const activeStates = [
+  {
+    slug: "florida",
+    name: "Florida",
+    count: getAttorneyCountByState("florida"),
+  },
+  {
+    slug: "new-jersey",
+    name: "New Jersey",
+    count: getAttorneyCountByState("new-jersey"),
+  },
+];
 
 const schema = JSON.stringify({
   "@context": "https://schema.org",
