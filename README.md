@@ -1,31 +1,32 @@
 # Personal Injury Attorney Directory
 
-A comprehensive directory of personal injury attorneys in Florida, built with Astro and styled with Tailwind CSS.
+A comprehensive directory of personal injury attorneys in Florida and New Jersey, built with Astro and styled with Tailwind CSS.
 
 ## Project Overview
 
-This directory features **1,866 attorneys** across **7 Florida cities**, providing an easy-to-navigate resource for finding personal injury attorneys by location.
+This directory provides an easy-to-navigate resource for finding personal injury attorneys by state, city, and individual attorney profiles across Florida and New Jersey.
 
 ## Features
 
-- 🌐 **Static site generation** with Astro
-- 📍 **City-based browsing** - Browse attorneys by Florida city
-- 👤 **Individual attorney profiles** - Detailed information including contact details, bar number, and firm
-- 🎨 **SVG avatar generation** - Unique avatar for each attorney
-- 📱 **Responsive design** - Mobile-friendly interface
-- 🔍 **SEO optimized** - Schema markup and sitemap generation
-- ⚡ **Fast performance** - Static HTML with no runtime dependencies
+- Static site generation with Astro for optimal performance and SEO
+- Multi-state support with state-isolated data filtering (Florida & New Jersey)
+- City-based directory listings with static pagination (20 attorneys per page)
+- Individual attorney profile pages with contact details, bar number, and firm affiliation
+- SVG avatar generation for attorney profiles
+- Responsive, mobile-friendly design
+- Comprehensive SEO optimization including JSON-LD schema markup and sitemap generation
+- Fast loading with static HTML build output
 
 ## Tech Stack
 
-- **Framework**: [Astro](https://astro.build/) 4.16+
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Data Processing**: Python 3 with openpyxl
-- **Deployment**: Static hosting (Cloudflare Pages ready)
+- Framework: [Astro](https://astro.build/) 4.16+
+- Styling: [Tailwind CSS](https://tailwindcss.com/)
+- Data Processing: Python 3 with openpyxl
+- Deployment: Static hosting (Cloudflare Pages ready)
 
 ## Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - Python 3.x with openpyxl (`pip install openpyxl`)
 - npm or yarn
 
@@ -56,7 +57,7 @@ npm run preview
 ```
 Lawyer-Directory/
 ├── public/
-│   ├── avatars/         # Generated SVG avatars (1866 files)
+│   ├── avatars/         # Generated SVG avatars
 │   ├── favicon.svg      # Site favicon
 │   └── robots.txt       # SEO robots file
 ├── scripts/
@@ -65,26 +66,39 @@ Lawyer-Directory/
 ├── src/
 │   ├── components/      # Reusable Astro components
 │   │   ├── AttorneyCard.astro
+│   │   ├── Breadcrumb.astro
 │   │   ├── Header.astro
-│   │   └── Footer.astro
+│   │   ├── Footer.astro
+│   │   ├── Pagination.astro
+│   │   └── USAMapSVG.astro
 │   ├── data/
 │   │   └── attorneys.json   # Processed attorney data
 │   ├── layouts/
 │   │   └── BaseLayout.astro
-│   ├── pages/           # Astro pages (routes)
-│   │   ├── index.astro  # Homepage
-│   │   ├── florida.astro    # State page
-│   │   ├── florida/[city].astro    # City pages
-│   │   ├── florida/[city]/[attorney].astro  # Attorney profiles
+│   ├── pages/           # Astro pages and routes
+│   │   ├── index.astro  # Homepage with state map
+│   │   ├── advertising-disclosure.astro
 │   │   ├── contact.astro
+│   │   ├── how-to-choose-a-pi-attorney.astro
 │   │   ├── privacy-policy.astro
-│   │   └── terms-of-service.astro
+│   │   ├── terms-of-service.astro
+│   │   ├── what-is-personal-injury-law.astro
+│   │   ├── when-to-hire-a-personal-injury-attorney.astro
+│   │   └── personal-injury-attorneys/
+│   │       ├── florida.astro
+│   │       ├── florida/[city].astro
+│   │       ├── florida/[city]/page/[page].astro
+│   │       ├── florida/[city]/[attorney].astro
+│   │       ├── new-jersey.astro
+│   │       ├── new-jersey/[city].astro
+│   │       ├── new-jersey/[city]/page/[page].astro
+│   │       └── new-jersey/[city]/[attorney].astro
 │   ├── styles/
 │   │   └── global.css
 │   ├── types/
 │   │   └── attorney.ts  # TypeScript interfaces
 │   └── utils/
-│       └── attorneys.ts # Data access utilities
+│       └── attorneys.ts # State-aware data access utilities
 ├── *.xlsx               # Source attorney data files
 ├── astro.config.mjs
 ├── package.json
@@ -94,14 +108,7 @@ Lawyer-Directory/
 
 ## Data Import Process
 
-The project uses 6 XLSX files containing attorney data from different Florida areas:
-
-- Miami Area Data.xlsx
-- Tampa Area Data.xlsx
-- Orlando Area Data.xlsx
-- Jacksonville Area Data.xlsx
-- Fort Lauderdale Area Data.xlsx
-- Tallahassee Area Data.xlsx
+The project processes XLSX files containing attorney data for Florida and New Jersey cities.
 
 ### XLSX File Format
 
@@ -124,7 +131,7 @@ Expected columns:
 4. Run `npm run generate-avatars` to create SVG avatars
 5. Build the site with `npm run build`
 
-## Scripts
+## Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
@@ -134,11 +141,11 @@ Expected columns:
 
 ## Deployment
 
-The site is built as pure static HTML/CSS/JS and can be deployed to any static hosting provider:
+The site is built as pure static HTML/CSS/JS and can be deployed to any static hosting provider.
 
 ### Cloudflare Pages
 
-1. Connect your repository to Cloudflare Pages
+1. Connect repository to Cloudflare Pages
 2. Set build command: `npm run build`
 3. Set build output directory: `dist`
 4. Deploy
@@ -150,7 +157,6 @@ The `dist` folder contains all static assets ready for deployment to:
 - Netlify
 - AWS S3 + CloudFront
 - GitHub Pages
-- Any static hosting
 
 ## Updating Attorney Data
 
@@ -163,38 +169,18 @@ The `dist` folder contains all static assets ready for deployment to:
 
 ### Styling
 
-Modify `tailwind.config.mjs` to change colors, fonts, and theme:
-
-```js
-colors: {
-  brand: {
-    // Customize brand colors
-  }
-}
-```
+Modify `tailwind.config.mjs` to change colors, fonts, and theme options.
 
 ### Content
 
-- Update `src/pages/index.astro` to modify homepage
+- Update `src/pages/index.astro` to modify homepage content
 - Edit `src/components/Header.astro` and `Footer.astro` for navigation
-- Modify `src/components/AttorneyCard.astro` for attorney listing appearance
-
-## Performance
-
-The built site achieves:
-- ⚡ Lighthouse Performance Score: 90+
-- 📄 1878 static HTML pages
-- 🚀 No runtime JavaScript for core functionality
-- 📦 Optimized CSS with Tailwind purging
+- Modify `src/components/AttorneyCard.astro` for attorney card layouts
 
 ## License
 
-This project structure is for the directory website. Attorney data is sourced from public records maintained by The Florida Bar.
+This project structure is for the directory website. Attorney data is sourced from public records maintained by state bar associations.
 
 ## Contact
 
 For questions or updates, contact: info@findpiattorney.com
-
----
-
-Built with ❤️ using Astro and Tailwind CSS
