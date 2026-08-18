@@ -10,7 +10,7 @@ const cityName = attorney.cityDisplay || attorney.city.split("-").map(w => w.cha
 ---
 
 <div class="card p-4 sm:p-5 flex flex-col sm:flex-row gap-4 group hover:border-brand-300">
-  <a href={`/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}`} class="flex-shrink-0">
+  <a href={`/personal-injury-attorneys/${attorney.state}/${attorney.city}/${attorney.slug}`} class="flex-shrink-0">
     <img
       src={`/avatars/${attorney.slug}.svg`}
       alt={attorney.name}
@@ -22,7 +22,7 @@ const cityName = attorney.cityDisplay || attorney.city.split("-").map(w => w.cha
   <div class="flex-1 min-w-0">
     <div class="flex items-center gap-2 flex-wrap">
       <a
-        href={`/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}`}
+        href={`/personal-injury-attorneys/${attorney.state}/${attorney.city}/${attorney.slug}`}
         class="text-base font-semibold text-brand-800 hover:text-brand-600 transition-colors"
       >
         {attorney.name}
@@ -31,7 +31,7 @@ const cityName = attorney.cityDisplay || attorney.city.split("-").map(w => w.cha
     {attorney.firm && (
       <p class="text-xs text-brand-600 font-medium mt-0.5">{attorney.firm}</p>
     )}
-    <p class="text-xs text-gray-500 mt-1">{cityName}, FL</p>
+    <p class="text-xs text-gray-500 mt-1">{cityName}, {attorney.stateCode}</p>
     {attorney.status && (
       <p class="text-xs text-gray-600 mt-1.5 line-clamp-2">{attorney.status}</p>
     )}
@@ -39,7 +39,7 @@ const cityName = attorney.cityDisplay || attorney.city.split("-").map(w => w.cha
 
   <div class="flex sm:flex-col justify-end gap-2 self-end sm:self-center flex-shrink-0">
     <a
-      href={`/personal-injury-attorneys/florida/${attorney.city}/${attorney.slug}`}
+      href={`/personal-injury-attorneys/${attorney.state}/${attorney.city}/${attorney.slug}`}
       class="text-xs font-medium text-brand-700 hover:text-brand-900 hover:underline"
     >
       View Profile

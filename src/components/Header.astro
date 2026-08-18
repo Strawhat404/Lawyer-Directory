@@ -1,5 +1,18 @@
 ---
 const email = "info@findpiattorney.com";
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/personal-injury-attorneys", label: "Browse Attorneys" },
+  { href: "/when-to-hire-a-personal-injury-attorney", label: "When to Hire" },
+  { href: "/contact", label: "Contact" },
+];
+
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
 ---
 
 <header class="bg-brand-900 text-white">
@@ -26,10 +39,19 @@ const email = "info@findpiattorney.com";
       </a>
 
       <nav class="hidden lg:flex items-center gap-1">
-        <a href="/" class="px-3 py-2 text-sm font-medium rounded hover:bg-brand-800 transition-colors">Home</a>
-        <a href="/personal-injury-attorneys" class="px-3 py-2 text-sm font-medium rounded hover:bg-brand-800 transition-colors">Browse Attorneys</a>
-        <a href="/when-to-hire-a-personal-injury-attorney" class="px-3 py-2 text-sm font-medium rounded hover:bg-brand-800 transition-colors">When to Hire</a>
-        <a href="/contact" class="px-3 py-2 text-sm font-medium rounded hover:bg-brand-800 transition-colors">Contact</a>
+        {navLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class={`px-3 py-2 text-sm font-medium transition-colors ${
+              isActive(href)
+                ? "text-white underline underline-offset-[6px] decoration-2 decoration-brand-300"
+                : "text-gray-200 hover:bg-brand-800 hover:text-white rounded"
+            }`}
+            aria-current={isActive(href) ? "page" : undefined}
+          >
+            {label}
+          </a>
+        ))}
       </nav>
 
       <button id="mobile-menu-btn" class="lg:hidden p-2 rounded text-white hover:bg-brand-800" aria-label="Open menu">
@@ -42,11 +64,20 @@ const email = "info@findpiattorney.com";
 
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden lg:hidden bg-brand-800">
-    <div class="page-container py-4">
-      <a href="/" class="block px-4 py-2 text-sm hover:bg-brand-700 rounded">Home</a>
-      <a href="/personal-injury-attorneys" class="block px-4 py-2 text-sm hover:bg-brand-700 rounded">Browse Attorneys</a>
-      <a href="/when-to-hire-a-personal-injury-attorney" class="block px-4 py-2 text-sm hover:bg-brand-700 rounded">When to Hire</a>
-      <a href="/contact" class="block px-4 py-2 text-sm hover:bg-brand-700 rounded">Contact</a>
+    <div class="page-container py-4 space-y-1">
+      {navLinks.map(({ href, label }) => (
+        <a
+          href={href}
+          class={`block px-4 py-2 text-sm transition-colors ${
+            isActive(href)
+              ? "text-white font-semibold underline underline-offset-[6px] decoration-2 decoration-brand-300"
+              : "text-gray-200 hover:bg-brand-700 hover:text-white rounded"
+          }`}
+          aria-current={isActive(href) ? "page" : undefined}
+        >
+          {label}
+        </a>
+      ))}
     </div>
   </div>
 </header>

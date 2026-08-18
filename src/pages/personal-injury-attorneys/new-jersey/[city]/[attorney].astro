@@ -84,12 +84,21 @@ const schema = JSON.stringify({
                <p class="text-lg text-brand-700 font-semibold mb-1">{attorney.firm}</p>
               )}
               <p class="text-gray-500 mb-3">Personal Injury Attorney · {cityName}, NJ</p>
-              {attorney.status && attorney.status.toLowerCase().includes('good standing') && (
-                <span class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
+              {attorney.status ? (
+                attorney.status.toLowerCase().includes('good standing') && (
+                  <span class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Licensed · Active
+                  </span>
+                )
+              ) : (
+                <span class="inline-flex items-center gap-1 bg-gray-50 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-gray-200">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  Licensed · Active
+                  Status N/A
                 </span>
               )}
             </div>
@@ -121,22 +130,20 @@ const schema = JSON.stringify({
             <div class="card p-6">
               <h2 class="text-lg font-bold text-gray-900 mb-4">Bar Information</h2>
               <dl class="space-y-3">
-                {attorney.barNumber && (
-                  <div>
-                    <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">New Jersey Bar Number</dt>
-                    <dd class="text-gray-800 font-semibold">{attorney.barNumber}</dd>
-                  </div>
-                )}
-                {attorney.status && (
-                  <div>
-                    <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">Bar Status</dt>
-                    <dd class="text-gray-700 text-sm">
-                      {attorney.status.toLowerCase().includes('good standing')
+                <div>
+                  <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">New Jersey Bar Number</dt>
+                  <dd class="text-gray-800 font-semibold">{attorney.barNumber || 'N/A'}</dd>
+                </div>
+                <div>
+                  <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">Bar Status</dt>
+                  <dd class="text-gray-700 text-sm">
+                    {attorney.status
+                      ? (attorney.status.toLowerCase().includes('good standing')
                         ? 'Member in Good Standing — Eligible to Practice'
-                        : attorney.status}
-                    </dd>
-                  </div>
-                )}
+                        : attorney.status)
+                      : 'N/A'}
+                  </dd>
+                </div>
               </dl>
             </div>
           </div>
