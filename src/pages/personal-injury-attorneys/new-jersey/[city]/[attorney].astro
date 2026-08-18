@@ -49,7 +49,7 @@ const schema = JSON.stringify({
 ---
 
 <BaseLayout
-  title={`${attorney.name} — Personal Injury Attorney in ${cityName}, NJ`}
+  title={`${attorney.name} - Personal Injury Attorney in ${cityName}, NJ`}
   description={`${attorney.name}${attorney.firm ? ` at ${attorney.firm}` : ''} is a personal injury attorney in ${cityName}, New Jersey. New Jersey Bar #${attorney.barNumber}.`}
   canonical={`https://www.findpiattorney.com/personal-injury-attorneys/new-jersey/${attorney.city}/${attorney.slug}`}
   schema={schema}
@@ -139,7 +139,7 @@ const schema = JSON.stringify({
                   <dd class="text-gray-700 text-sm">
                     {attorney.status
                       ? (attorney.status.toLowerCase().includes('good standing')
-                        ? 'Member in Good Standing — Eligible to Practice'
+                        ? 'Member in Good Standing - Eligible to Practice'
                         : attorney.status)
                       : 'N/A'}
                   </dd>

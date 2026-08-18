@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 ---
 
 <BaseLayout
-  title="Contact Us — Personal Injury Attorney Directory"
+  title="Contact Us - Personal Injury Attorney Directory"
   description="Contact the Personal Injury Attorney Directory. Get in touch for questions about finding a PI attorney in your area."
   canonical="https://www.findpiattorney.com/contact/"
 >
@@ -36,92 +36,103 @@ import Footer from "../components/Footer.astro";
 
           <!-- Left: info panel -->
           <div class="md:col-span-2 space-y-6">
-            <img
-              src="/images/attorney-desk.webp"
-              alt="Attorney ready to assist with your personal injury case"
-              class="w-full aspect-video object-cover rounded-xl shadow-sm"
-              loading="lazy"
-              width="800"
-              height="533"
-            />
+            <div class="relative group">
+              <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-gray-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+              <img
+                src="/images/attorney-desk.webp"
+                alt="Attorney ready to assist with your personal injury case"
+                class="relative w-full aspect-video object-cover rounded-xl shadow-md border border-white/50"
+                loading="lazy"
+                width="800"
+                height="533"
+              />
+            </div>
             <div>
-              <h2 class="text-2xl font-bold text-gray-900 mb-2">Get in Touch</h2>
+              <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400 mb-3">Get in Touch</h2>
               <p class="text-gray-500 text-sm leading-relaxed">
-                Whether you're looking for an attorney, have a directory question, or want to list your practice — we'll get back to you within 1 business day.
+                Whether you're looking for an attorney, have a directory question, or want to list your practice - we'll get back to you within 1 business day.
               </p>
             </div>
 
             <div class="space-y-4">
-              <div class="flex items-center gap-4 p-4 bg-brand-50 border border-brand-100 rounded-xl">
-                <div class="w-10 h-10 bg-brand-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <div class="group flex items-center gap-5 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-default">
+                <div class="w-12 h-12 bg-gradient-to-br from-brand-50 to-brand-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Email</p>
-                  <a href="mailto:info@findpiattorney.com" class="text-sm font-semibold text-brand-800 hover:underline">info@findpiattorney.com</a>
+                  <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-0.5">Email</p>
+                  <a href="mailto:info@findpiattorney.com" class="text-sm font-bold text-gray-900 hover:text-brand-600 transition-colors">info@findpiattorney.com</a>
                 </div>
               </div>
 
-              <div class="flex items-center gap-4 p-4 bg-gray-50 border border-gray-100 rounded-xl">
-                <div class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <div class="group flex items-center gap-5 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-default">
+                <div class="w-12 h-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Response Time</p>
-                  <p class="text-sm font-semibold text-gray-800">Within 1 business day</p>
+                  <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-0.5">Response Time</p>
+                  <p class="text-sm font-bold text-gray-900">Within 1 business day</p>
                 </div>
               </div>
 
-              <div class="flex items-center gap-4 p-4 bg-gray-50 border border-gray-100 rounded-xl">
-                <div class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <div class="group flex items-center gap-5 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-default">
+                <div class="w-12 h-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-inner">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                   </svg>
                 </div>
                 <div>
-                  <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Coverage</p>
-                  <p class="text-sm font-semibold text-gray-800">Florida</p>
+                  <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-0.5">Coverage</p>
+                  <p class="text-sm font-bold text-gray-900">Florida & New Jersey</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Right: form -->
-          <div class="md:col-span-3 bg-white border border-gray-200 rounded-2xl shadow-sm p-7 sm:p-8">
-            <h3 class="text-lg font-bold text-gray-900 mb-6">Send us a message</h3>
-            <form id="contact-form" class="space-y-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name <span class="text-red-500">*</span></label>
-                  <input type="text" id="name" name="name" required
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500" />
+          <div class="md:col-span-3 relative group">
+            <div class="absolute -inset-0.5 bg-gradient-to-r from-brand-400 to-brand-600 rounded-[1.5rem] blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
+            <div class="relative bg-white border border-gray-100 rounded-[1.4rem] shadow-xl p-8 sm:p-10">
+              <h3 class="text-2xl font-bold text-gray-900 mb-7">Send us a message</h3>
+              <form id="contact-form" class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div class="group/input">
+                    <label for="name" class="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5 transition-colors group-focus-within/input:text-brand-600">Full Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="name" name="name" required
+                      class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm transition-all duration-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500" />
+                  </div>
+                  <div class="group/input">
+                    <label for="email" class="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5 transition-colors group-focus-within/input:text-brand-600">Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="email" name="email" required
+                      class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm transition-all duration-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500" />
+                  </div>
                 </div>
-                <div>
-                  <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
-                  <input type="email" id="email" name="email" required
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500" />
+                <div class="group/input">
+                  <label for="subject" class="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5 transition-colors group-focus-within/input:text-brand-600">Subject</label>
+                  <input type="text" id="subject" name="subject"
+                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm transition-all duration-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500" />
                 </div>
-              </div>
-              <div>
-                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                <input type="text" id="subject" name="subject"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500" />
-              </div>
-              <div>
-                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message <span class="text-red-500">*</span></label>
-                <textarea id="message" name="message" rows="5" required
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"></textarea>
-              </div>
-              <button type="submit"
-                class="w-full btn-primary justify-center py-3">
-                Send Message
-              </button>
-            </form>
+                <div class="group/input">
+                  <label for="message" class="block text-xs font-bold text-gray-600 uppercase tracking-wide mb-1.5 transition-colors group-focus-within/input:text-brand-600">Message <span class="text-red-500">*</span></label>
+                  <textarea id="message" name="message" rows="5" required
+                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm transition-all duration-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 resize-none"></textarea>
+                </div>
+                <button type="submit"
+                  class="w-full relative overflow-hidden bg-gradient-to-r from-brand-600 to-brand-500 text-white font-bold rounded-xl py-4 shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 transition-all duration-300 flex justify-center group">
+                  <span class="relative z-10 flex items-center gap-2">
+                    Send Message
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
+                </button>
+              </form>
+            </div>
           </div>
 
         </div>

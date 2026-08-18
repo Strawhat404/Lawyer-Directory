@@ -42,7 +42,7 @@ const stateEntries = Object.entries(statePaths).map(([code, info]: [string, any]
     viewBox="0 0 960 600"
     xmlns="http://www.w3.org/2000/svg"
     class="w-full h-auto"
-    aria-label="Interactive USA map — click Florida to browse Personal Injury Attorneys"
+    aria-label="Interactive USA map - click Florida to browse Personal Injury Attorneys"
   >
     <style>
       .state-path {
@@ -92,7 +92,7 @@ const stateEntries = Object.entries(statePaths).map(([code, info]: [string, any]
 
   <p class="text-center text-sm text-gray-500 mt-3">
     <span class="inline-block w-3 h-3 rounded bg-blue-200 mr-1 align-middle"></span>
-    Blue states have Personal Injury Attorneys — hover any state to preview, click to browse
+    Blue states have Personal Injury Attorneys - hover any state to preview, click to browse
   </p>
 </div>
 
@@ -113,10 +113,10 @@ const stateEntries = Object.entries(statePaths).map(([code, info]: [string, any]
       var info = stateData[slug];
       if (tooltip) {
         if (info) {
-          tooltip.textContent = info.name + ' — ' + info.count + ' ' + tooltipLabel;
+          tooltip.textContent = info.name + ' - ' + info.count + ' ' + tooltipLabel;
         } else {
           var stateName = el.id;
-          tooltip.textContent = (stateName || 'This state') + ' — Coming Soon';
+          tooltip.textContent = (stateName || 'This state') + ' - Coming Soon';
         }
         tooltip.style.display = 'block';
       }

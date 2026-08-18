@@ -60,7 +60,7 @@ const schema = JSON.stringify({
           "name": "How much does a personal injury attorney cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Most personal injury attorneys work on a contingency fee basis — no upfront cost. They are paid only if you win, typically 33–40% of the settlement or court award."
+            "text": "Most personal injury attorneys work on a contingency fee basis - no upfront cost. They are paid only if you win, typically 33–40% of the settlement or court award."
           }
         },
         {
@@ -79,7 +79,7 @@ const schema = JSON.stringify({
 
 <BaseLayout
   title="Personal Injury Attorney Directory | Find Licensed PI Lawyers Nationwide"
-  description="Browse licensed personal injury attorneys across the United States. Currently covering Florida — expanding nationwide. Find experienced PI lawyers by state and city."
+  description="Browse licensed personal injury attorneys across the United States. Currently covering Florida - expanding nationwide. Find experienced PI lawyers by state and city."
   canonical="https://www.findpiattorney.com/"
   schema={schema}
 >
@@ -101,13 +101,13 @@ const schema = JSON.stringify({
       <div class="absolute inset-0 bg-brand-900/80"></div>
       <div class="relative page-container section-padding text-center">
         <div class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-5 border border-white/20">
-          Nationwide PI Attorney Directory — Currently Covering Florida
+          Nationwide PI Attorney Directory - Currently Covering Florida
         </div>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight max-w-4xl mx-auto">
           Find a Personal Injury Attorney Near You
         </h1>
         <p class="mt-5 text-lg text-brand-200 max-w-2xl mx-auto leading-relaxed">
-          Browse {totalAttorneys.toLocaleString()} licensed attorneys across the United States. Currently covering {cities.length} cities — expanding to all 50 states.
+          Browse {totalAttorneys.toLocaleString()} licensed attorneys across the United States. Currently covering {cities.length} cities - expanding to all 50 states.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <a href="/personal-injury-attorneys/florida" class="btn-primary !bg-white !text-brand-900 hover:!bg-brand-100 text-base font-bold">Browse Attorneys Now</a>
@@ -136,7 +136,7 @@ const schema = JSON.stringify({
               A personal injury attorney is a licensed lawyer who represents individuals physically or psychologically harmed through another party's negligence, recklessness, or intentional misconduct.
             </p>
             <p class="text-gray-700 leading-relaxed">
-              They handle everything — evidence gathering, insurance negotiations, and court litigation — so you can focus entirely on recovery while they fight for your compensation.
+              They handle everything - evidence gathering, insurance negotiations, and court litigation - so you can focus entirely on recovery while they fight for your compensation.
             </p>
             <a href="/what-is-personal-injury-law" class="inline-block mt-4 text-brand-700 font-semibold hover:text-brand-900 transition-colors">
               Learn about personal injury law →
@@ -183,7 +183,7 @@ const schema = JSON.stringify({
       <div class="page-container section-padding">
         <div class="text-center mb-8">
           <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Browse Attorneys by State</h2>
-          <p class="text-gray-600 max-w-xl mx-auto">Click an active state to browse attorneys. Hover any state to see availability — grey states are coming soon.</p>
+          <p class="text-gray-600 max-w-xl mx-auto">Click an active state to browse attorneys. Hover any state to see availability - grey states are coming soon.</p>
         </div>
 
         <!-- Stats bar -->
@@ -199,7 +199,7 @@ const schema = JSON.stringify({
             </div>
             <div class="px-4">
               <div class="text-3xl font-bold">50</div>
-              <div class="text-brand-200 text-sm mt-1">States — Expanding</div>
+              <div class="text-brand-200 text-sm mt-1">States - Expanding</div>
             </div>
             <div class="px-4">
               <div class="text-3xl font-bold">Free</div>
@@ -218,7 +218,7 @@ const schema = JSON.stringify({
       </div>
     </section>
 
-    <!-- Why use our directory — 3 cards -->
+    <!-- Why use our directory - 3 cards -->
     <section class="bg-white">
       <div class="page-container section-padding">
         <div class="text-center mb-10">
@@ -246,8 +246,30 @@ const schema = JSON.stringify({
             <img src="/images/accident-scene.webp" alt="Scene representing personal injury accident" class="w-full aspect-video object-cover" loading="lazy" width="400" height="225"/>
             <div class="p-5">
               <h3 class="font-bold text-gray-900 mb-2 text-lg">Expanding Nationwide</h3>
-              <p class="text-sm text-gray-600 leading-relaxed">Currently covering Florida — with all 50 states coming. Hover any state on the map to see its status.</p>
+              <p class="text-sm text-gray-600 leading-relaxed">Currently covering Florida - with all 50 states coming. Hover any state on the map to see its status.</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Section (Coming Soon) -->
+    <section class="bg-brand-900 text-white relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10 bg-[url('/images/legal-banner.webp')] bg-cover bg-center"></div>
+      <div class="page-container section-padding relative z-10 text-center">
+        <h2 class="text-2xl sm:text-3xl font-bold mb-4">Legal Guides & Video Resources</h2>
+        <p class="text-brand-200 mb-8 max-w-2xl mx-auto">Expert advice, case studies, and what to expect when hiring a personal injury attorney.</p>
+        
+        <div class="max-w-4xl mx-auto aspect-video bg-black/40 rounded-2xl border border-white/10 flex flex-col items-center justify-center backdrop-blur-sm relative group overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div class="relative z-10 flex flex-col items-center p-6">
+            <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 border border-white/20">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand-300" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Video Library Coming Soon</h3>
+            <p class="text-sm text-gray-300 max-w-md text-center">We are currently producing a series of high-quality educational videos to help you navigate your personal injury claim.</p>
           </div>
         </div>
       </div>
@@ -262,15 +284,15 @@ const schema = JSON.stringify({
             {[
               {
                 q: "How much does a personal injury attorney cost?",
-                a: "Most PI attorneys work on a contingency fee — no upfront cost. They are paid only when you win, typically 33–40% of the settlement or verdict. If you don't win, you owe no attorney fees (though some costs may still apply)."
+                a: "Most PI attorneys work on a contingency fee - no upfront cost. They are paid only when you win, typically 33–40% of the settlement or verdict. If you don't win, you owe no attorney fees (though some costs may still apply)."
               },
               {
                 q: "What is Florida's statute of limitations for personal injury?",
-                a: "Florida's statute of limitations for most personal injury claims is 2 years from the date of injury (2023 reform). Missing this deadline typically bars recovery entirely. Consult an attorney promptly — evidence disappears and witnesses' memories fade."
+                a: "Florida's statute of limitations for most personal injury claims is 2 years from the date of injury (2023 reform). Missing this deadline typically bars recovery entirely. Consult an attorney promptly - evidence disappears and witnesses' memories fade."
               },
               {
                 q: "Is this directory limited to Florida attorneys?",
-                a: "Currently yes — our data covers Florida. We are actively expanding to cover all 50 states. Hover over any state on the map to see its current status."
+                a: "Currently yes - our data covers Florida. We are actively expanding to cover all 50 states. Hover over any state on the map to see its current status."
               },
               {
                 q: "Are the attorneys in this directory recommended or endorsed?",

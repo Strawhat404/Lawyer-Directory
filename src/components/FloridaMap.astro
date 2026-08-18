@@ -67,7 +67,7 @@ const cityDataForScript = cityData.map(c => ({
     viewBox="0 0 300 220"
     xmlns="http://www.w3.org/2000/svg"
     class="w-full h-auto"
-    aria-label="Interactive Florida map — click a city to browse attorneys"
+    aria-label="Interactive Florida map - click a city to browse attorneys"
   >
     <style>
       .florida-path {
@@ -131,7 +131,7 @@ const cityDataForScript = cityData.map(c => ({
 
   <p class="text-center text-sm text-gray-500 mt-3">
     <span class="inline-block w-3 h-3 rounded bg-blue-200 mr-1 align-middle"></span>
-    Florida — click a city to browse attorneys
+    Florida - click a city to browse attorneys
   </p>
 </div>
 
@@ -149,7 +149,7 @@ const cityDataForScript = cityData.map(c => ({
       var name = el.getAttribute('data-name');
       var count = el.getAttribute('data-count');
       if (tooltip && name && count) {
-        tooltip.textContent = name + ' — ' + count + ' attorney' + (parseInt(count) !== 1 ? 's' : '');
+        tooltip.textContent = name + ' - ' + count + ' attorney' + (parseInt(count) !== 1 ? 's' : '');
         tooltip.style.display = 'block';
       }
     });
