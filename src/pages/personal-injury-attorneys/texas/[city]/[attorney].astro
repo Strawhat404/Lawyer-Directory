@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import Header from "../../../../components/Header.astro";
+import Footer from "../../../../components/Footer.astro";
+import Breadcrumb from "../../../../components/Breadcrumb.astro";
+import { getAttorneysByState, getCityName } from "../../../../utils/attorneys";
+
+export async function getStaticPaths() {
+  const attorneys = getAttorneysByState("texas");
+  return attorneys.map(attorney => ({
+    params: { city: attorney.city, attorney: attorney.slug },
+    props: { attorney }
+  }));
+}
+
+const { attorney } = Astro.props;
+const cityName = getCityName(attorney.city);
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LegalService",
+      "name": attorney.name,
+      "description": attorney.description,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": attorney.address,
+        "addressLocality": cityName,
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      },
+      ...(attorney.phone && { "telephone": attorney.phone }),
+      ...(attorney.email && { "email": attorney.email }),
+      ...(attorney.firm && { "parentOrganization": { "@type": "Organization", "name": attorney.firm } })
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.findpiattorney.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Personal Injury Attorneys", "item": "https://www.findpiattorney.com/personal-injury-attorneys/" },
+        { "@type": "ListItem", "position": 3, "name": "Texas", "item": "https://www.findpiattorney.com/personal-injury-attorneys/texas" },
+        { "@type": "ListItem", "position": 4, "name": cityName, "item": `https://www.findpiattorney.com/personal-injury-attorneys/texas/${attorney.city}` },
+        { "@type": "ListItem", "position": 5, "name": attorney.name, "item": `https://www.findpiattorney.com/personal-injury-attorneys/texas/${attorney.city}/${attorney.slug}` }
+      ]
+    }
+  ]
+});
+---
+
+<BaseLayout
+  title={`${attorney.name} - Personal Injury Attorney in ${cityName}, TX`}
+  description={`${attorney.name}${attorney.firm ? ` at ${attorney.firm}` : ''} is a personal injury attorney in ${cityName}, Texas.`}
+  canonical={`https://www.findpiattorney.com/personal-injury-attorneys/texas/${attorney.city}/${attorney.slug}`}
+  schema={schema}
+>
+  <Header />
+
+  <main class="flex-1">
+    <div class="page-container section-padding">
+      <Breadcrumb
+        links={[
+          { label: "Home", href: "/" },
+          { label: "Personal Injury Attorneys", href: "/personal-injury-attorneys" },
+          { label: "Texas", href: "/personal-injury-attorneys/texas" },
+          { label: cityName, href: `/personal-injury-attorneys/texas/${attorney.city}` },
+          { label: attorney.name, href: `/personal-injury-attorneys/texas/${attorney.city}/${attorney.slug}` },
+        ]}
+      />
+
+      <div class="max-w-4xl mx-auto">
+        <!-- Profile header card -->
+        <div class="card p-6 sm:p-8 mb-6">
+          <div class="flex flex-col sm:flex-row gap-6 items-start">
+            <img
+              src={`/avatars/${attorney.slug}.svg`}
+              alt={attorney.name}
+              class="w-24 h-24 rounded-full flex-shrink-0 mx-auto sm:mx-0"
+              width="96" height="96"
+            />
+            <div class="flex-1 text-center sm:text-left">
+              <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">{attorney.name}</h1>
+              {attorney.firm && (
+                <p class="text-lg text-brand-700 font-semibold mb-1">{attorney.firm}</p>
+              )}
+              <p class="text-gray-500 mb-3">Personal Injury Attorney · {cityName}, TX</p>
+              {attorney.status ? (
+                attorney.status.toLowerCase().includes('good standing') || attorney.status.toLowerCase().includes('active') ? (
+                  <span class="inline-flex items-center gap-1 bg-green-50 text-green-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Licensed · Active
+                  </span>
+                ) : (
+                  <span class="inline-flex items-center gap-1 bg-gray-50 text-gray-600 text-xs font-semibold px-2.5 py-1 rounded-full border border-gray-200">
+                    {attorney.status}
+                  </span>
+                )
+              ) : (
+                <span class="inline-flex items-center gap-1 bg-gray-50 text-gray-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-gray-200">
+                  Bar Standing: Contact State Bar to Verify
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Profile info (no contact details shown) -->
+          <div class="md:col-span-2 space-y-6">
+            <div class="card p-6">
+              <h2 class="text-lg font-bold text-gray-900 mb-4">Attorney Information</h2>
+              <dl class="space-y-4">
+                {attorney.address && (
+                  <div class="flex gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <div>
+                      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">Office Location</dt>
+                      <dd class="text-gray-800 text-sm">{attorney.cityDisplay}, {attorney.stateCode}</dd>
+                    </div>
+                  </div>
+                )}
+              </dl>
+            </div>
+
+            <!-- Bar info -->
+            <div class="card p-6">
+              <h2 class="text-lg font-bold text-gray-900 mb-4">Bar & Practice Information</h2>
+              <dl class="space-y-3">
+                <div>
+                  <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">State Bar Jurisdiction</dt>
+                  <dd class="text-gray-800 font-semibold">State Bar of Texas</dd>
+                </div>
+                {attorney.barNumber && (
+                  <div>
+                    <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-0.5">Bar Card Number</dt>
+                    <dd class="text-gray-800 font-semibold">{attorney.barNumber}</dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="space-y-4">
+            {attorney.firm && (
+              <div class="card p-5">
+                <h3 class="text-sm font-bold text-gray-900 mb-2 uppercase tracking-wide">Law Firm</h3>
+                <p class="text-gray-800 font-medium">{attorney.firm}</p>
+              </div>
+            )}
+
+            <div class="card p-5 bg-brand-50 border-brand-200">
+              <h3 class="text-sm font-bold text-brand-900 mb-2 uppercase tracking-wide">Disclaimer</h3>
+              <p class="text-xs text-brand-700 leading-relaxed">
+                This listing is sourced from public records. Verify credentials directly with
+                <a href="https://www.texasbar.com" target="_blank" rel="noopener noreferrer" class="underline font-semibold">The State Bar of Texas</a>
+                before retaining any attorney.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back button at the bottom -->
+        <div class="mt-8 pt-6 border-t border-gray-200">
+          <a
+            href={`/personal-injury-attorneys/texas/${attorney.city}`}
+            class="inline-flex items-center gap-2 text-brand-700 font-medium hover:text-brand-900 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Back to {cityName} Attorneys
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

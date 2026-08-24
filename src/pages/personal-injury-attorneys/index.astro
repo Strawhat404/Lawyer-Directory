@@ -18,6 +18,11 @@ const activeStates = [
     slug: "new-jersey",
     name: "New Jersey",
     count: getAttorneyCountByState("new-jersey"),
+  },
+  {
+    slug: "texas",
+    name: "Texas",
+    count: getAttorneyCountByState("texas"),
   }
 ];
 
@@ -43,7 +48,7 @@ const schema = JSON.stringify({
 
 <BaseLayout
   title="Personal Injury Attorneys Directory - Browse Licensed PI Lawyers by State"
-  description="Find licensed personal injury attorneys across the United States. Browse by state and city. Currently covering Florida - expanding nationwide. Free access."
+  description="Find licensed personal injury attorneys across the United States. Browse by state and city. Currently covering Florida, New Jersey, and Texas - expanding nationwide. Free access."
   canonical="https://www.findpiattorney.com/personal-injury-attorneys/"
   schema={schema}
 >
@@ -63,7 +68,7 @@ const schema = JSON.stringify({
       <div class="absolute inset-0 bg-brand-900/70"></div>
       <div class="relative page-container py-14 text-center">
         <div class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-4 border border-white/20">
-          Nationwide Directory - Currently Active in Florida
+          Nationwide Directory - Active in Florida, New Jersey & Texas
         </div>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
           Personal Injury Attorneys Directory
@@ -99,7 +104,7 @@ const schema = JSON.stringify({
           <h2 class="text-2xl font-bold text-gray-900 mb-5">Why Hire a Personal Injury Attorney?</h2>
           <div class="space-y-4 text-gray-700 leading-relaxed">
             <p>After an accident, insurance companies move fast to protect their bottom line - not yours. A personal injury attorney levels the playing field. They handle all communication, build your case from evidence, and negotiate aggressively on your behalf.</p>
-            <p>Research consistently shows that accident victims with legal representation receive significantly higher settlements than those who negotiate alone - and because most PI attorneys work on contingency, there is no financial risk to hiring one.</p>
+            <p>Research consistently shows that accident victims with legal representation receive significantly higher settlements than those who negotiate alone - and because most PI attorneys work on contingency, clients do not pay upfront attorney fees.</p>
           </div>
 
           <!-- Highlight boxes -->
@@ -109,7 +114,7 @@ const schema = JSON.stringify({
               ["Gather police reports, medical records, and expert testimony"],
               ["Calculate the true value of your claim including future losses"],
               ["File suit and litigate in court when settlements fall short"],
-              ["No upfront fees - paid only when you win"],
+              ["Contingency fee basis - no upfront attorney fees"],
             ].map(([item]) => (
               <div class="flex items-center gap-3 bg-brand-50 border border-brand-100 rounded-lg px-4 py-3">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">

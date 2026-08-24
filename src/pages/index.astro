@@ -19,6 +19,11 @@ const activeStates = [
     name: "New Jersey",
     count: getAttorneyCountByState("new-jersey"),
   },
+  {
+    slug: "texas",
+    name: "Texas",
+    count: getAttorneyCountByState("texas"),
+  },
 ];
 
 const schema = JSON.stringify({
@@ -60,7 +65,7 @@ const schema = JSON.stringify({
           "name": "How much does a personal injury attorney cost?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Most personal injury attorneys work on a contingency fee basis - no upfront cost. They are paid only if you win, typically 33–40% of the settlement or court award."
+            "text": "Most personal injury attorneys work on a contingency fee basis where legal fees are agreed upon in writing and collected as a percentage of any financial recovery obtained. Clients should review written representation agreements to understand how fees and case expenses are handled."
           }
         },
         {
@@ -101,13 +106,13 @@ const schema = JSON.stringify({
       <div class="absolute inset-0 bg-brand-900/80"></div>
       <div class="relative page-container section-padding text-center">
         <div class="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-5 border border-white/20">
-          Nationwide PI Attorney Directory - Currently Covering Florida
+          Nationwide PI Attorney Directory - Active in Florida, New Jersey & Texas
         </div>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight max-w-4xl mx-auto">
           Find a Personal Injury Attorney Near You
         </h1>
         <p class="mt-5 text-lg text-brand-200 max-w-2xl mx-auto leading-relaxed">
-          Browse {totalAttorneys.toLocaleString()} licensed attorneys across the United States. Currently covering {cities.length} cities - expanding to all 50 states.
+          Browse {totalAttorneys.toLocaleString()} licensed attorneys across the United States. Currently covering {cities.length} cities across Florida, New Jersey, and Texas - expanding to all 50 states.
         </p>
         <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <a href="/personal-injury-attorneys/florida" class="btn-primary !bg-white !text-brand-900 hover:!bg-brand-100 text-base font-bold">Browse Attorneys Now</a>
@@ -284,7 +289,7 @@ const schema = JSON.stringify({
             {[
               {
                 q: "How much does a personal injury attorney cost?",
-                a: "Most PI attorneys work on a contingency fee - no upfront cost. They are paid only when you win, typically 33–40% of the settlement or verdict. If you don't win, you owe no attorney fees (though some costs may still apply)."
+                a: "Most personal injury attorneys operate on a contingency fee arrangement where fees are set in a written agreement and paid as a percentage of financial recovery. Specific terms, litigation costs, and case expense allocations vary by attorney and jurisdiction."
               },
               {
                 q: "What is Florida's statute of limitations for personal injury?",

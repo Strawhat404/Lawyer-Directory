@@ -33,9 +33,14 @@ __pycache__/
 *.py[cod]
 *.so
 
-# Source data files (large Excel files — generate locally with npm run import-data)
+# Source data files (large Excel & CSV files)
 *.xlsx
 *.xls
+*.csv
+
+# Compliance Audit Reports
+COMPLIANCE_AUDIT_REPORT.md
+COMPLIANCE_AUDIT_REPORT.xlsx
 
 # Generated JSON data — commit this so Cloudflare Pages can build without Python
 # src/data/attorneys.json

@@ -134,7 +134,7 @@ const schema = JSON.stringify({
               },
               {
                 title: "Settlement Offer Received",
-                desc: "If you have already received an offer, do not accept without legal review. Initial offers are almost always lower than what you are entitled to - often significantly so."
+                desc: "If you have already received an offer, consider having it reviewed by an attorney before accepting. Initial insurance settlement offers may not account for the full long-term cost of an injury or future medical care."
               },
             ].map(({ title, desc }) => (
               <div class="bg-white border border-gray-200 rounded-2xl p-5 hover:border-brand-400 transition-colors shadow-sm">
@@ -194,21 +194,9 @@ const schema = JSON.stringify({
 
         <!-- The cost myth -->
         <div class="bg-brand-50 border border-brand-200 rounded-2xl p-6">
-          <h2 class="text-2xl font-bold text-brand-900 mb-3">The "I Can't Afford an Attorney" Myth</h2>
-          <p class="text-gray-700 mb-4">This is the most common reason people delay - and it is based on a misunderstanding. Personal injury attorneys in the United States work almost universally on <strong>contingency fees</strong>:</p>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {[
-              ["$0", "Upfront cost to hire"],
-              ["$0", "Cost if you lose"],
-              ["33–40%", "Fee only if you win"],
-            ].map(([num, label]) => (
-              <div class="bg-white border border-brand-200 rounded-xl p-4 text-center">
-                <p class="text-2xl font-bold text-brand-700">{num}</p>
-                <p class="text-xs text-gray-600 mt-1">{label}</p>
-              </div>
-            ))}
-          </div>
-          <p class="mt-4 text-sm text-gray-700">The attorney only gets paid from your settlement or verdict - and only if you win. There is no financial risk to consulting or hiring one.</p>
+          <h2 class="text-2xl font-bold text-brand-900 mb-3">Understanding Contingency Fees</h2>
+          <p class="text-gray-700 mb-4">Personal injury attorneys in the United States typically work on a <strong>contingency fee basis</strong>, where legal fees are agreed upon in writing and tied to obtaining a financial recovery for the client.</p>
+          <p class="text-sm text-gray-700">Fee percentages, expense allocations, and court cost obligations differ across law firms and jurisdictions. Always review written fee agreements carefully during your initial consultation.</p>
         </div>
 
         <!-- CTA -->

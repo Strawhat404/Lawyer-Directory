@@ -2,29 +2,27 @@
 """
 Personal Injury Attorney Directory - Data Import Script
 
-Reads multiple Excel files (.xlsx) with attorney data and converts them
-into a structured JSON file used by the Astro static site generator.
+Reads multiple Excel (.xlsx) and CSV (.csv) files with attorney data
+and converts them into a structured JSON file used by the Astro static site generator.
 
 Usage:
     python3 scripts/import.py
 
-Input:  Multiple XLSX files in project root (Miami Area Data.xlsx, etc.)
+Input:  XLSX & CSV files in project root
 Output: src/data/attorneys.json
 """
 
+import csv
 import json
 import re
 import sys
 from datetime import date
-from pathlib import Path
 from glob import glob
+from pathlib import Path
 
 import openpyxl
 
 OUTPUT_FILE = Path("src") / "data" / "attorneys.json"
-
-# XLSX files to process
-XLSX_PATTERN = "*.xlsx"
 
 STATE_ABBREV_TO_SLUG = {
     "FL": "florida",
@@ -37,6 +35,29 @@ STATE_ABBREV_TO_SLUG = {
     "IL": "illinois",
     "OH": "ohio",
     "NC": "north-carolina",
+    "NM": "new-mexico",
+    "UT": "utah",
+    "CO": "colorado",
+    "OK": "oklahoma",
+    "AR": "arkansas",
+    "RI": "rhode-island",
+}
+
+STATE_MAP = {
+    "NJ": "NJ", "NEW JERSEY": "NJ",
+    "FL": "FL", "FLORIDA": "FL",
+    "NY": "NY", "NEW YORK": "NY",
+    "TX": "TX", "TEXAS": "TX",
+    "CA": "CA", "CALIFORNIA": "CA",
+    "PA": "PA", "PENNSYLVANIA": "PA",
+    "NM": "NM", "NEW MEXICO": "NM",
+    "IL": "IL", "ILLINOIS": "IL",
+    "UT": "UT", "UTAH": "UT",
+    "NC": "NC", "NORTH CAROLINA": "NC",
+    "RI": "RI", "RHODE ISLAND": "RI",
+    "AR": "AR", "ARKANSAS": "AR",
+    "CO": "CO", "COLORADO": "CO",
+    "OK": "OK", "OKLAHOMA": "OK",
 }
 
 
@@ -45,7 +66,6 @@ def slugify(text):
     if not text:
         return ""
     text = text.lower().strip()
-    # Remove credentials in parentheses, e.g., "John Smith, Esq." -> "john smith"
     text = re.sub(r'\s*,\s*(esq|jr|sr|ii|iii)\.?\s*$', '', text, flags=re.IGNORECASE)
     text = re.sub(r"[^\w\s-]", "", text)
     text = re.sub(r"[-_\s]+", "-", text)
@@ -57,15 +77,11 @@ def normalize_phone(phone):
     if not phone:
         return ""
     phone = str(phone).strip()
-    # Remove leading country codes like "1-" or "1 "
     phone = re.sub(r"^1[-.\s]", "", phone)
-    # Standardize dash spacing
     phone = re.sub(r"\s*-\s*", "-", phone)
     return phone
 
 
-# Known city name variants that should be merged into one canonical name.
-# Keys are matched case-insensitively after whitespace/punctuation normalization.
 CITY_ALIASES = {
     "ft lauderdale": "Fort Lauderdale",
     "ft. lauderdale": "Fort Lauderdale",
@@ -79,117 +95,193 @@ CITY_ALIASES = {
 
 
 def normalize_city_name(city):
-    """
-    Normalize a raw city string so that variants like "Ft Lauderdale",
-    "Ft. Lauderdale", and "FORT LAUDERDALE" all collapse to a single
-    canonical form ("Fort Lauderdale"), preventing duplicate city pages.
-    """
+    """Collapse city name variants into a single canonical title-cased form."""
     if not city:
         return city
 
-    # Collapse whitespace
     city = re.sub(r"\s+", " ", city.strip())
-
-    # Check alias table first (case-insensitive, normalize trailing periods)
     lookup_key = city.lower().rstrip(".")
-    # Also try with a period after "ft" since alias keys include both forms
     for key, canonical in CITY_ALIASES.items():
         if lookup_key == key.rstrip("."):
             return canonical
 
-    # Title-case if the string is fully upper/lower (e.g. "FORT LAUDERDALE")
     if city.isupper() or city.islower():
         city = city.title()
 
     return city
 
 
-def parse_address(address):
-    """Extract city, state from address string."""
-    if not address:
-        return "", "FL"
+def parse_address_robust(raw_address, default_state="FL"):
+    """Extract city, state, and clean address string handling multi-location pipe-separated strings."""
+    if not raw_address:
+        return "", default_state, ""
+
+    raw_address = re.sub(r'[\r\n\t]+', ' ', str(raw_address))
+    parts = [p.strip() for p in raw_address.split('|') if p.strip()]
+    target_part = parts[0]
+    for part in parts:
+        if re.search(r'\b(' + default_state + r'|New Jersey|Texas|Florida)\b', part, re.IGNORECASE):
+            target_part = part
+            break
+            
+    addr_clean = re.sub(r',\s*US\b', '', target_part, flags=re.IGNORECASE).strip()
+
+    # Pattern 1: 'City, ST Personal Injury...'
+    m = re.search(r'^\s*([A-Za-z\s\.\'-]+?),\s*(NJ|New Jersey|FL|Florida|NY|New York|TX|Texas|CA|California|PA|Pennsylvania)\s+Personal\s+Injury', addr_clean, re.IGNORECASE)
+    if m:
+        city = normalize_city_name(m.group(1).strip())
+        st_raw = m.group(2).strip().upper()
+        st = STATE_MAP.get(st_raw, default_state)
+        return city, st, addr_clean
+
+    # Pattern 1b: '..., ST, City, ZIP' e.g. '1599 Hamburg Turnpike, NJ, Wayne, 07470'
+    m = re.search(r',\s*(NJ|New Jersey|FL|Florida|NY|New York|TX|Texas|CA|California|PA|Pennsylvania)\s*,\s*([A-Za-z\s\.\'-]+?)\s*,\s*(\d{5})', addr_clean, re.IGNORECASE)
+    if m:
+        st_raw = m.group(1).strip().upper()
+        city = normalize_city_name(m.group(2).strip())
+        st = STATE_MAP.get(st_raw, default_state)
+        return city, st, addr_clean
+
+    # Pattern 2: '..., City, ST ZIP' or '..., City, State ZIP'
+    m = re.search(r',\s*([A-Za-z\s\.\'-]+?),\s*(NJ|New Jersey|FL|Florida|NY|New York|TX|Texas|CA|California|PA|Pennsylvania|NM|IL|UT|NC|RI|AR|CO|OK)\b(?:\s*,?\s*(\d{5}(-\d{4})?))?', addr_clean, re.IGNORECASE)
+    if m:
+        city = normalize_city_name(m.group(1).strip())
+        st_raw = m.group(2).strip().upper()
+        st = STATE_MAP.get(st_raw, default_state)
+        return city, st, addr_clean
+
+    # Pattern 3: '... Street City, ST ZIP' e.g. '48 South Street Morristown, New Jersey 07960'
+    m = re.search(r'\s([A-Z][a-zA-Z\s]+(?:Township|Borough|City)?),\s*(NJ|FL|NY|CA|TX|New\s+Jersey|New\s+York|Florida)\s+\d{5}', addr_clean, re.IGNORECASE)
+    if m:
+        city = normalize_city_name(m.group(1).strip())
+        st_raw = m.group(2).strip().upper()
+        st = STATE_MAP.get(st_raw, default_state)
+        return city, st, addr_clean
+
+    # Pattern 4: 'City ST, ZIP' e.g. 'Freehold NJ, 07728'
+    m = re.search(r'\b([A-Za-z\s\.\'-]+?)\s+(NJ|FL|NY|TX|CA|PA)\s*,\s*(\d{5})', addr_clean, re.IGNORECASE)
+    if m:
+        city = normalize_city_name(m.group(1).strip())
+        st_raw = m.group(2).strip().upper()
+        st = STATE_MAP.get(st_raw, default_state)
+        return city, st, addr_clean
+
+    # Pattern 5: 'City, ST' or '... City, ST' e.g. 'Newark, NJ' or 'Livingston, NJ'
+    m = re.search(r'\b([A-Za-z\s\.\'-]+?),\s*(NJ|New Jersey|FL|Florida|NY|New York|TX|Texas|CA|California|PA|Pennsylvania)\s*$', addr_clean, re.IGNORECASE)
+    if m:
+        city_candidate = m.group(1).strip()
+        words = city_candidate.split()
+        city = ' '.join(words[-2:]) if len(words) > 2 else city_candidate
+        city = normalize_city_name(city)
+        st_raw = m.group(2).strip().upper()
+        st = STATE_MAP.get(st_raw, default_state)
+        return city, st, addr_clean
+
+    # Pattern 6: 'Street City ST ZIP'
+    m = re.search(r'\b([A-Z][a-zA-Z\s\.\'-]+?)\s+(NJ|FL|NY|TX|CA|PA|NM|IL|UT|NC|RI|AR|CO|OK)\s+(\d{5})', addr_clean, re.IGNORECASE)
+    if m:
+        city = normalize_city_name(m.group(1).strip())
+        st_raw = m.group(2).strip().upper()
+        st = STATE_MAP.get(st_raw, default_state)
+        return city, st, addr_clean
+
+    return "", default_state, addr_clean
+
+
+NJ_AREA_CODES = {
+    '201': 'Hackensack', '551': 'Jersey City',
+    '973': 'Newark', '862': 'Newark',
+    '732': 'Edison', '848': 'Woodbridge',
+    '856': 'Cherry Hill',
+    '609': 'Trenton', '640': 'Princeton',
+}
+
+TX_AREA_CODES = {
+    '713': 'Houston', '281': 'Houston', '832': 'Houston', '346': 'Houston',
+    '214': 'Dallas', '469': 'Dallas', '972': 'Dallas',
+    '512': 'Austin', '737': 'Austin',
+    '210': 'San Antonio', '726': 'San Antonio',
+    '817': 'Fort Worth', '682': 'Fort Worth',
+    '915': 'El Paso', '956': 'McAllen', '903': 'Tyler',
+    '806': 'Lubbock', '361': 'Corpus Christi', '409': 'Beaumont'
+}
+
+FL_AREA_CODES = {
+    '954': 'Fort Lauderdale', '754': 'Fort Lauderdale',
+    '305': 'Miami', '786': 'Miami',
+    '407': 'Orlando', '689': 'Orlando',
+    '813': 'Tampa', '656': 'Tampa',
+    '904': 'Jacksonville',
+    '850': 'Tallahassee'
+}
+
+
+def resolve_attorney_location(row: dict, source_file: str, default_state: str):
+    """Extract or infer city and state code for an attorney when explicit address is missing or incomplete."""
+    address_raw = (row.get("Address") or row.get("address") or "").strip() if (row.get("Address") or row.get("address")) else ""
     
-    address_clean = re.sub(r'\s+', ' ', address.strip())
-    
-    # Pattern 1: "..., City, ST ZIPCODE" (comma before city)
-    match = re.search(r',\s*([A-Za-z][^,]+?),\s*([A-Z]{2})\s+\d{5}', address_clean)
-    if match:
-        city = normalize_city_name(match.group(1).strip())
-        state = match.group(2).strip()
-        return city, state
+    city, state_code, clean_address = parse_address_robust(address_raw, default_state)
+    if city:
+        return city, state_code, clean_address
 
-    # Pattern 2: "... CityName, ST ZIPCODE" or "... CityName, New Jersey ZIPCODE"
-    # Handles cases like "48 South Street Morristown, NJ 07960"
-    # or "48 South Street Morristown, New Jersey 07960"
-    match = re.search(r'\s([A-Z][a-zA-Z\s]+(?:Township|Borough|City)?),\s*(NJ|FL|NY|CA|TX|New\s+Jersey|New\s+York|Florida)\s+\d{5}', address_clean)
-    if match:
-        city = normalize_city_name(match.group(1).strip())
-        raw_state = match.group(2).strip()
-        # Normalize full state names to abbreviations
-        state_map = {
-            "New Jersey": "NJ", "New York": "NY", "Florida": "FL",
-            "California": "CA", "Texas": "TX"
-        }
-        state = state_map.get(raw_state, raw_state)
-        return city, state
+    # Check other fields for embedded address text (e.g. Office Phone column carrying address)
+    for field in ["Office Phone", "Other Phones", "Phone", "phone", "firm", "Firm"]:
+        val = str(row.get(field) or "").strip()
+        c, s, ca = parse_address_robust(val, default_state)
+        if c:
+            return c, s, ca
 
-    # Pattern 3: No comma — "123 Street CityName ST ZIPCODE"
-    # e.g. "601 Longwood Ave Cherry Hill NJ 08002"
-    match = re.search(r'\b([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)?)\s+([A-Z]{2})\s+\d{5}\s*$', address_clean)
-    if match:
-        city = normalize_city_name(match.group(1).strip())
-        state = match.group(2).strip()
-        return city, state
+    # Check filename e.g. 'Fort Lauderdale Area Data'
+    if source_file:
+        filename_match = re.match(r'([^/]+?)\s+Area\s+Data', source_file)
+        if filename_match:
+            return normalize_city_name(filename_match.group(1)), default_state, address_raw
 
-    return "", "FL"
+    # Infer from phone area code
+    phones = [row.get("Office Phone"), row.get("Other Phones"), row.get("Phone"), row.get("phone")]
+    for p in phones:
+        if not p:
+            continue
+        nums = re.sub(r"\D", "", str(p))
+        if len(nums) >= 10:
+            area = nums[-10:-7]
+            if default_state == "NJ" and area in NJ_AREA_CODES:
+                return NJ_AREA_CODES[area], "NJ", address_raw
+            elif default_state == "TX" and area in TX_AREA_CODES:
+                return TX_AREA_CODES[area], "TX", address_raw
+            elif default_state == "FL" and area in FL_AREA_CODES:
+                return FL_AREA_CODES[area], "FL", address_raw
 
+    # Default fallback city per state
+    fallback_city = "Newark" if default_state == "NJ" else ("Houston" if default_state == "TX" else "Miami")
+    return fallback_city, default_state, address_raw
 
 
 def parse_attorney_row(row: dict, index: int, source_file: str) -> dict | None:
-    """
-    Parse a single row from the xlsx into an attorney dictionary.
-    Returns None if the row should be skipped (missing critical data).
-    """
-    name = (row.get("Full Name") or "").strip()
+    name = (row.get("Full Name") or row.get("Name") or row.get("name") or "").strip()
     nickname = (row.get("Nickname") or "").strip()
     bar_number = str(row.get("Bar Number") or "").strip()
     status = (row.get("Status") or "").strip()
-    firm = (row.get("Firm") or "").strip()
-    address = (row.get("Address") or "").strip()
-    office_phone = normalize_phone(row.get("Office Phone") or "")
+    firm = (row.get("Firm") or row.get("firm") or "").strip()
+    office_phone = normalize_phone(row.get("Office Phone") or row.get("Phone") or row.get("phone") or "")
     other_phones = (row.get("Other Phones") or "").strip()
-    email = (row.get("Email") or "").strip().lower()
+    email = (row.get("Email") or row.get("email") or "").strip().lower()
 
-    # Validate — skip rows without name
     if not name:
         return None
 
-    # Parse city from address
-    city, state_code = parse_address(address)
-    
-    # If no city parsed, try to infer from source file name
-    if not city and source_file:
-        filename_match = re.match(r'([^/]+?)\s+Area\s+Data', source_file)
-        if filename_match:
-            city = filename_match.group(1)
-    
-    if not city:
-        city = "Unknown"
+    default_state = "NJ" if ("NJ" in source_file or "jersey" in source_file.lower()) else ("TX" if ("TX" in source_file or "texas" in source_file.lower()) else "FL")
+    city, state_code, clean_address = resolve_attorney_location(row, source_file, default_state)
 
-    # Determine state slug
     state_slug = STATE_ABBREV_TO_SLUG.get(state_code, slugify(state_code) if state_code else "unknown")
-
-    # Skip if we couldn't determine state or city
-    if state_slug == "unknown" or city == "Unknown":
-        return None
+    if state_slug == "unknown":
+        state_slug = STATE_ABBREV_TO_SLUG.get(default_state, "florida")
+        state_code = default_state
 
     city_slug = slugify(city)
-
-    # Generate description
     state_display = state_code if state_code else "USA"
     description = f"Personal injury attorney at {firm}" if firm else f"Personal injury attorney in {city}, {state_display}"
 
-    # Slug from name — make unique with index if needed
     attorney_slug = slugify(name)
     if not attorney_slug:
         attorney_slug = f"attorney-{index + 1}"
@@ -205,7 +297,7 @@ def parse_attorney_row(row: dict, index: int, source_file: str) -> dict | None:
         "stateCode": state_code,
         "city": city_slug,
         "cityDisplay": city,
-        "address": address,
+        "address": clean_address,
         "phone": office_phone,
         "otherPhones": other_phones,
         "email": email,
@@ -215,17 +307,15 @@ def parse_attorney_row(row: dict, index: int, source_file: str) -> dict | None:
 
 
 def process_xlsx_file(file_path: Path, start_index: int):
-    """Process a single XLSX file and return list of attorneys."""
     print(f"\nProcessing {file_path.name}...")
     
     wb = openpyxl.load_workbook(file_path, read_only=True)
     ws = wb.active
 
-    # Find header row (it's in row 2 based on our earlier investigation)
     headers = None
-    for i in range(1, 6):  # Check first 5 rows
+    for i in range(1, 6):
         row_values = [cell.value for cell in ws[i]]
-        if 'Full Name' in row_values:
+        if 'Full Name' in row_values or 'Name' in row_values:
             headers = row_values
             header_row = i
             break
@@ -235,44 +325,102 @@ def process_xlsx_file(file_path: Path, start_index: int):
         wb.close()
         return [], 0
 
-    # Read all data rows after header
     raw_rows = list(ws.iter_rows(min_row=header_row + 1, values_only=True))
     total_raw = len(raw_rows)
 
-    # Parse each row
     attorneys = []
     skipped = 0
     for i, row_data in enumerate(raw_rows):
         row_dict = dict(zip(headers, row_data))
-        parsed = parse_attorney_row(row_dict, start_index + i, file_path.name)
+        parsed = parse_attorney_row(row_dict, start_index + len(attorneys), file_path.name)
         if parsed:
             attorneys.append(parsed)
         else:
             skipped += 1
 
     wb.close()
-    
     print(f"  Found {len(attorneys)} attorneys (skipped {skipped})")
     return attorneys, total_raw
 
 
+def process_csv_file(file_path: Path, start_index: int):
+    print(f"\nProcessing {file_path.name}...")
+    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+        reader = list(csv.DictReader(f))
+
+    attorneys = []
+    skipped = 0
+    default_state = "NJ" if "new_jersey" in file_path.name.lower() else ("TX" if "texas" in file_path.name.lower() else "FL")
+
+    for i, row in enumerate(reader):
+        name = (row.get("Name") or row.get("name") or "").strip()
+        if not name:
+            skipped += 1
+            continue
+
+        phone = normalize_phone(row.get("Phone") or row.get("phone") or "")
+        email = (row.get("Email") or row.get("email") or "").strip().lower()
+        website = (row.get("Website") or row.get("website") or "").strip()
+        linkedin = (row.get("LinkedIn") or row.get("linkedin") or "").strip()
+        facebook = (row.get("Facebook") or row.get("facebook") or "").strip()
+        firm = (row.get("Firm") or row.get("firm") or "").strip()
+
+        city, state_code, clean_address = resolve_attorney_location(row, file_path.name, default_state)
+
+        state_slug = STATE_ABBREV_TO_SLUG.get(state_code, slugify(state_code))
+        city_slug = slugify(city)
+
+        description = f"Personal injury attorney at {firm}" if firm else f"Personal injury attorney in {city}, {state_code}"
+        attorney_slug = slugify(name)
+        if not attorney_slug:
+            attorney_slug = f"attorney-{start_index + len(attorneys) + 1}"
+
+        attorneys.append({
+            "id": start_index + len(attorneys) + 1,
+            "name": name,
+            "nickname": "",
+            "barNumber": "",
+            "status": "",
+            "firm": firm,
+            "state": state_slug,
+            "stateCode": state_code,
+            "city": city_slug,
+            "cityDisplay": city,
+            "address": clean_address,
+            "phone": phone,
+            "otherPhones": "",
+            "email": email,
+            "website": website,
+            "linkedin": linkedin,
+            "facebook": facebook,
+            "description": description,
+            "slug": attorney_slug,
+        })
+
+    print(f"  Found {len(attorneys)} attorneys (skipped {skipped})")
+    return attorneys, len(reader)
+
+
 def main():
-    # Find all XLSX files matching pattern
-    xlsx_files = glob(XLSX_PATTERN)
+    xlsx_files = sorted(glob("*.xlsx"))
+    csv_files = sorted(glob("*.csv"))
     
-    if not xlsx_files:
-        print(f"Error: No XLSX files found matching pattern '{XLSX_PATTERN}'")
-        print("Expected files like: 'Miami Area Data.xlsx', 'Tampa Area Data.xlsx', etc.")
+    if not xlsx_files and not csv_files:
+        print("Error: No XLSX or CSV files found")
         sys.exit(1)
 
-    print(f"Found {len(xlsx_files)} XLSX files to process")
+    print(f"Found {len(xlsx_files)} XLSX files and {len(csv_files)} CSV files to process")
 
     all_attorneys = []
     total_raw_count = 0
     
-    # Process each file
-    for file_path in sorted(xlsx_files):
+    for file_path in xlsx_files:
         attorneys, raw_count = process_xlsx_file(Path(file_path), len(all_attorneys))
+        all_attorneys.extend(attorneys)
+        total_raw_count += raw_count
+
+    for file_path in csv_files:
+        attorneys, raw_count = process_csv_file(Path(file_path), len(all_attorneys))
         all_attorneys.extend(attorneys)
         total_raw_count += raw_count
 
@@ -290,7 +438,6 @@ def main():
         else:
             seen_slugs[slug] = 0
 
-    # Gather metadata
     cities = sorted(set(a["city"] for a in all_attorneys if a["city"]))
     states = sorted(set(a["state"] for a in all_attorneys if a["state"]))
     
@@ -303,7 +450,7 @@ def main():
             "lastUpdated": date.today().isoformat(),
             "cities": cities,
             "states": states,
-            "filesProcessed": len(xlsx_files),
+            "filesProcessed": len(xlsx_files) + len(csv_files),
         },
     }
 
@@ -311,7 +458,7 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
-    print(f"\n✓ Imported {len(all_attorneys)} attorneys from {len(xlsx_files)} files")
+    print(f"\n✓ Imported {len(all_attorneys)} attorneys from {len(xlsx_files) + len(csv_files)} files")
     print(f"   Raw rows: {total_raw_count} | Skipped: {data['metadata']['skipped']} | Kept: {len(all_attorneys)}")
     print(f"   States: {', '.join(states)}")
     print(f"   Cities: {len(cities)}")
@@ -320,3 +467,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
