@@ -253,7 +253,7 @@ def resolve_attorney_location(row: dict, source_file: str, default_state: str):
                 return FL_AREA_CODES[area], "FL", address_raw
 
     # Default fallback city per state
-    fallback_city = "Newark" if default_state == "NJ" else ("Houston" if default_state == "TX" else "Miami")
+    fallback_city = "Statewide"
     return fallback_city, default_state, address_raw
 
 
